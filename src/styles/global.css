@@ -28,7 +28,33 @@
 .page-skills {
   --accent: var(--accent-skills);
 }
+/* Corner decoration color pairs */
+.page-home .top-left,
+.page-home .bottom-right {
+  --corner-color: var(--accent-home);
+}
+.page-home .top-right,
+.page-home .bottom-left {
+  --corner-color: var(--accent-about);
+}
 
+.page-skills .top-left,
+.page-skills .bottom-right {
+  --corner-color: var(--accent-skills);
+}
+.page-skills .top-right,
+.page-skills .bottom-left {
+  --corner-color: var(--accent-home);
+}
+
+.page-about .top-left,
+.page-about .bottom-right {
+  --corner-color: var(--accent-about);
+}
+.page-about .top-right,
+.page-about .bottom-left {
+  --corner-color: var(--accent-skills);
+}
 body {
   font-family: "Inter", sans-serif;
   margin: 0;
@@ -271,6 +297,38 @@ body::before {
   justify-content: flex-end;
 }
 
+.corner-decoration {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--corner-color);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
 *,
 *::before,
 *::after {
