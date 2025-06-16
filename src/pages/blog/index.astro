@@ -11,6 +11,7 @@ import ScrollTopButton from "../../components/ScrollTopButton.astro";
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+const postColors = ["blue", "red", "yellow"];
 ---
 
 <!doctype html>
@@ -143,8 +144,8 @@ const posts = (await getCollection("blog")).sort(
     <section>
       <ul>
         {
-          posts.map((post) => (
-            <li class={`post-${post.data.color}`}>
+          posts.map((post, idx) => (
+            <li class={`post-${postColors[idx % postColors.length]}`}>
               <a href={`/blog/${post.id}/`}>
                 {post.data.heroImage && (
                   <Image
