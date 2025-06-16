@@ -1,0 +1,59 @@
+---
+---
+<button id="scroll-top-btn" class="scroll-top" aria-label="Scroll to top">
+  <svg class="progress-ring" width="60" height="60">
+    <circle class="progress-bg" cx="30" cy="30" r="28" />
+    <circle class="progress" cx="30" cy="30" r="28" />
+  </svg>
+  <svg class="arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+    <polyline points="6 14 12 8 18 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" stroke-linejoin="bevel" />
+  </svg>
+</button>
+<style>
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 60px;
+    height: 60px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .scroll-top.visible {
+    visibility: visible;
+    opacity: 1;
+  }
+  .progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+  }
+  .progress-ring circle {
+    fill: none;
+    stroke-width: 4;
+  }
+  .progress-bg {
+    stroke: var(--color-gray);
+  }
+  .progress {
+    stroke: var(--accent);
+    stroke-dasharray: 0 0;
+    stroke-dashoffset: 0;
+  }
+  .arrow {
+    position: relative;
+    z-index: 1;
+  }
+</style>
+<script>
+  import { setupScrollTopButton } from "../scripts/scrollTop.ts";
+  setupScrollTopButton();
+</script>
