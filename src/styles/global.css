@@ -28,7 +28,6 @@
 .page-skills {
   --accent: var(--accent-skills);
 }
-
 /* Corner decoration color pairs */
 .page-home .top-left,
 .page-home .bottom-right {
@@ -56,7 +55,6 @@
 .page-about .bottom-left {
   --corner-color: var(--accent-skills);
 }
-
 body {
   font-family: "Inter", sans-serif;
   margin: 0;
@@ -206,6 +204,75 @@ hr {
   white-space: nowrap;
 }
 
+main.content {
+  position: relative;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.corner-decoration {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--corner-color);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.page-home .top-left,
+.page-home .bottom-right {
+  --corner-color: var(--accent-red);
+}
+
+.page-home .top-right,
+.page-home .bottom-left {
+  --corner-color: var(--accent-blue);
+}
+
+.page-skills .top-left,
+.page-skills .bottom-right {
+  --corner-color: var(--accent-yellow);
+}
+
+.page-skills .top-right,
+.page-skills .bottom-left {
+  --corner-color: var(--accent-red);
+}
+
+.page-about .top-left,
+.page-about .bottom-right {
+  --corner-color: var(--accent-blue);
+}
+
+.page-about .top-right,
+.page-about .bottom-left {
+  --corner-color: var(--accent-yellow);
+}
+
 html,
 body {
   max-width: 100vw;
@@ -262,7 +329,6 @@ body::before {
   right: 0;
   transform: rotate(180deg);
 }
-
 *,
 *::before,
 *::after {

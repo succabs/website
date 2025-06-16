@@ -1,5 +1,7 @@
 export function setupScrollTopButton() {
-  const btn = document.getElementById("scroll-top-btn") as HTMLButtonElement | null;
+  const btn = document.getElementById(
+    "scroll-top-btn"
+  ) as HTMLButtonElement | null;
   if (!btn) return;
   const progress = btn.querySelector<SVGCircleElement>(".progress");
   if (!progress) return;
@@ -15,11 +17,14 @@ export function setupScrollTopButton() {
   }
 
   function update() {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    const docHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
     const ratio = docHeight > 0 ? scrollTop / docHeight : 0;
     setProgress(ratio);
-    if (scrollTop > 100) {
+    if (scrollTop > 200) {
       btn.classList.add("visible");
     } else {
       btn.classList.remove("visible");
