@@ -5,19 +5,34 @@ import Footer from "../components/Footer.astro";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
+<<<<<<< codex/make-site-visually-bauhaus-style
+export interface Props {
+  pageClass?: string;
+  title?: string;
+  description?: string;
+}
+
+const { pageClass = "", title = SITE_TITLE, description = SITE_DESCRIPTION } =
+  Astro.props;
+=======
 interface Props {
   page?: string;
 }
 
 const { page } = Astro.props;
+>>>>>>> main
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead title={title} description={description} />
   </head>
+<<<<<<< codex/make-site-visually-bauhaus-style
+  <body class={pageClass}>
+=======
   <body class={page ? `page-${page}` : undefined}>
+>>>>>>> main
     <div class="layout">
       <Header />
 
@@ -30,6 +45,13 @@ const { page } = Astro.props;
         <div class="corner-decoration bottom-left"></div>
         <div class="corner-decoration bottom-right"></div>
       </main>
+      <div class="bauhaus-decoration">
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="60" height="60" fill="#E53935" />
+          <circle cx="90" cy="30" r="30" fill="#1E88E5" />
+          <polygon points="60,120 120,120 120,60" fill="#FDD835" />
+        </svg>
+      </div>
       <Footer />
       <ScrollTopButton />
     </div>
