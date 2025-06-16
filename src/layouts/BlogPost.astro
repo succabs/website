@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { Image } from "astro:assets";
+import ScrollTopButton from "../components/ScrollTopButton.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -56,7 +57,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
       .title h1 {
         font-family: var(--font-heading);
-        font-size: clamp(48px, 6vw, 96px);
+        font-size: clamp(2rem, 5vw, 4rem);
         font-weight: 700;
         margin-bottom: 0.5em;
         line-height: 1.1;
@@ -97,7 +98,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       }
 
       h2 {
-        font-size: 32px;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
       }
 
       h3 {
@@ -149,8 +150,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
   </head>
 </html>
 
-<body>
+<body class="page-blog">
   <Header />
+  <div class="corner-decoration top-left"></div>
+  <div class="corner-decoration top-right"></div>
+  <div class="corner-decoration bottom-left"></div>
+  <div class="corner-decoration bottom-right"></div>
   <main>
     <article>
       <div class="hero-image">
@@ -180,4 +185,5 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </article>
   </main>
   <Footer />
+  <ScrollTopButton />
 </body>

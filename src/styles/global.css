@@ -69,11 +69,13 @@ h6 {
   letter-spacing: 0.03em;
 }
 h1 {
-  font-size: clamp(48px, 6vw, 96px);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.1;
   font-weight: 700;
 }
 h2 {
-  font-size: 48px;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
   font-weight: 500;
 }
 h3 {
@@ -174,6 +176,75 @@ hr {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+main.content {
+  position: relative;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.corner-decoration {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--corner-color);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.page-home .top-left,
+.page-home .bottom-right {
+  --corner-color: var(--accent-red);
+}
+
+.page-home .top-right,
+.page-home .bottom-left {
+  --corner-color: var(--accent-blue);
+}
+
+.page-skills .top-left,
+.page-skills .bottom-right {
+  --corner-color: var(--accent-yellow);
+}
+
+.page-skills .top-right,
+.page-skills .bottom-left {
+  --corner-color: var(--accent-red);
+}
+
+.page-about .top-left,
+.page-about .bottom-right {
+  --corner-color: var(--accent-blue);
+}
+
+.page-about .top-right,
+.page-about .bottom-left {
+  --corner-color: var(--accent-yellow);
 }
 
 html,

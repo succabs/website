@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { Image } from "astro:assets";
+import ScrollTopButton from "../../components/ScrollTopButton.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -122,9 +123,11 @@ const posts = (await getCollection("blog")).sort(
     </style>
   </head>
 </html>
-<body>
+<body class="page-blog">
   <Header />
   <main>
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
     <section>
       <ul>
         {
@@ -149,8 +152,11 @@ const posts = (await getCollection("blog")).sort(
         }
       </ul>
     </section>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
   </main>
   <Footer />
+  <ScrollTopButton />
 
   <script type="module">
     if (typeof window !== "undefined") {
