@@ -156,8 +156,14 @@ hr {
   white-space: nowrap;
 }
 
+main.content {
+  position: relative;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
 .corner-decoration {
-  position: fixed;
+  position: absolute;
   width: 60px;
   height: 60px;
   z-index: 0;
