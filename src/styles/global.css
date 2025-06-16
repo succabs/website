@@ -12,9 +12,9 @@
   --accent-blue: #1e88e5;
   --accent-yellow: #fdd835;
   --accent-brown: #795548;
-  --accent-home: #E53935;
-  --accent-about: #1E88E5;
-  --accent-skills: #FDD835;
+  --accent-home: #e53935;
+  --accent-about: #1e88e5;
+  --accent-skills: #fdd835;
   --accent: var(--accent-blue);
   --max-width: 1200px;
 }
@@ -72,7 +72,6 @@ main {
   max-width: var(--max-width);
   margin-inline: auto;
   padding-inline: 64px;
-  margin-block: 64px;
 }
 
 @media (max-width: 720px) {
@@ -214,7 +213,7 @@ main.content {
   position: absolute;
   width: 60px;
   height: 60px;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   background-color: var(--corner-color);
   clip-path: polygon(0 0, 100% 0, 0 100%);
@@ -279,56 +278,6 @@ body {
   overflow-x: hidden;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 0H0v16' fill='none' stroke='%23e0e0e0' stroke-width='0.5'/%3E%3C/svg%3E");
-  opacity: 0.1;
-  z-index: -1;
-}
-
-.bauhaus-decoration {
-  margin-top: 4rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.corner-decoration {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  z-index: 0;
-  pointer-events: none;
-  background-color: var(--corner-color);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-.top-left {
-  top: 0;
-  left: 0;
-}
-
-.top-right {
-  top: 0;
-  right: 0;
-  transform: rotate(90deg);
-}
-
-.bottom-left {
-  bottom: 0;
-  left: 0;
-  transform: rotate(-90deg);
-}
-
-.bottom-right {
-  bottom: 0;
-  right: 0;
-  transform: rotate(180deg);
-}
 *,
 *::before,
 *::after {

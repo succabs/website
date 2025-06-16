@@ -152,11 +152,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <body class="page-blog">
   <Header />
-  <div class="corner-decoration top-left"></div>
-  <div class="corner-decoration top-right"></div>
-  <div class="corner-decoration bottom-left"></div>
-  <div class="corner-decoration bottom-right"></div>
   <main>
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
     <article>
       <div class="hero-image">
         {
@@ -183,6 +181,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <slot />
       </div>
     </article>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
   </main>
   <Footer />
   <ScrollTopButton />
