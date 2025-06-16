@@ -55,6 +55,22 @@
 .page-about .bottom-left {
   --corner-color: var(--accent-skills);
 }
+
+/* Generic page color classes */
+.page-red {
+  --accent: var(--accent-red);
+  --corner-color: var(--accent-red);
+}
+
+.page-blue {
+  --accent: var(--accent-blue);
+  --corner-color: var(--accent-blue);
+}
+
+.page-yellow {
+  --accent: var(--accent-yellow);
+  --corner-color: var(--accent-yellow);
+}
 body {
   font-family: "Inter", sans-serif;
   margin: 0;
