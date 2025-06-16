@@ -16,35 +16,51 @@ import { SITE_TITLE } from "../consts";
           xmlns="http://www.w3.org/2000/svg"
         >
           <rect
-            class="bar top"
+            class="bar bun-top"
             x="15"
-            y="25"
+            y="15"
             width="70"
             height="10"
             rx="2"
-            fill="#E53935"></rect>
+          />
           <rect
-            class="bar middle"
+            class="bar filling-red"
             x="15"
-            y="45"
+            y="27"
             width="70"
             height="10"
             rx="2"
-            fill="#1E88E5"></rect>
+          />
           <rect
-            class="bar bottom"
+            class="bar filling-yellow"
             x="15"
-            y="65"
+            y="39"
             width="70"
             height="10"
             rx="2"
-            fill="#FDD835"></rect>
+          />
+          <rect
+            class="bar filling-blue"
+            x="15"
+            y="51"
+            width="70"
+            height="10"
+            rx="2"
+          />
+          <rect
+            class="bar bun-bottom"
+            x="15"
+            y="63"
+            width="70"
+            height="10"
+            rx="2"
+          />
         </svg>
       </button>
 
       <a href="/" class="site-title">{SITE_TITLE}</a>
     </div>
-    <div id="nav-links" class="nav-links">
+    <div id="nav-links" class="nav-links mobile-hidden">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/experience">Experience</HeaderLink>
       <HeaderLink href="/projects">Projects</HeaderLink>
@@ -135,31 +151,61 @@ import { SITE_TITLE } from "../consts";
     }
 
     .hamburger .bar {
-      transition:
-        transform 0.3s ease,
-        opacity 0.3s ease;
-      transform-origin: center;
+      transition: transform 0.3s ease;
     }
 
-    .hamburger.active .bar.top {
-      transform: translateY(20px) rotate(45deg);
+    .hamburger .bun-top,
+    .hamburger .bun-bottom {
+      fill: var(--accent-brown);
     }
 
-    .hamburger.active .bar.middle {
-      opacity: 0;
+    .hamburger .filling-red {
+      fill: var(--accent-red);
     }
 
-    .hamburger.active .bar.bottom {
-      transform: translateY(-20px) rotate(-45deg);
+    .hamburger .filling-yellow {
+      fill: var(--accent-yellow);
     }
+
+    .hamburger .filling-blue {
+      fill: var(--accent-blue);
+    }
+
+    .hamburger.active .bun-top {
+      transform: translateY(-6px);
+    }
+
+    .hamburger.active .filling-red {
+      transform: translateY(-3px);
+    }
+
+    .hamburger.active .filling-yellow {
+      transform: translateY(0);
+    }
+
+    .hamburger.active .filling-blue {
+      transform: translateY(3px);
+    }
+
+    .hamburger.active .bun-bottom {
+      transform: translateY(6px);
+    }
+
     .nav-links {
-      display: none;
-    }
-    .nav-links.show {
-      display: flex;
       flex-direction: column;
       margin-top: 1em;
       gap: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .nav-links.mobile-hidden {
+      max-height: 0;
+    }
+
+    .nav-links.mobile-show {
+      max-height: 500px;
     }
   }
 </style>
