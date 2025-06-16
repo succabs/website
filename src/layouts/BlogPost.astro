@@ -9,7 +9,14 @@ import ScrollTopButton from "../components/ScrollTopButton.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  color = 'red',
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -150,7 +157,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
   </head>
 </html>
 
-<body class="page-blog">
+<body class={"page-blog page-" + color}>
   <Header />
   <main>
     <div class="corner-decoration top-left"></div>
