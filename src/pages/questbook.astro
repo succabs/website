@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Skills" description="Lorem ipsum dolor sit amet">
+  <h1>🗡️ Questbook</h1>
+  <p>
+    Greetings, traveler. A quest lies before you: visit every page in this
+    humble realm — and return here. A reward awaits the curious and persistent.
+  </p>
+
+  <ul id="quest-list">
+    <li data-page="home">🏠 Home</li>
+    <li data-page="experience">🧠 Experience</li>
+    <li data-page="projects">🛠️ Projects</li>
+    <li data-page="skills">📚 Skills</li>
+    <li data-page="about">👤 About me</li>
+    <li data-page="blog">📝 Blog</li>
+  </ul>
+
+  <div id="reward" style="display: none; margin-top: 2rem;">
+    <h2>🎉 Quest Complete!</h2>
+    <p>You have explored all corners of this site. Here is your reward:</p>
+    <a href="/thank-you.txt" download><button>Download Your Reward</button></a>
+    <p>(Plot twist: It is a short thank you letter from me.)</p>
+  </div>
+
+  <hr />
+  <p>
+    Were you looking for the guestbook instead? You can find it <a
+      href="/guestbook">here</a
+    >.
+  </p>
+
+  <style>
+    #quest-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
+
+    #quest-list li {
+      margin: 0.5rem 0;
+      font-size: 1.125rem;
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    #quest-list li::before {
+      content: "◻️";
+      position: absolute;
+      left: 0;
+    }
+
+    #quest-list li.visited::before {
+      content: "✅";
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-family: var(--font-heading);
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</Layout>
+<script type="module">
+  if (typeof window !== "undefined") {
+    const pages = ["home", "experience", "projects", "skills", "about", "blog"];
+    const storageKey = "visitedPages";
+
+    const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const listItems = document.querySelectorAll("#quest-list li");
+
+    listItems.forEach((li) => {
+      const page = li.dataset.page;
+      if (stored[page]) li.classList.add("visited");
+    });
+
+    if (pages.every((p) => stored[p])) {
+      const reward = document.getElementById("reward");
+      if (reward) reward.style.display = "block";
+    }
+  }
+</script>

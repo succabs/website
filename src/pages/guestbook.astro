@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Guestbook" description="Lorem ipsum dolor sit amet">
+  <h1>📖 Guestbook</h1>
+  <p>Welcome! Please sign my guestbook below. Or at least, try to.</p>
+
+  <form id="guestbook-form">
+    <label>
+      Name:<br />
+      <input type="text" name="name" required />
+    </label>
+    <br /><br />
+    <label>
+      Message:<br />
+      <textarea name="message" rows="5" required></textarea>
+    </label>
+    <br /><br />
+    <input type="submit" value="Sign the Guestbook" />
+  </form>
+
+  <div id="response" style="display: none; margin-top: 2rem;">
+    <h2>😢 So close…</h2>
+    <p>
+      Alas, the form cannot be submitted. I host this site on GitHub Pages, and
+      it doesn’t support the kind of magic needed to make your message to
+      actually get to me.
+    </p>
+    <p>
+      If you really want to leave a message or say hello, you can email me at:<br
+      />
+      <strong
+        ><a href="mailto:arttu@example.com">artnikkila@gmail.com</a></strong
+      >
+    </p>
+    <p>I promise I’ll receive your words with a warm heart. ❤️</p>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById("guestbook-form");
+  const response = document.getElementById("response");
+
+  if (form && response) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      form.style.display = "none";
+      response.style.display = "block";
+    });
+  }
+</script>

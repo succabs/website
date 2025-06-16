@@ -1,0 +1,90 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="Skills" description="Lorem ipsum dolor sit amet">
+  <h1>🛠️ Skills</h1>
+
+  <p>
+    This is a list of technologies I've worked with and would use comfortably in
+    projects. Grouped by category, styled with Bauhaus color accents — no rating
+    bars, just facts.
+  </p>
+
+  <section>
+    <h2>Languages</h2>
+    <ul class="skill-grid">
+      <li><span class="dot blue"></span> HTML5</li>
+      <li><span class="dot blue"></span> CSS3</li>
+      <li><span class="dot blue"></span> JavaScript</li>
+      <li><span class="dot blue"></span> TypeScript</li>
+      <li><span class="dot blue"></span> Liquid</li>
+      <li><span class="dot blue"></span> Python</li>
+      <li><span class="dot blue"></span> Java</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Frameworks & Libraries</h2>
+    <ul class="skill-grid">
+      <li><span class="dot red"></span> React</li>
+      <li><span class="dot red"></span> Astro</li>
+      <li><span class="dot red"></span> jQuery</li>
+      <li><span class="dot red"></span> TailwindCSS</li>
+      <li><span class="dot red"></span> Bootstrap</li>
+      <li><span class="dot red"></span> Flask</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tools & Other</h2>
+    <ul class="skill-grid">
+      <li><span class="dot yellow"></span> Git</li>
+      <li><span class="dot yellow"></span> VSCode</li>
+      <li><span class="dot yellow"></span> Docker</li>
+      <li><span class="dot yellow"></span> Google Analytics / GTM / CMP</li>
+      <li><span class="dot yellow"></span> Linux</li>
+      <li><span class="dot yellow"></span> PostgreSQL</li>
+      <li><span class="dot yellow"></span> Node.js</li>
+      <li><span class="dot yellow"></span> Nginx</li>
+      <li><span class="dot yellow"></span> Vite</li>
+      <li><span class="dot yellow"></span> Figma</li>
+      <li><span class="dot yellow"></span> Jira</li>
+      <li><span class="dot yellow"></span> Teamwork</li>
+      <li><span class="dot yellow"></span> Microsoft Teams</li>
+    </ul>
+  </section>
+
+  <style>
+    .skill-grid {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem 2rem;
+      margin-top: 1em;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+    }
+    .dot {
+      display: inline-block;
+      width: 0.75em;
+      height: 0.75em;
+      border-radius: 50%;
+      margin-right: 0.5em;
+      vertical-align: middle;
+    }
+
+    .blue {
+      background: var(--accent-blue);
+    }
+
+    .red {
+      background: var(--accent-red);
+    }
+
+    .yellow {
+      background: var(--accent-yellow);
+    }
+  </style>
+</Layout>

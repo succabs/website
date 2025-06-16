@@ -1,0 +1,45 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <div class="layout">
+      <Header />
+      <main class="content">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
+
+<script type="module">
+  if (typeof window !== "undefined") {
+    const pageMap = {
+      "/": "home",
+      "/experience": "experience",
+      "/projects": "projects",
+      "/skills": "skills",
+      "/about": "about",
+      "/blog": "blog",
+    };
+
+    const path = window.location.pathname.replace(/\/$/, "") || "/";
+    const key = pageMap[path];
+
+    if (key) {
+      const storageKey = "visitedPages";
+      const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      stored[key] = true;
+      localStorage.setItem(storageKey, JSON.stringify(stored));
+    }
+  }
+</script>
