@@ -123,9 +123,11 @@ const posts = (await getCollection("blog")).sort(
     </style>
   </head>
 </html>
-<body>
+<body class="page-blog">
   <Header />
   <main>
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
     <section>
       <ul>
         {
@@ -150,6 +152,8 @@ const posts = (await getCollection("blog")).sort(
         }
       </ul>
     </section>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
   </main>
   <Footer />
   <ScrollTopButton />
