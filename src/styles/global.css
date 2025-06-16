@@ -11,6 +11,7 @@
   --accent-red: #e53935;
   --accent-blue: #1e88e5;
   --accent-yellow: #fdd835;
+  --accent-brown: #795548;
   --accent: var(--accent-blue);
   --max-width: 1200px;
 }
