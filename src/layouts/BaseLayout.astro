@@ -4,6 +4,12 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+interface Props {
+  page?: string;
+}
+
+const { page } = Astro.props;
 ---
 
 <!doctype html>
@@ -11,9 +17,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body>
+  <body class={page ? `page-${page}` : undefined}>
     <div class="layout">
       <Header />
+      <div class="corner-decoration top-left"></div>
+      <div class="corner-decoration top-right"></div>
+      <div class="corner-decoration bottom-left"></div>
+      <div class="corner-decoration bottom-right"></div>
       <main class="content">
         <slot />
       </main>
