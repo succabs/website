@@ -8,9 +8,22 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import ScrollTopButton from "../../components/ScrollTopButton.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const wordsPerMinute = 200;
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((post) => {
+    const wordCount = post.body?.trim().split(/\s+/).length ?? 0;
+    const readTime = Math.max(1, Math.round(wordCount / wordsPerMinute));
+    return {
+      ...post,
+      data: {
+        ...post.data,
+        readTime,
+      },
+    };
+  });
+
 const postColors = ["blue", "red", "yellow"];
 ---
 
@@ -213,9 +226,9 @@ const postColors = ["blue", "red", "yellow"];
             {post.data.excerpt && (
               <p class="post-excerpt">{post.data.excerpt}</p>
             )}
-
             <p class="post-date">
               <FormattedDate date={post.data.pubDate} />
+              <span class="read-time"> • {post.data.readTime} min read</span>
             </p>
             <a href={`/blog/${post.id}/`} class="read-more">
               Read More →

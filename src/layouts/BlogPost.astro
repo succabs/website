@@ -7,10 +7,13 @@ import FormattedDate from "../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & {
+  readTime: number;
+  color: "red" | "blue" | "yellow";
+};
 
-const { title, description, pubDate, updatedDate, heroImage, color } =
-  Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
+  Astro.props as Props;
 ---
 
 <html lang="en">
@@ -62,6 +65,7 @@ const { title, description, pubDate, updatedDate, heroImage, color } =
         font-weight: 700;
         margin-bottom: 0.5em;
         line-height: 1.1;
+        text-align: center;
       }
 
       .date {
@@ -166,6 +170,7 @@ const { title, description, pubDate, updatedDate, heroImage, color } =
                 </div>
               )
             }
+            <span class="read-time"> • {readTime} min read</span>
           </div>
           <h1>{title}</h1>
           <hr />
