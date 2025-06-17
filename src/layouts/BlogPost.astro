@@ -9,21 +9,15 @@ import ScrollTopButton from "../components/ScrollTopButton.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const {
-  title,
-  description,
-  pubDate,
-  updatedDate,
-  heroImage,
-  color = "red",
-} = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, color } =
+  Astro.props;
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
     <style>
-      <style > article {
+      article {
         max-width: var(--max-width);
         margin-inline: auto;
         padding-inline: 64px;
@@ -31,7 +25,7 @@ const {
 
       @media (max-width: 720px) {
         article {
-          padding-inline: 16px;
+          padding-inline: 0px;
         }
       }
 
@@ -80,13 +74,6 @@ const {
         font-style: italic;
         font-size: 13px;
         color: var(--color-gray);
-      }
-
-      hr {
-        border: none;
-        border-top: 4px solid var(--accent);
-        width: 100px;
-        margin: 2rem auto;
       }
 
       p {
@@ -160,8 +147,6 @@ const {
 <body class={"page-blog page-" + color}>
   <Header />
   <main class="content">
-    <div class="corner-decoration top-left"></div>
-    <div class="corner-decoration top-right"></div>
     <article>
       <div class="hero-image">
         {
@@ -188,8 +173,6 @@ const {
         <slot />
       </div>
     </article>
-    <div class="corner-decoration bottom-left"></div>
-    <div class="corner-decoration bottom-right"></div>
   </main>
   <Footer />
   <ScrollTopButton />

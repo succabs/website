@@ -12,30 +12,30 @@ import { SITE_TITLE } from "../consts";
           width="40"
           height="40"
           viewBox="0 0 100 100"
-          fill="none"
+          fill="#faf8f4"
           xmlns="http://www.w3.org/2000/svg"
         >
           <rect class="bar bun-top" x="15" y="15" width="70" height="10" rx="2"
           ></rect>
           <rect
             class="bar filling-red"
-            x="15"
+            x="10"
             y="27"
-            width="70"
+            width="80"
             height="10"
             rx="2"></rect>
           <rect
             class="bar filling-yellow"
-            x="15"
+            x="10"
             y="39"
-            width="70"
+            width="80"
             height="10"
             rx="2"></rect>
           <rect
             class="bar filling-blue"
-            x="15"
+            x="10"
             y="51"
-            width="70"
+            width="80"
             height="10"
             rx="2"></rect>
           <rect
@@ -55,8 +55,8 @@ import { SITE_TITLE } from "../consts";
       <HeaderLink href="/experience">Experience</HeaderLink>
       <HeaderLink href="/projects">Projects</HeaderLink>
       <HeaderLink href="/skills">Skills</HeaderLink>
-      <HeaderLink href="/questbook">Questbook</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
+      <HeaderLink href="/questbook">Questbook</HeaderLink>
       <HeaderLink href="/blog">Blog</HeaderLink>
     </div>
   </nav>
@@ -64,14 +64,15 @@ import { SITE_TITLE } from "../consts";
 
 <style>
   .site-header {
-    padding: 64px 64px 32px;
+    padding: 32px 64px 32px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     max-width: var(--max-width);
     margin: 0 auto;
-    border-bottom: 1px solid var(--corner-color);
+    margin-bottom: 64px;
+    border-bottom: 6px solid var(--corner-color);
   }
 
   .site-title {
@@ -128,6 +129,10 @@ import { SITE_TITLE } from "../consts";
     display: none;
   }
 
+  .menu-and-title {
+    margin-bottom: 16px;
+  }
+
   @media (max-width: 720px) {
     .site-header {
       padding: 32px 16px 32px;
@@ -136,10 +141,25 @@ import { SITE_TITLE } from "../consts";
     .menu-and-title {
       display: flex;
       flex-direction: row;
+      margin-bottom: 0px;
     }
     .hamburger {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 56px;
+      height: 56px;
+      background: none;
+      border: 2px solid var(--color-text);
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    .hamburger svg {
       display: block;
-      margin-right: 16px;
     }
 
     .hamburger svg {
@@ -168,11 +188,11 @@ import { SITE_TITLE } from "../consts";
     }
 
     .hamburger.active .bun-top {
-      transform: translateY(-6px);
+      transform: translateY(-12px);
     }
 
     .hamburger.active .filling-red {
-      transform: translateY(-3px);
+      transform: translateY(-6px);
     }
 
     .hamburger.active .filling-yellow {
@@ -180,11 +200,11 @@ import { SITE_TITLE } from "../consts";
     }
 
     .hamburger.active .filling-blue {
-      transform: translateY(3px);
+      transform: translateY(6px);
     }
 
     .hamburger.active .bun-bottom {
-      transform: translateY(6px);
+      transform: translateY(12px);
     }
 
     .nav-links {
