@@ -8,9 +8,9 @@
   --color-bg: #faf8f4;
   --color-text: #1a1a1a;
   --color-gray: #bdbdbd;
-  --accent-red: #e53935;
-  --accent-blue: #1e88e5;
-  --accent-yellow: #fdd835;
+  --accent-red: #c62828;
+  --accent-blue: #1565c0;
+  --accent-yellow: #f9a825;
   --accent-brown: #795548;
   --accent: var(--accent-blue);
   --max-width: 1200px;
@@ -82,12 +82,12 @@ h2 {
   font-weight: 500;
 }
 h3 {
-  font-size: clamp(1.2rem, 4vw, 2.2rem);
+  font-size: clamp(1.1rem, 4vw, 2rem);
 
   font-weight: 500;
 }
 h4 {
-  font-size: clamp(1rem, 4vw, 2rem);
+  font-size: clamp(1rem, 4vw, 1.5rem);
 
   font-weight: 500;
 }
