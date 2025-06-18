@@ -90,6 +90,10 @@ const {
     });
   }
 
+  if (banner && localStorage.getItem("cookiesAccepted")) {
+    banner.style.display = "none";
+  }
+
   if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
     banner.style.display = "block";
 
