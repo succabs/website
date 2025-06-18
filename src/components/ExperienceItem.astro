@@ -3,8 +3,10 @@ interface Props {
   title: string;
   place: string;
   timeframe: string;
+  tech?: string[];
+  tools?: string[];
 }
-const { title, place, timeframe } = Astro.props;
+const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
 ---
 
 <section class="experience-item">
@@ -18,10 +20,109 @@ const { title, place, timeframe } = Astro.props;
     )
   }
   <slot />
+  {
+    tech.length > 0 && (
+      <div class="tags">
+        <strong>Tech stack:</strong>
+        <div class="tag-list">
+          {tech.map((item) => (
+            <span class="tag">{item}</span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    tools.length > 0 && (
+      <div class="tags">
+        <strong>Tools:</strong>
+        <div class="tag-list">
+          {tools.map((item) => (
+            <span class="tag">{item}</span>
+          ))}
+        </div>
+      </div>
+    )
+  }
 </section>
 
 <style>
   .experience-item {
-    margin-block: 2rem;
+    border: 2px solid var(--accent);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-block: 3rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .experience-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .experience-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+  }
+
+  .experience-item h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .experience-item p strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .experience-item ul {
+    margin: 1rem 0;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+  }
+
+  .experience-item ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .experience-item a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 720px) {
+    .experience-item {
+      padding: 1.5rem;
+    }
+
+    .experience-item h3 {
+      font-size: 1.25rem;
+    }
+  }
+  .tags {
+    margin-top: 1rem;
+  }
+
+  .tag-list {
+    margin-top: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: var(--accent);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.35em 0.75em;
+    border-radius: 6px;
+    white-space: nowrap;
   }
 </style>
