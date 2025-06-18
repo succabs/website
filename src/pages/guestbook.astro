@@ -8,9 +8,9 @@ import Layout from "../layouts/BaseLayout.astro";
   pageClass="page-yellow"
 >
   <h1>Guestbook</h1>
-  <p>Welcome! Please sign my guestbook below. Or at least, try to.</p>
 
   <form id="guestbook-form">
+    <p>Welcome! Please sign my guestbook below. Or at least, try to.</p>
     <label>
       Name:<br />
       <input type="text" name="name" required />
@@ -27,9 +27,9 @@ import Layout from "../layouts/BaseLayout.astro";
   <div id="response" style="display: none; margin-top: 2rem;">
     <h2>😢 So close…</h2>
     <p>
-      Alas, the form cannot be submitted. I host this site on GitHub Pages, and
-      it doesn’t support the kind of magic needed to make your message to
-      actually get to me.
+      Your message nearly made it — but this realm has its limits. This site
+      lives on GitHub Pages, which doesn’t support the spell required to deliver
+      your words.
     </p>
     <p>
       If you really want to leave a message or say hello, you can email me at:<br
@@ -38,7 +38,7 @@ import Layout from "../layouts/BaseLayout.astro";
         ><a href="mailto:arttu@example.com">artnikkila@gmail.com</a></strong
       >
     </p>
-    <p>I promise I’ll receive your words with a warm heart. ❤️</p>
+    <p>I’ll receive it with a warm heart. ❤️</p>
   </div>
 </Layout>
 
