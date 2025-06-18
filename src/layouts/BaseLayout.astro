@@ -94,7 +94,10 @@ const {
   if (localStorage.getItem("cookiesAccepted") === "true") {
     window.gtag("consent", "update", {
       ad_storage: "granted",
+      ad_user_data: "granted",
+      ad_personalization: "granted",
       analytics_storage: "granted",
+      security_storage: "granted",
     });
   }
 
@@ -108,7 +111,10 @@ const {
     accept.addEventListener("click", () => {
       window.gtag("consent", "update", {
         ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
         analytics_storage: "granted",
+        security_storage: "granted",
       });
       localStorage.setItem("cookiesAccepted", "true");
       banner.style.display = "none";
