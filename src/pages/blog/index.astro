@@ -287,13 +287,13 @@ const postColors = ["blue", "red"];
   window.dataLayer = window.dataLayer || [];
 
   // Define gtag function
-  window.gtag = function gtag() {
+  function gtag() {
     dataLayer.push(arguments);
-  };
+  }
 
   // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
   if (localStorage.getItem("cookiesAccepted") === "true") {
-    window.gtag("consent", "update", {
+    gtag("consent", "update", {
       ad_storage: "granted",
       analytics_storage: "granted",
     });
@@ -307,7 +307,7 @@ const postColors = ["blue", "red"];
     banner.style.display = "block";
 
     accept.addEventListener("click", () => {
-      window.gtag("consent", "update", {
+      gtag("consent", "update", {
         ad_storage: "granted",
         analytics_storage: "granted",
       });
