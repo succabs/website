@@ -20,8 +20,8 @@ const certifications = [
 
 <Layout
   title="Skills"
-  description="Lorem ipsum dolor sit amet"
-  pageClass="page-red"
+  description="Technologies and tools I'm confident using in projects, plus certifications I've earned along the way."
+  pageClass="page-blue"
 >
   <h1>Skills</h1>
 
@@ -79,7 +79,7 @@ const certifications = [
   <section class="mt-16">
     <h2 class="">Certifications</h2>
 
-    <div class="">
+    <div class="certifications-grid">
       {
         certifications.map((cert) => (
           <CertificationItem
@@ -123,6 +123,14 @@ const certifications = [
 
     .yellow {
       background: var(--accent-yellow);
+    }
+
+    section h2 {
+      margin-bottom: 2rem; /* tilaa otsikon ja listan väliin */
+    }
+
+    section + section {
+      margin-top: 3rem; /* väli lohkojen väliin */
     }
 
     .certifications-grid {

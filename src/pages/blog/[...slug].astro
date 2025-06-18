@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 type PostWithColor = CollectionEntry<"blog"> & {
-  color: "red" | "blue" | "yellow";
+  color: "red" | "blue";
 };
 
 const post = Astro.props as PostWithColor;

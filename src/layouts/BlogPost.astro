@@ -9,7 +9,7 @@ import ScrollTopButton from "../components/ScrollTopButton.astro";
 
 type Props = CollectionEntry<"blog">["data"] & {
   readTime: number;
-  color: "red" | "blue" | "yellow";
+  color: "red" | "blue";
 };
 
 const { title, description, pubDate, updatedDate, heroImage, color, readTime } =

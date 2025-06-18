@@ -2,7 +2,11 @@
 import Layout from "../layouts/BaseLayout.astro";
 ---
 
-<Layout title="About Me" description="Who is he?" pageClass="page-blue">
+<Layout
+  title="About Me"
+  description="A look behind the screen — what drives me, what I value, and what I tinker with."
+  pageClass="page-red"
+>
   <h1>whoami</h1>
   <p>
     The other pages cover the usual — work, skills, projects. This one is a bit
@@ -225,7 +229,7 @@ import Layout from "../layouts/BaseLayout.astro";
       });
     },
     {
-      threshold: 1,
+      threshold: 0.6,
     }
   );
 

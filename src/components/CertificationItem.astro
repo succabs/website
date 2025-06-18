@@ -20,7 +20,7 @@ const { title, issuer, date, link } = Astro.props;
     {
       link ? (
         <a href={link} class="button" target="_blank" rel="noopener noreferrer">
-          View Certificate →
+          View Certificate <span class="arrow">→</span>
         </a>
       ) : (
         <p class="no-link">No link available</p>
@@ -39,6 +39,7 @@ const { title, issuer, date, link } = Astro.props;
     justify-content: space-between;
     height: 100%;
     margin-bottom: 2rem;
+    padding-block: 0.5rem; /* lisää vähän tilaa top/bottom */
   }
 
   .content {
@@ -66,25 +67,37 @@ const { title, issuer, date, link } = Astro.props;
 
   .button {
     margin-top: 1rem;
-    background-color: var(--accent-blue, #1e88e5);
-    color: white;
+    background-color: transparent;
+    color: var(--accent);
     padding: 0.5rem 1rem;
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.875rem;
-    border: none;
+    border: 2px solid var(--accent);
     display: inline-block;
     border-radius: 0;
+    transition: all 0.2s ease;
   }
 
   .button:hover {
-    background-color: #1565c0;
+    background-color: var(--accent);
+    color: var(--color-bg); /* taustaväri tekstin väriksi */
+    border-color: var(--accent);
   }
 
   .no-link {
     font-style: italic;
     color: #999;
     font-size: 0.9rem;
+  }
+  .button .arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    margin-left: 0.25em;
+  }
+
+  .button:hover .arrow {
+    transform: translateX(4px);
   }
 </style>

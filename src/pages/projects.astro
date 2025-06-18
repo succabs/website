@@ -1,50 +1,156 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import ProjectItem from "../components/ProjectItem.astro";
+
+const accent = "#c62828"; // sama kuin --accent-red
+const bg = "#faf8f4"; // sama kuin --color-bg
 ---
 
 <Layout
   title="Projects"
-  description="Lorem ipsum dolor sit amet"
-  pageClass="page-yellow"
+  description="A selection of personal and professional projects — from games to browser tools and web apps."
+  pageClass="page-red"
 >
   <h1>Projects</h1>
-
-  <ProjectItem title="Consent Analyser">
+  <ProjectItem title="Consent Analyser" tech={["JavaScript", "HTML", "CSS"]}>
+    <p>Chrome extension that:</p>
+    <ul>
+      <li>
+        Checks if Consent Management Platform is correctly linked to Shopify's
+        Customer Privacy API
+      </li>
+      <li>Inspects dataLayer pushes for analytics for debugging</li>
+      <li>Lets user change consent easily</li>
+    </ul>
     <p>
-      Chrome extension that checks if a CMP is correctly linked to Shopify's
-      Customer Privacy API and inspects dataLayer pushes for analytics
-      debugging.
+      No public code available since it's made at work and for work. If you're
+      interested, email me for a demo :)
     </p>
-    <p>Not publicly available — email me if you'd like a demo.</p>
-    <p><strong>Tech stack:</strong> JavaScript, HTML, CSS</p>
+
+    <svg
+      slot="visual"
+      class="project-svg"
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      style="width: 120px; height: 120px;"
+    >
+      <circle cx="30" cy="30" r="12" fill="#c62828"></circle>
+      <circle cx="90" cy="30" r="12" fill="#c62828"></circle>
+      <rect x="30" y="70" width="60" height="20" fill="#c62828"></rect>
+      <line x1="30" y1="30" x2="60" y2="80" stroke="#faf8f4" stroke-width="4"
+      ></line>
+      <line x1="90" y1="30" x2="60" y2="80" stroke="#faf8f4" stroke-width="4"
+      ></line>
+    </svg>
   </ProjectItem>
 
   <hr />
 
-  <ProjectItem title="Kandi Rush Saga">
+  <ProjectItem
+    title="Kandi Rush Saga"
+    reverse={true}
+    tech={["JavaScript", "Phaser"]}
+  >
     <p>
       A very serious browser game: earn 180 student credits before you run out
       of allowance months. Watch out for Plagiointisyytös and unexpected Moodle
       outages.
     </p>
     <p>
-      <strong>Live:</strong>
-      <a href="https://arttu.net/kandirushsaga">arttu.net/kandirushsaga</a>
-    </p>
-    <p>
       <strong>Code:</strong>
-      <a href="https://github.com/succabs/kandi-rush-saga">GitHub</a>
+      <a href="https://github.com/succabs/kandirushsaga">GitHub</a>
     </p>
-    <p><strong>Tech stack:</strong> JavaScript, Phaser</p>
+    <svg
+      slot="visual"
+      class="project-svg"
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      style="width: 120px; height: 120px;"
+    >
+      <circle
+        cx="60"
+        cy="60"
+        r="30"
+        stroke="#c62828"
+        stroke-width="6"
+        fill="none"></circle>
+      <line x1="60" y1="60" x2="90" y2="60" stroke="#c62828" stroke-width="6"
+      ></line>
+      <line x1="60" y1="60" x2="60" y2="30" stroke="#c62828" stroke-width="6"
+      ></line>
+      <circle cx="30" cy="90" r="8" fill="#c62828"></circle>
+      <circle cx="90" cy="90" r="8" fill="#c62828"></circle>
+    </svg>
   </ProjectItem>
 
   <hr />
 
-  <ProjectItem title="Pitmaster">
+  <ProjectItem
+    title="Pitmaster"
+    tech={["Svelte", "TailwindCSS", "ExpressJS", "PostgreSQL", "VPS"]}
+  >
     <p>Gladiator manager web game inspired by Areena 5 and Travian.</p>
     <p>
-      <strong>Tech stack:</strong> Svelte, TailwindCSS, ExpressJS, PostgreSQL, VPS
+      This is a project to evaluate how well Codex & Cursor work on a project
+      from start to finish. Currently, they seem to work very well. Vibe coded
+      all the way.
     </p>
+    <p>Front-end ready, back-end is a WIP.</p>
+
+    <svg
+      slot="visual"
+      class="project-svg"
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      style="width: 120px; height: 120px;"
+    >
+      <rect x="10" y="10" width="30" height="30" fill="#c62828"></rect>
+      <rect
+        x="45"
+        y="10"
+        width="30"
+        height="30"
+        fill="none"
+        stroke="#c62828"
+        stroke-width="4"></rect>
+      <rect x="80" y="10" width="30" height="30" fill="#c62828"></rect>
+      <line x1="10" y1="80" x2="110" y2="80" stroke="#c62828" stroke-width="6"
+      ></line>
+      <circle cx="60" cy="105" r="10" fill="#c62828"></circle>
+    </svg>
   </ProjectItem>
 </Layout>
+<script>
+  window.requestAnimationFrame(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.6,
+      }
+    );
+
+    document.querySelectorAll(".project-svg").forEach((el) => {
+      observer.observe(el);
+    });
+  });
+</script>
+<style>
+  .project-svg {
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s ease-out;
+  }
+
+  .project-svg.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+</style>
