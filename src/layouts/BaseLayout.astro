@@ -36,6 +36,13 @@ const {
       <Footer />
       <ScrollTopButton />
     </div>
+    <div id="cookie-banner" class="cookie-banner">
+      <div>
+        This site uses cookies to measure anonymous traffic.
+        <button id="accept-cookies" class="cookie-button">Accept</button>
+        <button id="reject-cookies" class="cookie-button cancel">Cancel</button>
+      </div>
+    </div>
   </body>
 </html>
 
@@ -59,5 +66,38 @@ const {
       stored[key] = true;
       localStorage.setItem(storageKey, JSON.stringify(stored));
     }
+  }
+</script>
+
+<script>
+  const banner = document.getElementById("cookie-banner");
+  const accept = document.getElementById("accept-cookies");
+  const reject = document.getElementById("reject-cookies");
+
+  // Initialize dataLayer
+  window.dataLayer = window.dataLayer || [];
+
+  // Define gtag function
+  window.gtag = function gtag(...args: any[]) {
+    window.dataLayer.push(arguments);
+  };
+
+  if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
+    banner.style.display = "block";
+
+    accept.addEventListener("click", () => {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        analytics_storage: "granted",
+      });
+      localStorage.setItem("cookiesAccepted", "true");
+      banner.style.display = "none";
+    });
+
+    reject.addEventListener("click", () => {
+      // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
+      localStorage.setItem("cookiesAccepted", "rejected");
+      banner.style.display = "none";
+    });
   }
 </script>

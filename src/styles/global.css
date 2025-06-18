@@ -237,3 +237,45 @@ body {
 *::after {
   box-sizing: border-box;
 }
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--color-bg);
+  border-top: 4px solid var(--accent);
+  padding: 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.cookie-button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cookie-button:hover {
+  background: var(--accent);
+  color: var(--color-bg);
+}
+
+.cookie-button.cancel {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.cookie-button.cancel:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
