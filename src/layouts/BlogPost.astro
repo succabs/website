@@ -206,7 +206,67 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
         <a href="/blog">← Back to blog index</a>
       </div>
     </article>
+    <div id="cookie-banner" class="cookie-banner">
+      <div>
+        This site uses cookies to measure traffic with Google Analytics 4. Link
+        to Google's privacy policy: <a
+          href="https://policies.google.com/privacy"
+          >https://policies.google.com/privacy</a
+        >.
+        <div style="padding-top: 0.5rem;">
+          <button id="accept-cookies" class="cookie-button">Accept</button>
+          <button id="reject-cookies" class="cookie-button cancel"
+            >Cancel</button
+          >
+        </div>
+      </div>
+    </div>
   </main>
   <Footer />
   <ScrollTopButton />
 </body>
+
+<script is:inline>
+  const banner = document.getElementById("cookie-banner");
+  const accept = document.getElementById("accept-cookies");
+  const reject = document.getElementById("reject-cookies");
+
+  // Initialize dataLayer
+  window.dataLayer = window.dataLayer || [];
+
+  // Define gtag function
+  window.gtag = function gtag() {
+    dataLayer.push(arguments);
+  };
+
+  // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
+  if (localStorage.getItem("cookiesAccepted") === "true") {
+    window.gtag("consent", "update", {
+      ad_storage: "granted",
+      analytics_storage: "granted",
+    });
+  }
+
+  if (banner && localStorage.getItem("cookiesAccepted")) {
+    banner.style.display = "none";
+  }
+
+  if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
+    banner.style.display = "block";
+
+    accept.addEventListener("click", () => {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        analytics_storage: "granted",
+      });
+      localStorage.setItem("cookiesAccepted", "true");
+      banner.style.display = "none";
+    });
+
+    reject.addEventListener("click", () => {
+      // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
+      localStorage.setItem("cookiesAccepted", "rejected");
+      banner.style.display = "none";
+    });
+  }
+</script>
