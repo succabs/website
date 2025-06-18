@@ -1,14 +1,22 @@
 ---
 interface Props {
   title: string;
-  timeframe?: string;
+  place: string;
+  timeframe: string;
 }
-const { title, timeframe } = Astro.props;
+const { title, place, timeframe } = Astro.props;
 ---
 
 <section class="experience-item">
   <h3>{title}</h3>
-  {timeframe && <p><strong>{timeframe}</strong></p>}
+  <h4>@{place}</h4>
+  {
+    timeframe && (
+      <p>
+        <strong>{timeframe}</strong>
+      </p>
+    )
+  }
   <slot />
 </section>
 

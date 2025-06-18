@@ -1,0 +1,90 @@
+---
+// CertificationItem.astro
+export interface Props {
+  title: string;
+  issuer: string;
+  date: string;
+  link?: string;
+}
+
+const { title, issuer, date, link } = Astro.props;
+---
+
+<div class="bauhaus-card">
+  <div class="header-bar"></div>
+  <div class="content">
+    <h3 class="title">{title}</h3>
+    <p class="issuer">Issued by <strong>{issuer}</strong></p>
+    <p class="date">Date: {date}</p>
+
+    {
+      link ? (
+        <a href={link} class="button" target="_blank" rel="noopener noreferrer">
+          View Certificate →
+        </a>
+      ) : (
+        <p class="no-link">No link available</p>
+      )
+    }
+  </div>
+  <div class="footer-bar"></div>
+</div>
+
+<style>
+  .bauhaus-card {
+    border: 4px solid black;
+    background-color: #faf8f4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .issuer,
+  .date {
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    color: #1a1a1a;
+  }
+
+  .button {
+    margin-top: 1rem;
+    background-color: var(--accent-blue, #1e88e5);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    border: none;
+    display: inline-block;
+    border-radius: 0;
+  }
+
+  .button:hover {
+    background-color: #1565c0;
+  }
+
+  .no-link {
+    font-style: italic;
+    color: #999;
+    font-size: 0.9rem;
+  }
+</style>
