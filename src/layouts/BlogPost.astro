@@ -50,7 +50,7 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
         font-size: 18px;
         line-height: 1.7;
         color: var(--color-text);
-        max-width: 720px;
+        max-width: 65ch;
         margin: 0 auto;
       }
 
@@ -65,7 +65,9 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
         font-weight: 700;
         margin-bottom: 0.5em;
         line-height: 1.1;
-        text-align: center;
+        text-align: left;
+        height: auto;
+        margin-top: 1em;
       }
 
       .date {
@@ -82,7 +84,6 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
 
       p {
         margin-bottom: 1.5em;
-        max-width: 65ch;
       }
 
       h2,
@@ -144,6 +145,30 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
       li {
         margin-bottom: 0.5em;
       }
+      .back-to-index {
+        text-align: center;
+        margin-top: 4rem;
+      }
+
+      .back-to-index a {
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--accent);
+        text-decoration: none;
+        border: 2px solid var(--accent);
+        padding: 0.5em 1em;
+        display: inline-block;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .back-to-index a:hover {
+        background: var(--accent);
+        color: var(--color-bg);
+      }
     </style>
   </head>
 </html>
@@ -176,6 +201,9 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
           <hr />
         </div>
         <slot />
+      </div>
+      <div class="back-to-index">
+        <a href="/blog">← Back to blog index</a>
       </div>
     </article>
   </main>
