@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import ProjectItem from "../components/ProjectItem.astro";
 ---
 
 <Layout
@@ -9,8 +10,7 @@ import Layout from "../layouts/BaseLayout.astro";
 >
   <h1>Projects</h1>
 
-  <section>
-    <h2>Consent Analyser</h2>
+  <ProjectItem title="Consent Analyser">
     <p>
       Chrome extension that checks if a CMP is correctly linked to Shopify's
       Customer Privacy API and inspects dataLayer pushes for analytics
@@ -18,12 +18,11 @@ import Layout from "../layouts/BaseLayout.astro";
     </p>
     <p>Not publicly available — email me if you'd like a demo.</p>
     <p><strong>Tech stack:</strong> JavaScript, HTML, CSS</p>
-  </section>
+  </ProjectItem>
 
   <hr />
 
-  <section>
-    <h2>Kandi Rush Saga</h2>
+  <ProjectItem title="Kandi Rush Saga">
     <p>
       A very serious browser game: earn 180 student credits before you run out
       of allowance months. Watch out for Plagiointisyytös and unexpected Moodle
@@ -38,15 +37,14 @@ import Layout from "../layouts/BaseLayout.astro";
       <a href="https://github.com/succabs/kandi-rush-saga">GitHub</a>
     </p>
     <p><strong>Tech stack:</strong> JavaScript, Phaser</p>
-  </section>
+  </ProjectItem>
 
   <hr />
 
-  <section>
-    <h2>Pitmaster</h2>
+  <ProjectItem title="Pitmaster">
     <p>Gladiator manager web game inspired by Areena 5 and Travian.</p>
     <p>
       <strong>Tech stack:</strong> Svelte, TailwindCSS, ExpressJS, PostgreSQL, VPS
     </p>
-  </section>
+  </ProjectItem>
 </Layout>

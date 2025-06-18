@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  timeframe?: string;
+}
+const { title, timeframe } = Astro.props;
+---
+
+<section class="experience-item">
+  <h3>{title}</h3>
+  {timeframe && <p><strong>{timeframe}</strong></p>}
+  <slot />
+</section>
+
+<style>
+  .experience-item {
+    margin-block: 2rem;
+  }
+</style>
