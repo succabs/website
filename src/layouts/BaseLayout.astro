@@ -82,6 +82,14 @@ const {
     window.dataLayer.push(arguments);
   };
 
+  // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
+  if (localStorage.getItem("cookiesAccepted") === "true") {
+    window.gtag("consent", "update", {
+      ad_storage: "granted",
+      analytics_storage: "granted",
+    });
+  }
+
   if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
     banner.style.display = "block";
 
