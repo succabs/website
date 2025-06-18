@@ -52,7 +52,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6HJEWEKWH9"
+<script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-6HJEWEKWH9"
 ></script>
 
 <script>
@@ -81,5 +81,7 @@ const { title, description, image = FallbackImage } = Astro.props;
     analytics_storage: "denied",
     security_storage: "granted",
   });
-  window.gtag("config", "G-6HJEWEKWH9");
+  window.gtag("config", "G-6HJEWEKWH9", {
+    anonymize_ip: true,
+  });
 </script>
