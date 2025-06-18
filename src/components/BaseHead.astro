@@ -52,35 +52,20 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-<script>
-  // We need a global definition to avoid type warnings
-  declare global {
-    interface Window {
-      dataLayer: Record<string, any>[];
-      gtag: (...args: any[]) => void;
-    }
-  }
-
-  // Initialize dataLayer
+<script is:inline>
+  // Define dataLayer and the gtag function.
   window.dataLayer = window.dataLayer || [];
-
-  // Define gtag function
-  window.gtag = function gtag(...args: any[]) {
-    window.dataLayer.push(arguments);
-  };
-
-  // Load GA4 with denied default consents
-  window.gtag("consent", "default", {
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("consent", "default", {
+    analytics_storage: "denied",
     ad_storage: "denied",
     ad_user_data: "denied",
     ad_personalization: "denied",
-    analytics_storage: "denied",
-    security_storage: "granted",
+    wait_for_update: "500",
   });
-</script>
 
-<!-- Google Tag Manager -->
-<script is:inline>
   (function (w, d, s, l, i) {
     w[l] = w[l] || [];
     w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });

@@ -86,7 +86,7 @@ const {
   }
 </script>
 
-<script>
+<script is:inline>
   const banner = document.getElementById("cookie-banner");
   const accept = document.getElementById("accept-cookies");
   const reject = document.getElementById("reject-cookies");
@@ -95,8 +95,8 @@ const {
   window.dataLayer = window.dataLayer || [];
 
   // Define gtag function
-  window.gtag = function gtag(...args: any[]) {
-    window.dataLayer.push(arguments);
+  window.gtag = function gtag() {
+    dataLayer.push(arguments);
   };
 
   // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
