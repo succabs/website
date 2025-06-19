@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+---
+
+<Layout title="404" pageClass="page-red" description="Page not found">
+  <h1>404</h1>
+  <p>This page could not be found.</p>
+  <a href="/" class="button">Back to Home</a>
+
+  <style>
+    .button {
+      display: inline-block;
+      margin-top: 1rem;
+      background: transparent;
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: 2px solid var(--accent);
+      transition: all 0.2s ease;
+    }
+    .button:hover {
+      background: var(--accent);
+      color: var(--color-bg);
+    }
+    h1 {
+      font-size: clamp(3rem, 10vw, 8rem);
+      margin-bottom: 1rem;
+    }
+  </style>
+</Layout>
+
