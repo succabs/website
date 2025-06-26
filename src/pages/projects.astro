@@ -17,9 +17,9 @@ const bg = "#faf8f4"; // sama kuin --color-bg
     <ul>
       <li>
         Checks if Consent Management Platform is correctly linked to Shopify's
-        Customer Privacy API
+        Customer Privacy API and respecting user's choices
       </li>
-      <li>Inspects dataLayer pushes for analytics for debugging</li>
+      <li>Inspects dataLayer pushes for debugging analytics</li>
       <li>Lets user change consent easily</li>
     </ul>
     <p>
@@ -27,21 +27,14 @@ const bg = "#faf8f4"; // sama kuin --color-bg
       interested, email me for a demo :)
     </p>
 
-    <svg
+    <img
       slot="visual"
-      class="project-svg"
-      viewBox="0 0 120 120"
-      xmlns="http://www.w3.org/2000/svg"
-      style="width: 120px; height: 120px;"
-    >
-      <circle cx="30" cy="30" r="12" fill="#c62828"></circle>
-      <circle cx="90" cy="30" r="12" fill="#c62828"></circle>
-      <rect x="30" y="70" width="60" height="20" fill="#c62828"></rect>
-      <line x1="30" y1="30" x2="60" y2="80" stroke="#faf8f4" stroke-width="4"
-      ></line>
-      <line x1="90" y1="30" x2="60" y2="80" stroke="#faf8f4" stroke-width="4"
-      ></line>
-    </svg>
+      class="project-image"
+      src="/consent_analyser_screenshot.png"
+      alt="Screenshot of Consent Analyser"
+      width="100%"
+      height="auto"
+    />
   </ProjectItem>
 
   <hr />
@@ -60,27 +53,14 @@ const bg = "#faf8f4"; // sama kuin --color-bg
       <strong>Code:</strong>
       <a href="https://github.com/succabs/kandirushsaga">GitHub</a>
     </p>
-    <svg
+    <img
       slot="visual"
-      class="project-svg"
-      viewBox="0 0 120 120"
-      xmlns="http://www.w3.org/2000/svg"
-      style="width: 120px; height: 120px;"
-    >
-      <circle
-        cx="60"
-        cy="60"
-        r="30"
-        stroke="#c62828"
-        stroke-width="6"
-        fill="none"></circle>
-      <line x1="60" y1="60" x2="90" y2="60" stroke="#c62828" stroke-width="6"
-      ></line>
-      <line x1="60" y1="60" x2="60" y2="30" stroke="#c62828" stroke-width="6"
-      ></line>
-      <circle cx="30" cy="90" r="8" fill="#c62828"></circle>
-      <circle cx="90" cy="90" r="8" fill="#c62828"></circle>
-    </svg>
+      class="project-image"
+      src="/kandirushsaga_screenshot.png"
+      alt="Screenshot of Kandi Rush Saga"
+      width="100%"
+      height="auto"
+    />
   </ProjectItem>
 
   <hr />
@@ -91,35 +71,29 @@ const bg = "#faf8f4"; // sama kuin --color-bg
   >
     <p>Gladiator manager web game inspired by Areena 5 and Travian.</p>
     <p>
-      This is a project to evaluate how well Codex & Cursor work on a project
-      from start to finish. Currently, they seem to work very well. Vibe coded
-      all the way.
+      This is an ongoing project to evaluate how well Codex & Cursor perform on
+      a project from start to finish: Vibe coded all the way. The idea is old,
+      never had time to execute it before AI tools.
     </p>
-    <p>Front-end ready, back-end is a WIP.</p>
-
-    <svg
+    <p>
+      Front-end logic is ready, back-end and graphics are a work in progress.
+    </p>
+    <img
       slot="visual"
-      class="project-svg"
-      viewBox="0 0 120 120"
-      xmlns="http://www.w3.org/2000/svg"
-      style="width: 120px; height: 120px;"
-    >
-      <rect x="10" y="10" width="30" height="30" fill="#c62828"></rect>
-      <rect
-        x="45"
-        y="10"
-        width="30"
-        height="30"
-        fill="none"
-        stroke="#c62828"
-        stroke-width="4"></rect>
-      <rect x="80" y="10" width="30" height="30" fill="#c62828"></rect>
-      <line x1="10" y1="80" x2="110" y2="80" stroke="#c62828" stroke-width="6"
-      ></line>
-      <circle cx="60" cy="105" r="10" fill="#c62828"></circle>
-    </svg>
+      class="project-image"
+      src="/pitmaster_screenshot.png"
+      alt="Screenshot of Pitmaster"
+      width="100%"
+      height="auto"
+    />
   </ProjectItem>
 </Layout>
+<div id="image-modal" class="image-modal">
+  <div class="modal-backdrop"></div>
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modal-image" />
+</div>
+
 <script>
   window.requestAnimationFrame(() => {
     const observer = new IntersectionObserver(
@@ -135,10 +109,40 @@ const bg = "#faf8f4"; // sama kuin --color-bg
       }
     );
 
-    document.querySelectorAll(".project-svg").forEach((el) => {
+    document.querySelectorAll(".project-svg, .project-image").forEach((el) => {
       observer.observe(el);
     });
   });
+  const modal = document.getElementById("image-modal");
+  const modalImg = document.getElementById("modal-image");
+  const closeBtn = document.querySelector(".modal-close");
+
+  document.querySelectorAll(".project-image").forEach((img) => {
+    img.addEventListener("click", () => {
+      modal.classList.add("show");
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+      document.documentElement.classList.add("modal-open");
+      document.body.classList.add("modal-open");
+    });
+  });
+
+  function closeModal() {
+    modal.classList.remove("show");
+    document.documentElement.classList.remove("modal-open");
+    document.body.classList.remove("modal-open");
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  document
+    .querySelector(".modal-backdrop")
+    .addEventListener("click", closeModal);
 </script>
 <style>
   .project-svg {
@@ -152,5 +156,77 @@ const bg = "#faf8f4"; // sama kuin --color-bg
   .project-svg.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+  .project-image {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s ease-out;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .project-image.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .project-image {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s ease-out;
+    max-width: 100%;
+    cursor: zoom-in;
+    border-radius: 4px;
+  }
+
+  .project-image.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .image-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-modal.show {
+    display: flex;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.05); /* kevyt huntu */
+    z-index: 1;
+  }
+
+  .modal-content {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 8px;
+    z-index: 2;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    color: black;
+    font-size: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    z-index: 3;
+  }
+
+  body.modal-open,
+  html.modal-open {
+    overflow: hidden;
+    height: 100%;
   }
 </style>
