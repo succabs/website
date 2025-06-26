@@ -4,7 +4,7 @@ description: "An exploration of three standout tech series that offer drama, hum
 pubDate: 2025-01-23
 heroImage: "../../assets/tech-series.jpg"
 author: "Arttu Nikkilä"
-tags: ["hobbies", "tv"]
+tags: ["hobbies", "personal"]
 excerpt: "I'm a huge fan of good TV series and technology. Come find out what my favourites are."
 ---
 

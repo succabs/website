@@ -4,7 +4,7 @@ description: "A full year of daily Norwegian on Duolingo: 365 days of streaks, s
 pubDate: 2024-08-29
 heroImage: "../../assets/norway.jpg"
 author: "Arttu Nikkilä"
-tags: ["learning"]
+tags: ["learning, personal"]
 excerpt: "My one-year journey with Norwegian (Bokmål) in Duolingo."
 ---
 

@@ -2,7 +2,7 @@
 title: "Redesigning My Portfolio: Bauhaus Meets Function"
 description: "A story about rebuilding my personal website with a Bauhaus-inspired aesthetic, practical improvements, and help from GenAI."
 pubDate: 2025-06-17
-tags: ["Design", "Development", "GenAI"]
+tags: ["development", "tech"]
 heroImage: "../../assets/blog-placeholder-4.jpg"
 excerpt: "A breakdown of how I redesigned my portfolio site from a retro mess into a clean, Bauhaus-inspired digital home."
 ---
