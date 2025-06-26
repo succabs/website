@@ -116,3 +116,11 @@ Each page may emphasize one accent color as part of the visual theme.
   - Navigation: text-only, all caps
   - Hamburger: custom graphic, three unique bars
 - **No shadows, no border radius**, no UI libraries
+
+## Blog post tags
+
+- tech // teknologia, laitteet, AI
+- development // koodi, dev-flow, työ
+- learning // kieli, uudet taidot, reflektiot
+- personal // omat ajatukset, terveys, arki
+- hobbies // DJ, kalastus, muut kiinnostuksen kohteet
