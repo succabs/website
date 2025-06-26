@@ -1,11 +1,11 @@
 ---
-title: "365 Days of Learning Norwegian on Duolingo"
-description: "A full year of daily Norwegian on Duolingo: 365 days of streaks, struggles, and shouting numbers at my phone while it refused to understand me. This isn’t just about learning a language; it’s about chasing dreams of fjords, Röyksopp, and maybe even a new life in Norway. Come for the insights, stay for the chaos."
+title: "What I Learned After 365 Days of Norwegian on Duolingo"
+description: "After a 365-day streak learning Norwegian (bokmål) on Duolingo, I share what worked, what didn’t, and whether the app can take you beyond the basics."
 pubDate: 2024-08-29
 heroImage: "../../assets/norway.jpg"
 author: "Arttu Nikkilä"
 tags: ["learning", "personal"]
-excerpt: "My one-year journey with Norwegian (Bokmål) in Duolingo."
+excerpt: "A full year of daily Norwegian on Duolingo: 365 days of streaks, struggles, and shouting numbers at my phone while it refused to understand me. This isn’t just about learning a language; it’s about chasing dreams of fjords, Röyksopp, and maybe even a new life in Norway. Come for the insights, stay for the chaos."
 ---
 
 ## **What's Happened?**
@@ -92,3 +92,10 @@ My next goals:
 Learning a language is like climbing a mountain—it’s slow, sometimes painful, and full of moments where you wonder why you even started. But every step is worth it. This 365-day journey has taught me more than just Norwegian. It’s reminded me of the value of patience, persistence, and celebrating small wins along the way.
 
 So here’s to the next 365 (404) days—and hopefully, a conversation with a Norwegian that doesn’t involve me asking them to speak slower.
+
+## Key Takeaways
+
+- Duolingo helped build daily discipline, but it’s not enough for fluency
+- Learning Norwegian felt easier with a Swedish + Finnish background
+- Speech recognition, streaks, and gamification had clear limits
+- Real progress comes from immersion, not streaks

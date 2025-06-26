@@ -1,9 +1,9 @@
 ---
-title: "10 Reasons I Stopped Using Duolingo After Nearly 2 Years"
+title: "10 Reasons I Stopped Using Duolingo in 2025 After Nearly 2 Years"
 heroImage: "../../assets/duolingo.jpg"
 description: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
 author: "Arttu Nikkilä"
-excerpt: "I stopped using Duolingo after 628 days. Here's why it no longer helped me learn Norwegian - or fit into my life anymore."
+excerpt: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
 pubDate: 2025-06-26
 tags: ["learning", "personal"]
 ---
@@ -55,3 +55,14 @@ Maybe I’m just pickier now, but it feels like the overall quality of the lesso
 ## Is Duolingo Still Worth It in 2025?
 
 Duolingo isn’t useless - it gave me a solid foundation in Norwegian, and for that I’m thankful. But as a long-term tool for serious language learning, it doesn’t hold up for me anymore. If you’re just starting out, it might help you get the basics. But for real progress or fluency, I don’t think Duolingo is enough in 2025.
+
+## Key Takeaways
+
+- Duolingo can be useful for beginners, but falls short for long-term learners
+- Gamification loses impact over time if not backed by meaningful learning
+- Pressure to upgrade and declining quality reduced its value
+- Language learning needs variety and depth — not just daily streaks
+
+## What’s Next?
+
+No more language learning for the time being for me. Who knows, maybe I'll write about learning something else soon?

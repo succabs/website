@@ -1,13 +1,13 @@
 ---
-title: "Redesigning My Portfolio: Bauhaus Meets Function"
-description: "A story about rebuilding my personal website with a Bauhaus-inspired aesthetic, practical improvements, and help from GenAI."
+title: "How I Rebuilt My Developer Portfolio With Bauhaus and Astro"
+description: "How I redesigned my developer portfolio using Astro, Bauhaus design principles, and help from GenAI tools."
 pubDate: 2025-06-17
-tags: ["development", "tech"]
+tags: ["development"]
 heroImage: "../../assets/blog-placeholder-4.jpg"
-excerpt: "A breakdown of how I redesigned my portfolio site from a retro mess into a clean, Bauhaus-inspired digital home."
+excerpt: "A breakdown of how I redesigned my portfolio site from a retro mess into a clean, Bauhaus-inspired digital home with the help of GenAI tools."
 ---
 
-## Why I Redesigned My Site
+## Introduction: Why I Redesigned My Site
 
 Once in a while I get the idea to redesign my website. Latest iteration was a site that tried to capture the early 2000's retro look. In the end, it wasn’t clean and certainly didn’t reflect what I actually wanted my online presence to say.
 
@@ -15,7 +15,7 @@ There is a fine line in doing retro look: small things can make it look like it 
 
 Eventually, I hit a wall. Time to start fresh. The technology stayed the same, though: I prefer Astro on projects like this, since it is fast to use and I am already familiar with it.
 
-## Enter: Bauhaus
+## Why I Chose Bauhaus
 
 Bauhaus caught my attention while browsing inspiration sites. It's structured, functional, colorful in a restrained way — everything my old site wasn’t. It can be minimal but at the same time beautiful and different.
 
@@ -42,6 +42,13 @@ First, I worked with ChatGPT to establish brand guidelines — fonts, color pale
 When we had bounced around ideas enough and task was ready, I fed the task into Codex that is hooked into my GitHub repository.
 
 Task by task, it updated the codebase. I reviewed every change, fixed where it got stuck, and sometimes adjusted details by hand. It wasn’t fully “vibe coding,” but it was collaborative.
+
+## Key Takeaways
+
+- Bauhaus can be a refreshing, practical style for developer portfolios
+- Astro enables fast iteration with minimal overhead
+- GPT tools are surprisingly helpful in UI and layout tasks — if used deliberately
+- A portfolio should reflect personality, not just trends
 
 ## What’s Next
 
