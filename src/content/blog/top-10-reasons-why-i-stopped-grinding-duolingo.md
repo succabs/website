@@ -3,7 +3,7 @@ title: "Top 10 Reasons Why I Stopped Grinding Duolingo"
 heroImage: "../../assets/duolingo.jpg"
 description: "Why I quit Duolingo after a 628-day streak—burnout, ads, AI content, and lessons that no longer worked for me."
 author: "Arttu Nikkilä"
-excerpt: "I stopped using Duolingo after 628 days. Here's why it no longer helped me learn Norwegian—or fit into my life."
+excerpt: "I stopped using Duolingo after 628 days. Here's why it no longer helped me learn Norwegian - or fit into my life anymore."
 pubDate: 2025-06-26
 tags: ["learning, personal"]
 ---
