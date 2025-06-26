@@ -200,15 +200,6 @@ const allTags = Array.from(
         gap: 0.5rem;
       }
 
-      .tag-badge {
-        font-family: var(--font-heading);
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        padding: 0.25em 0.5em;
-        border: 2px solid var(--accent);
-        color: var(--accent);
-      }
-
       .post-title {
         font-family: var(--font-heading);
         font-weight: 700;
@@ -309,16 +300,20 @@ const allTags = Array.from(
     <h1>Blog index</h1>
     <div class="filter-buttons">
       <button class="filter-btn active" data-tag="all">All</button>
-      {allTags.map((tag) => (
-        <button class="filter-btn" data-tag={tag}>{tag}</button>
-      ))}
+      {
+        allTags.map((tag) => (
+          <button class="filter-btn" data-tag={tag}>
+            {tag}
+          </button>
+        ))
+      }
     </div>
     <section class="posts-list">
       {
         posts.map((post, idx) => (
           <article
             class={`post-item post-${postColors[idx % postColors.length]}`}
-            data-tags={(post.data.tags ?? []).join(',')}
+            data-tags={(post.data.tags ?? []).join(",")}
           >
             <div class="post-content">
               <h2 class="post-title">
@@ -331,7 +326,9 @@ const allTags = Array.from(
               {post.data.tags && post.data.tags.length > 0 && (
                 <div class="tag-list">
                   {post.data.tags.map((t) => (
-                    <span class="tag-badge" key={t}>{t}</span>
+                    <span class="tag" key={t}>
+                      {t}
+                    </span>
                   ))}
                 </div>
               )}
@@ -377,17 +374,17 @@ const allTags = Array.from(
   <script type="module">
     if (typeof window !== "undefined") {
       const postsPerPage = 5;
-      const posts = Array.from(document.querySelectorAll('.post-item'));
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const pagination = document.querySelector('.pagination');
-      let currentTag = 'all';
+      const posts = Array.from(document.querySelectorAll(".post-item"));
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const pagination = document.querySelector(".pagination");
+      let currentTag = "all";
       let currentPage = 1;
 
       filterButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          filterButtons.forEach((b) => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentTag = btn.dataset.tag || 'all';
+        btn.addEventListener("click", () => {
+          filterButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentTag = btn.dataset.tag || "all";
           currentPage = 1;
           update();
         });
@@ -395,28 +392,31 @@ const allTags = Array.from(
 
       function update() {
         const visible = posts.filter((p) => {
-          if (currentTag === 'all') return true;
-          const tags = p.dataset.tags ? p.dataset.tags.split(',') : [];
+          if (currentTag === "all") return true;
+          const tags = p.dataset.tags ? p.dataset.tags.split(",") : [];
           return tags.includes(currentTag);
         });
-        const totalPages = Math.max(1, Math.ceil(visible.length / postsPerPage));
-        pagination.innerHTML = '';
+        const totalPages = Math.max(
+          1,
+          Math.ceil(visible.length / postsPerPage)
+        );
+        pagination.innerHTML = "";
         for (let i = 1; i <= totalPages; i++) {
-          const b = document.createElement('button');
+          const b = document.createElement("button");
           b.textContent = String(i);
-          b.className = 'page-btn' + (i === currentPage ? ' active' : '');
-          b.addEventListener('click', () => {
+          b.className = "page-btn" + (i === currentPage ? " active" : "");
+          b.addEventListener("click", () => {
             currentPage = i;
             update();
           });
           pagination.appendChild(b);
         }
-        posts.forEach((p) => (p.style.display = 'none'));
+        posts.forEach((p) => (p.style.display = "none"));
         visible.forEach((p, idx) => {
           const start = (currentPage - 1) * postsPerPage;
           const end = start + postsPerPage;
           if (idx >= start && idx < end) {
-            p.style.display = '';
+            p.style.display = "";
           }
         });
       }

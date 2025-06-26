@@ -279,3 +279,12 @@ body {
   background: var(--color-text);
   color: var(--color-bg);
 }
+
+.tag {
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.35em 0.75em;
+  white-space: nowrap;
+  border-radius: 4px;
+}
