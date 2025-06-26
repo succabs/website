@@ -1,14 +1,14 @@
 ---
-title: "Top 10 Reasons Why I Stopped Grinding Duolingo"
+title: "10 Reasons I Stopped Using Duolingo After Nearly 2 Years"
 heroImage: "../../assets/duolingo.jpg"
-description: "Why I quit Duolingo after a 628-day streak—burnout, ads, AI content, and lessons that no longer worked for me."
+description: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
 author: "Arttu Nikkilä"
 excerpt: "I stopped using Duolingo after 628 days. Here's why it no longer helped me learn Norwegian - or fit into my life anymore."
 pubDate: 2025-06-26
 tags: ["learning, personal"]
 ---
 
-After a 628-day streak, I finally stopped using Duolingo. If you've read my earlier post about spending a full year learning Norwegian on the app ([365 Days of Learning Norwegian on Duolingo](https://arttu.net/blog/365-days-of-learning-norwegian-on-duolingo/)), this might come as a surprise. But after nearly two years of daily practice, I reached a point where continuing no longer made sense. Here's why.
+After a 628-day streak, I finally quit Duolingo - it just wasn’t working for me anymore. If you've read my earlier post about spending a full year learning Norwegian on the app ([365 Days of Learning Norwegian on Duolingo](https://arttu.net/blog/365-days-of-learning-norwegian-on-duolingo/)), this might come as a surprise. But after nearly two years of daily practice, I reached a point where continuing no longer made sense. Here's why.
 
 ## 1. I Was Buying Time With Streak Freezes
 
@@ -32,7 +32,7 @@ When Duolingo laid off contract workers and replaced them with AI-generated cont
 
 ## 6. Too Much Super Duolingo Pressure
 
-I felt increasingly pushed toward subscribing to Super Duolingo. Ads were everywhere. The free version started to feel like a funnel rather than a functional learning tool.
+Like many free users, I started feeling constant pressure to upgrade to Super Duolingo. It’s one of the biggest problems people mention with Duolingo lately. Ads were everywhere. The free version started to feel like a funnel rather than a functional learning tool.
 
 ## 7. Inconsistent Challenge Levels
 
@@ -52,4 +52,6 @@ Maybe I’m just pickier now, but it feels like the overall quality of the lesso
 
 ---
 
-I’m not saying Duolingo is useless: it helped me build a foundation in Norwegian, and for that I’m thankful. But as a long-term solution for language learning? It’s not for me anymore.
+## Is Duolingo Still Worth It in 2025?
+
+Duolingo isn’t useless - it gave me a solid foundation in Norwegian, and for that I’m thankful. But as a long-term tool for serious language learning, it doesn’t hold up for me anymore. If you’re just starting out, it might help you get the basics. But for real progress or fluency, I don’t think Duolingo is enough in 2025.
