@@ -7,13 +7,22 @@ import FormattedDate from "../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
 
-type Props = CollectionEntry<"blog">["data"] & {
-  readTime: number;
-  color: "red" | "blue";
+type Props = CollectionEntry<"blog">["data"] & { 
+  readTime: number; 
+  color: "red" | "blue"; 
+  tags?: string[]; 
 };
 
-const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
-  Astro.props as Props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  color,
+  readTime,
+  tags = [],
+} = Astro.props as Props;
 ---
 
 <html lang="en">
@@ -80,6 +89,22 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
         font-style: italic;
         font-size: 13px;
         color: var(--color-text);
+      }
+
+      .tag-list {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tag-badge {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+        border: 2px solid var(--accent);
+        color: var(--accent);
       }
 
       p {
@@ -195,9 +220,16 @@ const { title, description, pubDate, updatedDate, heroImage, color, readTime } =
                 </div>
               )
             }
-            <span class="read-time"> • {readTime} min read</span>
+            <span class="read-time"> 🕒 {readTime} min read</span>
           </div>
           <h1>{title}</h1>
+          {tags.length > 0 && (
+            <div class="tag-list">
+              {tags.map((t) => (
+                <span class="tag-badge" key={t}>{t}</span>
+              ))}
+            </div>
+          )}
           <hr />
         </div>
         <slot />

@@ -5,7 +5,7 @@ description: "I used Duolingo daily for 628 days to learn Norwegian. Eventually,
 author: "Arttu Nikkilä"
 excerpt: "I stopped using Duolingo after 628 days. Here's why it no longer helped me learn Norwegian - or fit into my life anymore."
 pubDate: 2025-06-26
-tags: ["learning, personal"]
+tags: ["learning", "personal"]
 ---
 
 After a 628-day streak, I finally quit Duolingo - it just wasn’t working for me anymore. If you've read my earlier post about spending a full year learning Norwegian on the app ([365 Days of Learning Norwegian on Duolingo](https://arttu.net/blog/365-days-of-learning-norwegian-on-duolingo/)), this might come as a surprise. But after nearly two years of daily practice, I reached a point where continuing no longer made sense. Here's why.

@@ -25,6 +25,9 @@ const posts = (await getCollection("blog"))
   });
 
 const postColors = ["blue", "red"];
+const allTags = Array.from(
+  new Set(posts.flatMap((p) => p.data.tags ?? []))
+).sort();
 ---
 
 <!doctype html>
@@ -145,6 +148,15 @@ const postColors = ["blue", "red"];
           align-items: flex-start;
         }
 
+        .post-item {
+          flex-direction: column;
+        }
+
+        .post-image {
+          width: 100%;
+          max-width: none;
+        }
+
         ul li:first-child .title {
           font-size: 32px;
         }
@@ -160,6 +172,41 @@ const postColors = ["blue", "red"];
       .post-item {
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--accent);
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+
+      .post-content {
+        flex: 1;
+      }
+
+      .post-image {
+        width: 40%;
+        max-width: 300px;
+      }
+
+      .post-image img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      .tag-list {
+        margin: 0.5rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tag-badge {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+        border: 2px solid var(--accent);
+        color: var(--accent);
       }
 
       .post-title {
@@ -206,6 +253,51 @@ const postColors = ["blue", "red"];
       .read-more:hover {
         color: var(--color-text);
       }
+
+      .filter-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .filter-btn {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+        border: 2px solid var(--color-text);
+        background: transparent;
+        color: var(--color-text);
+        cursor: pointer;
+      }
+
+      .filter-btn.active {
+        background: var(--color-text);
+        color: var(--color-bg);
+      }
+
+      .pagination {
+        margin-top: 2rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .page-btn {
+        font-family: var(--font-heading);
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+        border: 2px solid var(--color-text);
+        background: transparent;
+        color: var(--color-text);
+        cursor: pointer;
+      }
+
+      .page-btn.active {
+        background: var(--color-text);
+        color: var(--color-bg);
+      }
     </style>
   </head>
 </html>
@@ -215,30 +307,57 @@ const postColors = ["blue", "red"];
     <div class="corner-decoration top-left"></div>
     <div class="corner-decoration top-right"></div>
     <h1>Blog index</h1>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-tag="all">All</button>
+      {allTags.map((tag) => (
+        <button class="filter-btn" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
     <section class="posts-list">
       {
         posts.map((post, idx) => (
           <article
             class={`post-item post-${postColors[idx % postColors.length]}`}
+            data-tags={(post.data.tags ?? []).join(',')}
           >
-            <h2 class="post-title">
-              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-            </h2>
+            <div class="post-content">
+              <h2 class="post-title">
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              </h2>
 
-            {post.data.excerpt && (
-              <p class="post-excerpt">{post.data.excerpt}</p>
+              {post.data.excerpt && (
+                <p class="post-excerpt">{post.data.excerpt}</p>
+              )}
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="tag-list">
+                  {post.data.tags.map((t) => (
+                    <span class="tag-badge" key={t}>{t}</span>
+                  ))}
+                </div>
+              )}
+              <p class="post-date">
+                <FormattedDate date={post.data.pubDate} />
+                <span class="read-time"> 🕒 {post.data.readTime} min read</span>
+              </p>
+              <a href={`/blog/${post.id}/`} class="read-more">
+                Read More →
+              </a>
+            </div>
+            {post.data.heroImage && (
+              <div class="post-image">
+                <Image
+                  width={300}
+                  height={169}
+                  src={post.data.heroImage}
+                  alt=""
+                />
+              </div>
             )}
-            <p class="post-date">
-              <FormattedDate date={post.data.pubDate} />
-              <span class="read-time"> • {post.data.readTime} min read</span>
-            </p>
-            <a href={`/blog/${post.id}/`} class="read-more">
-              Read More →
-            </a>
           </article>
         ))
       }
     </section>
+    <div class="pagination"></div>
   </main>
   <div id="cookie-banner" class="cookie-banner">
     <div>
@@ -257,6 +376,53 @@ const postColors = ["blue", "red"];
 
   <script type="module">
     if (typeof window !== "undefined") {
+      const postsPerPage = 5;
+      const posts = Array.from(document.querySelectorAll('.post-item'));
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const pagination = document.querySelector('.pagination');
+      let currentTag = 'all';
+      let currentPage = 1;
+
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTag = btn.dataset.tag || 'all';
+          currentPage = 1;
+          update();
+        });
+      });
+
+      function update() {
+        const visible = posts.filter((p) => {
+          if (currentTag === 'all') return true;
+          const tags = p.dataset.tags ? p.dataset.tags.split(',') : [];
+          return tags.includes(currentTag);
+        });
+        const totalPages = Math.max(1, Math.ceil(visible.length / postsPerPage));
+        pagination.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const b = document.createElement('button');
+          b.textContent = String(i);
+          b.className = 'page-btn' + (i === currentPage ? ' active' : '');
+          b.addEventListener('click', () => {
+            currentPage = i;
+            update();
+          });
+          pagination.appendChild(b);
+        }
+        posts.forEach((p) => (p.style.display = 'none'));
+        visible.forEach((p, idx) => {
+          const start = (currentPage - 1) * postsPerPage;
+          const end = start + postsPerPage;
+          if (idx >= start && idx < end) {
+            p.style.display = '';
+          }
+        });
+      }
+
+      update();
+
       const pageMap = {
         "/": "home",
         "/experience": "experience",
