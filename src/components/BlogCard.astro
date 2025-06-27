@@ -8,14 +8,15 @@ export interface Props {
   href: string;
   excerpt?: string;
   heroImage?: ImageMetadata;
+  heroImageAlt?: string;
 }
 
-const { title, date, href, excerpt, heroImage } = Astro.props as Props;
+const { title, date, href, excerpt, heroImage, heroImageAlt } = Astro.props as Props;
 ---
 <article class="blog-card">
   {heroImage && (
     <a href={href} class="image">
-      <Image src={heroImage} alt="" width={420} height={236} />
+      <Image src={heroImage} alt={heroImageAlt ?? title} width={420} height={236} />
     </a>
   )}
   <div class="content">

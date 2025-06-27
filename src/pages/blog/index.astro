@@ -384,7 +384,7 @@ const allTags = Array.from(
                   width={300}
                   height={169}
                   src={post.data.heroImage}
-                  alt=""
+                  alt={post.data.heroImageAlt ?? post.data.title}
                 />
               </div>
             )}

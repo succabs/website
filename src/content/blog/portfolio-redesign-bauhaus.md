@@ -4,6 +4,7 @@ description: "How I redesigned my developer portfolio using Astro, Bauhaus desig
 pubDate: 2025-06-17
 tags: ["development"]
 heroImage: "../../assets/bauhaus.jpg"
+heroImageAlt: "Bauhaus-inspired geometric design"
 excerpt: "A breakdown of how I redesigned my portfolio site from a retro mess into a clean, Bauhaus-inspired digital home with the help of GenAI tools."
 ---
 

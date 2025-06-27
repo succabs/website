@@ -1,6 +1,7 @@
 ---
 title: "10 Reasons I Stopped Using Duolingo in 2025 After Nearly 2 Years"
 heroImage: "../../assets/duolingo.jpg"
+heroImageAlt: "Duolingo owl mascot"
 description: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
 author: "Arttu Nikkilä"
 excerpt: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
