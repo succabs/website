@@ -3,10 +3,24 @@
 import Layout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
+import { SITE_DESCRIPTION } from "../consts";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "arttu.net",
+  url: "https://arttu.net",
+  author: {
+    "@type": "Person",
+    name: "Arttu Nikkilä",
+    url: "https://arttu.net",
+  },
+  description: SITE_DESCRIPTION,
+};
 ---
 
 <style>
@@ -152,4 +166,9 @@ const posts = (await getCollection("blog"))
       <a href="/blog">See more posts →</a>
     </div>
   </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+  />
 </Layout>
