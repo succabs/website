@@ -31,47 +31,47 @@ const certifications = [
 
   <section>
     <h2>Languages</h2>
-    <ul class="skill-grid">
-      <li><span class="dot blue"></span> HTML5</li>
-      <li><span class="dot blue"></span> CSS3</li>
-      <li><span class="dot blue"></span> JavaScript</li>
-      <li><span class="dot blue"></span> TypeScript</li>
-      <li><span class="dot blue"></span> Liquid</li>
-      <li><span class="dot blue"></span> Python</li>
-      <li><span class="dot blue"></span> Java</li>
-    </ul>
+    <div class="tag-list">
+      <span class="tag blue">HTML5</span>
+      <span class="tag blue">CSS3</span>
+      <span class="tag blue">JavaScript</span>
+      <span class="tag blue">TypeScript</span>
+      <span class="tag blue">Liquid</span>
+      <span class="tag blue">Python</span>
+      <span class="tag blue">Java</span>
+    </div>
   </section>
 
   <section>
     <h2>Frameworks & Libraries</h2>
-    <ul class="skill-grid">
-      <li><span class="dot red"></span> React</li>
-      <li><span class="dot red"></span> Astro</li>
-      <li><span class="dot red"></span> jQuery</li>
-      <li><span class="dot red"></span> TailwindCSS</li>
-      <li><span class="dot red"></span> Bootstrap</li>
-      <li><span class="dot red"></span> Flask</li>
-    </ul>
+    <div class="tag-list">
+      <span class="tag red">React</span>
+      <span class="tag red">Astro</span>
+      <span class="tag red">jQuery</span>
+      <span class="tag red">TailwindCSS</span>
+      <span class="tag red">Bootstrap</span>
+      <span class="tag red">Flask</span>
+    </div>
   </section>
 
   <section>
     <h2>Tools & Other</h2>
-    <ul class="skill-grid">
-      <li><span class="dot yellow"></span> Git</li>
-      <li><span class="dot yellow"></span> VSCode</li>
-      <li><span class="dot yellow"></span> Docker</li>
-      <li><span class="dot yellow"></span> Google Analytics / GTM</li>
-      <li><span class="dot yellow"></span>Various CMP's</li>
-      <li><span class="dot yellow"></span> Linux</li>
-      <li><span class="dot yellow"></span> PostgreSQL</li>
-      <li><span class="dot yellow"></span> Node.js</li>
-      <li><span class="dot yellow"></span> Nginx</li>
-      <li><span class="dot yellow"></span> Vite</li>
-      <li><span class="dot yellow"></span> Figma</li>
-      <li><span class="dot yellow"></span> Jira</li>
-      <li><span class="dot yellow"></span> Teamwork</li>
-      <li><span class="dot yellow"></span> Microsoft Teams</li>
-    </ul>
+    <div class="tag-list">
+      <span class="tag yellow">Git</span>
+      <span class="tag yellow">VSCode</span>
+      <span class="tag yellow">Docker</span>
+      <span class="tag yellow">Google Analytics / GTM</span>
+      <span class="tag yellow">Various CMP's</span>
+      <span class="tag yellow">Linux</span>
+      <span class="tag yellow">PostgreSQL</span>
+      <span class="tag yellow">Node.js</span>
+      <span class="tag yellow">Nginx</span>
+      <span class="tag yellow">Vite</span>
+      <span class="tag yellow">Figma</span>
+      <span class="tag yellow">Jira</span>
+      <span class="tag yellow">Teamwork</span>
+      <span class="tag yellow">Microsoft Teams</span>
+    </div>
   </section>
 
   <section class="mt-16">
@@ -92,23 +92,13 @@ const certifications = [
   </section>
 
   <style>
-    .skill-grid {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem 2rem;
-      margin-top: 1em;
+    .tag-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       font-family: var(--font-heading);
       font-size: 1rem;
-    }
-    .dot {
-      display: inline-block;
-      width: 0.75em;
-      height: 0.75em;
-      border-radius: 50%;
-      margin-right: 0.5em;
-      vertical-align: middle;
     }
 
     .blue {
