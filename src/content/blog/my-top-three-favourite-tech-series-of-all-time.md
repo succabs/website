@@ -3,6 +3,7 @@ title: "Top 3 Tech Series Every Developer Should Watch"
 description: "Three essential tech series every developer should watch — drama, satire, and suspense from Halt and Catch Fire to Mr. Robot."
 pubDate: 2025-01-23
 heroImage: "../../assets/tech-series.jpg"
+heroImageAlt: "Logos from popular tech TV series"
 author: "Arttu Nikkilä"
 tags: ["hobbies", "personal"]
 excerpt: "I'm a huge fan of good TV series and technology. Here are my top 3 essential tech series every developer should watch — drama, satire, and suspense from Halt and Catch Fire to Mr. Robot."

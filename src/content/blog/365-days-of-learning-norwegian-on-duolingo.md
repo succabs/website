@@ -3,6 +3,7 @@ title: "What I Learned After 365 Days of Norwegian on Duolingo"
 description: "After a 365-day streak learning Norwegian (bokmål) on Duolingo, I share what worked, what didn’t, and whether the app can take you beyond the basics."
 pubDate: 2024-08-29
 heroImage: "../../assets/norway.jpg"
+heroImageAlt: "View of a Norwegian fjord"
 author: "Arttu Nikkilä"
 tags: ["learning", "personal"]
 excerpt: "A full year of daily Norwegian on Duolingo: 365 days of streaks, struggles, and shouting numbers at my phone while it refused to understand me. This isn’t just about learning a language; it’s about chasing dreams of fjords, Röyksopp, and maybe even a new life in Norway. Come for the insights, stay for the chaos."
