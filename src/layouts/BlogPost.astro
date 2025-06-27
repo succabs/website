@@ -23,6 +23,30 @@ const {
   readTime,
   tags = [],
 } = Astro.props as Props;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site ?? "https://arttu.net");
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: updatedDate?.toISOString(),
+  url: pageUrl.toString(),
+  image: heroImage
+    ? {
+        "@type": "ImageObject",
+        url: (Astro.site?.origin ?? "https://arttu.net") + heroImage.src,
+        width: heroImage.width,
+        height: heroImage.height,
+      }
+    : undefined,
+  author: {
+    "@type": "Person",
+    name: "Arttu Nikkilä",
+  },
+};
 ---
 
 <html lang="en">
@@ -258,6 +282,8 @@ const {
   <Footer />
   <ScrollTopButton />
 </body>
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
 <script is:inline>
   const banner = document.getElementById("cookie-banner");
