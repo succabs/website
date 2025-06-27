@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   );
-  const colors = ["blue", "red", "yellow"];
+  const colors = ["blue", "red"];
   return posts.map((post, idx) => ({
     params: { slug: post.id },
     props: { ...post, color: colors[idx % colors.length] },
