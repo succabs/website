@@ -3,7 +3,7 @@ title: "How I Rebuilt My Developer Portfolio With Bauhaus and Astro"
 description: "How I redesigned my developer portfolio using Astro, Bauhaus design principles, and help from GenAI tools."
 pubDate: 2025-06-17
 tags: ["development"]
-heroImage: "../../assets/blog-placeholder-4.jpg"
+heroImage: "../../assets/bauhaus.jpg"
 excerpt: "A breakdown of how I redesigned my portfolio site from a retro mess into a clean, Bauhaus-inspired digital home with the help of GenAI tools."
 ---
 
