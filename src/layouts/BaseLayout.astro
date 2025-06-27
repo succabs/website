@@ -3,19 +3,15 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ScrollTopButton from "../components/ScrollTopButton.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { SITE_TITLE } from "../consts";
 
 export interface Props {
   pageClass?: string;
   title?: string;
-  description?: string;
+  description: string;
 }
 
-const {
-  pageClass = "",
-  title = SITE_TITLE,
-  description = SITE_DESCRIPTION,
-} = Astro.props;
+const { pageClass = "", title = SITE_TITLE, description } = Astro.props;
 ---
 
 <!doctype html>
