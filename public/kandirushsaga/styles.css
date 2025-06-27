@@ -41,3 +41,20 @@ ul {
 .footer p {
   text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+  html,
+  body {
+    flex-direction: column;
+  }
+
+  .container {
+    padding-top: 1rem;
+  }
+
+  canvas {
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+  }
+}
