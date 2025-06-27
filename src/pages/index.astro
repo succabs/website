@@ -1,6 +1,12 @@
 ---
 // pages/index.astro
 import Layout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import BlogCard from "../components/BlogCard.astro";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
 <style>
@@ -49,9 +55,41 @@ import Layout from "../layouts/BaseLayout.astro";
       max-width: 300px;
     }
 
-    .intro-text {
-      text-align: left;
-    }
+  .intro-text {
+    text-align: left;
+  }
+  }
+
+  .latest-posts {
+    margin-top: 4rem;
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .see-more {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .see-more a {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-decoration: none;
+    border: 2px solid var(--accent);
+    padding: 0.5em 1em;
+    display: inline-block;
+  }
+
+  .see-more a:hover {
+    background: var(--accent);
+    color: var(--color-bg);
   }
 </style>
 <Layout
@@ -86,6 +124,26 @@ import Layout from "../layouts/BaseLayout.astro";
 
     <div class="intro-image">
       <img src="/me.jpg" alt="Arttu Nikkilä" />
+    </div>
+  </section>
+
+  <section class="latest-posts">
+    <h2>Latest Posts</h2>
+    <div class="post-grid">
+      {
+        posts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            date={post.data.pubDate}
+            excerpt={post.data.excerpt}
+            href={`/blog/${post.id}/`}
+            heroImage={post.data.heroImage}
+          />
+        ))
+      }
+    </div>
+    <div class="see-more">
+      <a href="/blog">See more posts →</a>
     </div>
   </section>
 </Layout>
