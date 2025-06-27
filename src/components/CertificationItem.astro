@@ -20,7 +20,8 @@ const { title, issuer, date, link } = Astro.props;
     {
       link ? (
         <a href={link} class="button" target="_blank" rel="noopener noreferrer">
-          View Certificate <span class="arrow">→</span>
+          View Certificate <span class="arrow" aria-hidden="true">↗</span>
+          <span class="sr-only">(opens in a new tab)</span>
         </a>
       ) : (
         <p class="no-link">No link available</p>
