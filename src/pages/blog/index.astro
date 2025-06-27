@@ -244,6 +244,10 @@ const allTags = Array.from(
         color: var(--color-text);
       }
 
+      .page-description {
+        margin: 0 0 1.5rem 0;
+      }
+
       .filter-buttons {
         display: flex;
         flex-wrap: wrap;
@@ -267,6 +271,20 @@ const allTags = Array.from(
         color: var(--color-bg);
       }
 
+      .sort-control {
+        margin-bottom: 2rem;
+      }
+
+      .sort-select {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        padding: 0.25em 0.5em;
+        border: 2px solid var(--color-text);
+        background: transparent;
+        color: var(--color-text);
+      }
+
       .pagination {
         margin-top: 2rem;
         display: flex;
@@ -284,6 +302,15 @@ const allTags = Array.from(
         cursor: pointer;
       }
 
+      .arrow-btn {
+        font-weight: bold;
+      }
+
+      .page-btn[disabled] {
+        opacity: 0.4;
+        cursor: default;
+      }
+
       .page-btn.active {
         background: var(--color-text);
         color: var(--color-bg);
@@ -296,7 +323,11 @@ const allTags = Array.from(
   <main class="content">
     <div class="corner-decoration top-left"></div>
     <div class="corner-decoration top-right"></div>
-    <h1>Blog index</h1>
+    <h1>Blog</h1>
+    <p class="page-description">
+      Occasional notes on tech, development and curious projects.
+    </p>
+    <hr />
     <div class="filter-buttons">
       <button class="filter-btn active" data-tag="all">All</button>
       {
@@ -307,12 +338,20 @@ const allTags = Array.from(
         ))
       }
     </div>
+    <div class="sort-control">
+      <label for="sort-select" class="sr-only">Sort posts</label>
+      <select id="sort-select" class="sort-select">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+    </div>
     <section class="posts-list">
       {
         posts.map((post, idx) => (
           <article
             class={`post-item post-${postColors[idx % postColors.length]}`}
             data-tags={(post.data.tags ?? []).join(",")}
+            data-date={post.data.pubDate.valueOf()}
           >
             <div class="post-content">
               <h2 class="post-title">
@@ -373,11 +412,23 @@ const allTags = Array.from(
   <script type="module">
     if (typeof window !== "undefined") {
       const postsPerPage = 5;
-      const posts = Array.from(document.querySelectorAll(".post-item"));
+      const postsList = document.querySelector(".posts-list");
+      let posts = Array.from(document.querySelectorAll(".post-item"));
       const filterButtons = document.querySelectorAll(".filter-btn");
       const pagination = document.querySelector(".pagination");
+      const sortSelect = document.getElementById("sort-select");
       let currentTag = "all";
       let currentPage = 1;
+      let sortOrder = "newest";
+
+      if (sortSelect) {
+        sortSelect.addEventListener("change", () => {
+          sortOrder = sortSelect.value;
+          sortPosts();
+          currentPage = 1;
+          update();
+        });
+      }
 
       filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -388,6 +439,15 @@ const allTags = Array.from(
           update();
         });
       });
+
+      function sortPosts() {
+        posts.sort((a, b) => {
+          const aDate = Number(a.dataset.date);
+          const bDate = Number(b.dataset.date);
+          return sortOrder === "newest" ? bDate - aDate : aDate - bDate;
+        });
+        posts.forEach((p) => postsList.appendChild(p));
+      }
 
       function update() {
         const visible = posts.filter((p) => {
@@ -400,6 +460,19 @@ const allTags = Array.from(
           Math.ceil(visible.length / postsPerPage)
         );
         pagination.innerHTML = "";
+
+        const prev = document.createElement("button");
+        prev.textContent = "\u2190";
+        prev.className = "page-btn arrow-btn";
+        prev.disabled = currentPage === 1;
+        prev.addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            update();
+          }
+        });
+        pagination.appendChild(prev);
+
         for (let i = 1; i <= totalPages; i++) {
           const b = document.createElement("button");
           b.textContent = String(i);
@@ -410,6 +483,18 @@ const allTags = Array.from(
           });
           pagination.appendChild(b);
         }
+
+        const next = document.createElement("button");
+        next.textContent = "\u2192";
+        next.className = "page-btn arrow-btn";
+        next.disabled = currentPage === totalPages;
+        next.addEventListener("click", () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            update();
+          }
+        });
+        pagination.appendChild(next);
         posts.forEach((p) => (p.style.display = "none"));
         visible.forEach((p, idx) => {
           const start = (currentPage - 1) * postsPerPage;
@@ -420,6 +505,7 @@ const allTags = Array.from(
         });
       }
 
+      sortPosts();
       update();
 
       const pageMap = {
