@@ -1,14 +1,29 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<'a'>;
+type Props = HTMLAttributes<"a">;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+
+// Ensure both href and pathname have trailing slashes
+const normalizedHref = href?.endsWith("/") ? href : href + "/";
+const normalizedPath = pathname.endsWith("/") ? pathname : pathname + "/";
+
+const isActive =
+  normalizedHref === normalizedPath ||
+  normalizedHref === "/" + (subpath?.[0] || "") + "/";
+
+// Special case for blog posts
+const isBlogPost =
+  normalizedHref === "/blog/" && normalizedPath.startsWith("/blog/");
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a
+  href={href}
+  class:list={[className, { active: isActive || isBlogPost }]}
+  {...props}
+>
+  <slot />
 </a>
