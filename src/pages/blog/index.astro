@@ -355,7 +355,7 @@ const allTags = Array.from(
           >
             <div class="post-content">
               <h2 class="post-title">
-                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                <a href={`/blog/${post.id}`}>{post.data.title}</a>
               </h2>
 
               {post.data.excerpt && (
@@ -374,7 +374,7 @@ const allTags = Array.from(
                 <FormattedDate date={post.data.pubDate} />
                 <span class="read-time"> 🕒 {post.data.readTime} min read</span>
               </p>
-              <a href={`/blog/${post.id}/`} class="read-more">
+              <a href={`/blog/${post.id}`} class="read-more">
                 Read More →
               </a>
             </div>

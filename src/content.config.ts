@@ -12,7 +12,6 @@ const blog = defineCollection({
       // Transform string to Date object
       pubDate: z.coerce.date(),
       excerpt: z.string().optional(), // ← tämä lisättiin
-
       updatedDate: z.coerce.date().optional(),
       heroImage: image().optional(),
       heroImageAlt: z.string().optional(),
