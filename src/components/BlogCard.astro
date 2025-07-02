@@ -11,16 +11,27 @@ export interface Props {
   heroImageAlt?: string;
 }
 
-const { title, date, href, excerpt, heroImage, heroImageAlt } = Astro.props as Props;
+const { title, date, href, excerpt, heroImage, heroImageAlt } =
+  Astro.props as Props;
 ---
+
 <article class="blog-card">
-  {heroImage && (
-    <a href={href} class="image">
-      <Image src={heroImage} alt={heroImageAlt ?? title} width={420} height={236} />
-    </a>
-  )}
+  {
+    heroImage && (
+      <a href={`${href.endsWith("/") ? href : href + "/"}`} class="image">
+        <Image
+          src={heroImage}
+          alt={heroImageAlt ?? title}
+          width={420}
+          height={236}
+        />
+      </a>
+    )
+  }
   <div class="content">
-    <h3 class="title"><a href={href}>{title}</a></h3>
+    <h3 class="title">
+      <a href={`${href.endsWith("/") ? href : href + "/"}`}>{title}</a>
+    </h3>
     {excerpt && <p class="excerpt">{excerpt}</p>}
     <p class="date"><FormattedDate date={date} /></p>
   </div>
