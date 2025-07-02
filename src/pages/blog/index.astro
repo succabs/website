@@ -67,25 +67,6 @@ const allTags = Array.from(
         text-align: left;
       }
 
-      ul li:first-child {
-        width: 100%;
-        text-align: center;
-      }
-
-      ul li:first-child img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        aspect-ratio: 16 / 9;
-        margin-bottom: 1rem;
-      }
-
-      ul li:first-child .title {
-        font-size: clamp(36px, 4vw, 56px);
-        font-weight: 700;
-        font-family: var(--font-heading);
-      }
-
       .title {
         margin: 0.5rem 0 0.25rem;
         font-size: 24px;
@@ -134,31 +115,6 @@ const allTags = Array.from(
 
       .post-yellow {
         --accent: var(--accent-yellow);
-      }
-
-      @media (max-width: 720px) {
-        ul {
-          gap: 32px;
-        }
-
-        ul li {
-          width: 100%;
-          text-align: left;
-          align-items: flex-start;
-        }
-
-        .post-item {
-          flex-direction: column;
-        }
-
-        .post-image {
-          width: 100%;
-          max-width: none;
-        }
-
-        ul li:first-child .title {
-          font-size: 32px;
-        }
       }
 
       .posts-list {
@@ -307,6 +263,28 @@ const allTags = Array.from(
         font-family: var(--font-heading);
         font-size: 0.75rem;
       }
+
+      @media (max-width: 720px) {
+        ul {
+          gap: 32px;
+        }
+
+        ul li {
+          width: 100%;
+          text-align: left;
+          align-items: flex-start;
+        }
+
+        .post-item {
+          flex-direction: column;
+          flex-direction: column-reverse;
+        }
+
+        .post-image {
+          width: 100%;
+          max-width: none;
+        }
+      }
     </style>
   </head>
 </html>
@@ -373,8 +351,8 @@ const allTags = Array.from(
             {post.data.heroImage && (
               <div class="post-image">
                 <Image
-                  width={300}
-                  height={169}
+                  width={800}
+                  height={450}
                   src={post.data.heroImage}
                   alt={post.data.heroImageAlt ?? post.data.title}
                 />
