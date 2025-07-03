@@ -1,12 +1,12 @@
 ---
 title: "Top 3 Tech Series Every Developer Should Watch"
-description: "Three essential tech series every developer should watch — drama, satire, and suspense from Halt and Catch Fire to Mr. Robot."
+description: "Three essential tech series every developer should watch - drama, satire, and suspense from Halt and Catch Fire to Mr. Robot."
 pubDate: 2025-01-23
 heroImage: "../../assets/tech-series.jpg"
 heroImageAlt: "Logos from popular tech TV series"
 author: "Arttu Nikkilä"
 tags: ["hobbies", "personal"]
-excerpt: "I'm a huge fan of good TV series and technology. Here are my top 3 essential tech series every developer should watch — drama, satire, and suspense from Halt and Catch Fire to Mr. Robot."
+excerpt: "I'm a huge fan of good TV series and technology. Here are my top 3 essential tech series every developer should watch - drama, satire, and suspense from Halt and Catch Fire to Mr. Robot."
 ---
 
 ## Introduction
@@ -40,10 +40,10 @@ Each of these series brings something unique to the table. "Halt and Catch Fire"
 ### Key Takeaways from These Tech Shows
 
 - The history of tech is as emotional and chaotic as it is innovative
-- Startup culture is both absurd and inspiring — and worth laughing at
-- Cybersecurity and surveillance aren’t just buzzwords — they’re modern realities
+- Startup culture is both absurd and inspiring - and worth laughing at
+- Cybersecurity and surveillance aren’t just buzzwords - they’re modern realities
 - Fictional stories can often teach more than technical blogs about what it means to build, fail, and persist
 
 ### What’s Next?
 
-I’m always on the lookout for tech-adjacent series that are both smart and well-written. If you have favorites I didn’t mention — reach out. I might just binge them and write a follow-up.
+I’m always on the lookout for tech-adjacent series that are both smart and well-written. If you have favorites I didn’t mention - reach out. I might just binge them and write a follow-up.

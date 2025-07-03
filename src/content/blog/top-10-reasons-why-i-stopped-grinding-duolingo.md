@@ -2,9 +2,9 @@
 title: "10 Reasons I Stopped Using Duolingo in 2025 After Nearly 2 Years"
 heroImage: "../../assets/duolingo.jpg"
 heroImageAlt: "Duolingo owl mascot"
-description: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
+description: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit - from AI-generated content to gamification burnout."
 author: "Arttu Nikkilä"
-excerpt: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit — from AI-generated content to gamification burnout."
+excerpt: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit - from AI-generated content to gamification burnout."
 pubDate: 2025-06-26
 tags: ["learning", "personal"]
 ---
@@ -62,7 +62,7 @@ Duolingo isn’t useless - it gave me a solid foundation in Norwegian, and for t
 - Duolingo can be useful for beginners, but falls short for long-term learners
 - Gamification loses impact over time if not backed by meaningful learning
 - Pressure to upgrade and declining quality reduced its value
-- Language learning needs variety and depth — not just daily streaks
+- Language learning needs variety and depth - not just daily streaks
 
 ## What’s Next?
 

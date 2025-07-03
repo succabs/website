@@ -1,6 +1,6 @@
 ---
 title: "The Most Beautiful Wall Charger I Own (And Why It Matters)"
-description: "A love letter to a surprisingly well-designed circular wall charger that disappears into the socket — and why that’s a big deal."
+description: "A love letter to a surprisingly well-designed circular wall charger that disappears into the socket - and why that’s a big deal."
 pubDate: 2025-07-02
 heroImage: ../../assets/wall_socket.jpg
 excerpt: "Most chargers are boring plastic bricks. Mine isn’t. Here’s why I think this little round thing is a small masterpiece."
@@ -11,7 +11,7 @@ tags: ["tech", "personal"]
 
 **Introduction: Yes, I'm Writing About a Charger**
 
-Let’s be honest: most wall chargers are ugly. Big plastic bricks, clunky prongs, awkward angles — they do their job, but they’re not exactly elegant. You’ve probably never looked at one and thought: “Damn, that's a nice charger.”
+Let’s be honest: most wall chargers are ugly. Big plastic bricks, clunky prongs, awkward angles - they do their job, but they’re not exactly elegant. You’ve probably never looked at one and thought: “Damn, that's a nice charger.”
 
 I have. And I’m here to explain why.
 
@@ -31,7 +31,7 @@ They’re:
 - Visually intrusive
 - Designed to be manufactured, not lived with
 
-They hang off the socket, take up unnecessary space, and seem like something you just tolerate — not something you’d pick.
+They hang off the socket, take up unnecessary space, and seem like something you just tolerate - not something you’d pick.
 
 ---
 
@@ -49,7 +49,7 @@ It’s:
 - Minimal
 - Just the size of the socket itself
 
-There’s no branding. No sharp edges. No blinking lights. It disappears into the wall in the best way possible — and when it doesn't, it looks like it belongs.
+There’s no branding. No sharp edges. No blinking lights. It disappears into the wall in the best way possible - and when it doesn't, it looks like it belongs.
 
 Where did I get it? Well, someone left it to my house after a party _years_ ago. Tried to find the owner, couldn't. Maybe it was meant to be?
 
@@ -61,7 +61,7 @@ While researching the model of this charger, I also found out they have made a t
 
 ### **Why This Matters More Than It Should**
 
-You might think: who cares? It's a charger. But there's something about functional objects being well-designed that makes daily life a little smoother — and a little nicer.
+You might think: who cares? It's a charger. But there's something about functional objects being well-designed that makes daily life a little smoother - and a little nicer.
 
 This charger:
 
@@ -78,7 +78,7 @@ It’s one of those rare tech things that just _gets out of the way_. And that�
 
 There's something Bauhaus-adjacent here: minimalism not for trend, but for practicality.
 
-The round shape isn't just cute — it solves problems:
+The round shape isn't just cute - it solves problems:
 
 - Compactness
 - Fit
@@ -90,7 +90,7 @@ This is what happens when industrial design is treated with care. Not just: “m
 
 ### **Conclusion: Small Joys, Big Impact**
 
-It’s easy to get obsessed with high-end gadgets. Phones, monitors, headsets. But sometimes, it’s the quiet tools — like a wall charger — that show you how good design should feel.
+It’s easy to get obsessed with high-end gadgets. Phones, monitors, headsets. But sometimes, it’s the quiet tools - like a wall charger - that show you how good design should feel.
 
 So yes. I have a favorite wall charger.  
 And now, maybe, you do too.
