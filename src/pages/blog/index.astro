@@ -244,26 +244,36 @@ const allTags = Array.from(
       .pagination {
         margin-top: 2rem;
         display: flex;
-        flex-direction: column;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        flex-direction: row;
         align-items: center;
-        gap: 1rem;
+        justify-content: center;
       }
 
-      .load-more-btn {
+      .page-btn {
         font-family: var(--font-heading);
         font-size: 0.75rem;
-        padding: 0.5em 1em;
+        padding: 0.25em 0.5em;
         border: 2px solid var(--color-text);
         background: transparent;
         color: var(--color-text);
         cursor: pointer;
       }
 
-      .end-message {
-        font-family: var(--font-heading);
-        font-size: 0.75rem;
+      .arrow-btn {
+        font-weight: bold;
       }
 
+      .page-btn[disabled] {
+        opacity: 0.4;
+        cursor: default;
+      }
+
+      .page-btn.active {
+        background: var(--color-text);
+        color: var(--color-bg);
+      }
       @media (max-width: 720px) {
         ul {
           gap: 32px;
@@ -362,13 +372,7 @@ const allTags = Array.from(
         ))
       }
     </section>
-    <div class="pagination">
-      <button id="load-more-btn" class="load-more-btn">Load more posts</button>
-      <div id="end-message" class="end-message" style="display:none;">
-        All posts are shown.
-      </div>
-    </div>
-    <div id="load-more-trigger"></div>
+    <div class="pagination"></div>
   </main>
   <div id="cookie-banner" class="cookie-banner">
     <div>
@@ -391,19 +395,18 @@ const allTags = Array.from(
       const postsList = document.querySelector(".posts-list");
       let posts = Array.from(document.querySelectorAll(".post-item"));
       const filterButtons = document.querySelectorAll(".filter-btn");
-      const loadMoreBtn = document.getElementById("load-more-btn");
-      const endMessage = document.getElementById("end-message");
-      const loadTrigger = document.getElementById("load-more-trigger");
+      const pagination = document.querySelector(".pagination");
       const sortSelect = document.getElementById("sort-select");
       let currentTag = "all";
+      let currentPage = 1;
       let sortOrder = "newest";
-      let itemsShown = postsPerPage;
 
       if (sortSelect) {
         sortSelect.addEventListener("change", () => {
           sortOrder = sortSelect.value;
           sortPosts();
-          resetAndUpdate();
+          currentPage = 1;
+          update();
         });
       }
 
@@ -412,7 +415,8 @@ const allTags = Array.from(
           filterButtons.forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
           currentTag = btn.dataset.tag || "all";
-          resetAndUpdate();
+          currentPage = 1;
+          update();
         });
       });
 
@@ -431,41 +435,55 @@ const allTags = Array.from(
           const tags = p.dataset.tags ? p.dataset.tags.split(",") : [];
           return tags.includes(currentTag);
         });
+        const totalPages = Math.max(
+          1,
+          Math.ceil(visible.length / postsPerPage)
+        );
+        pagination.innerHTML = "";
 
-        posts.forEach((p) => (p.style.display = "none"));
-        visible.slice(0, itemsShown).forEach((p) => (p.style.display = ""));
+        const prev = document.createElement("button");
+        prev.textContent = "\u2190";
+        prev.className = "page-btn arrow-btn";
+        prev.disabled = currentPage === 1;
+        prev.addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            update();
+          }
+        });
+        pagination.appendChild(prev);
 
-        if (itemsShown >= visible.length) {
-          loadMoreBtn.style.display = "none";
-          endMessage.style.display = visible.length ? "block" : "none";
-        } else {
-          loadMoreBtn.style.display = "block";
-          endMessage.style.display = "none";
-        }
-      }
-
-      function resetAndUpdate() {
-        itemsShown = postsPerPage;
-        update();
-      }
-
-      loadMoreBtn?.addEventListener("click", () => {
-        itemsShown += postsPerPage;
-        update();
-      });
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && loadMoreBtn?.style.display !== "none") {
-              itemsShown += postsPerPage;
-              update();
-            }
+        for (let i = 1; i <= totalPages; i++) {
+          const b = document.createElement("button");
+          b.textContent = String(i);
+          b.className = "page-btn" + (i === currentPage ? " active" : "");
+          b.addEventListener("click", () => {
+            currentPage = i;
+            update();
           });
-        },
-        { rootMargin: "0px 0px 200px 0px" }
-      );
-      if (loadTrigger) observer.observe(loadTrigger);
+          pagination.appendChild(b);
+        }
+
+        const next = document.createElement("button");
+        next.textContent = "\u2192";
+        next.className = "page-btn arrow-btn";
+        next.disabled = currentPage === totalPages;
+        next.addEventListener("click", () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            update();
+          }
+        });
+        pagination.appendChild(next);
+        posts.forEach((p) => (p.style.display = "none"));
+        visible.forEach((p, idx) => {
+          const start = (currentPage - 1) * postsPerPage;
+          const end = start + postsPerPage;
+          if (idx >= start && idx < end) {
+            p.style.display = "";
+          }
+        });
+      }
 
       sortPosts();
       update();
