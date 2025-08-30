@@ -1,103 +1,286 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import ExperienceItem from "../components/ExperienceItem.astro";
+import CertificationItem from "../components/CertificationItem.astro";
+import { Icon } from "astro-icon/components";
+
+const certifications = [
+  {
+    title: "Google Analytics Certification",
+    issuer: "Skillshop",
+    date: "August 26, 2026",
+    link: "https://skillshop.credential.net/e2cfdcba-1898-4ffb-918d-baea0ccc8916",
+  },
+  {
+    title: "Channable Feed Management",
+    issuer: "Channable",
+    date: "August 22, 2026",
+    link: "https://www.credential.net/2a263c35-11c0-442b-b97f-ccb696729331#gs.e5zz7z",
+  },
+  {
+    title: "Channable Marketplaces",
+    issuer: "Channable",
+    date: "August 22, 2026",
+    link: "https://www.credential.net/ffda8096-9cea-44c6-8f1a-52e93ba71c07#acc.3YLo9yEx",
+  },
+];
 ---
 
 <Layout
   title="Experience"
-  description="Contains information of experience related to IT I have gathered through work and education."
-  pageClass="page-blue"
+  description="Work, education, certifications, and skills: all the relevant IT experience I've built so far."
+  pageClass="page-red"
 >
   <h1>Experience</h1>
 
-  <p>Roles and studies that shaped my path in tech.</p>
+  <p class="full-width">
+    Work, education, certifications, and skills: all the relevant IT experience
+    I've built thorough my life.
+  </p>
 
   <hr />
 
-  <h2>📈 Work</h2>
+  <section>
+    <h2 id="work">📈 Work</h2>
 
-  <ExperienceItem
-    title="Developer"
-    place="Woolman"
-    timeframe="March 2024 – Present"
-    tech={["Liquid", "HTML", "CSS", "JS", "React", "GraphQL", "REST"]}
-    tools={[
-      "Git",
-      "Teams",
-      "Slack",
-      "Jira",
-      "Teamwork",
-      "ChatGPT",
-      "Cursor",
-      "Copilot",
-    ]}
-  >
-    <ul>
-      <li>
-        Built custom Shopify themes with Liquid, HTML, CSS, JS, and React.
-      </li>
-      <li>Implemented analytics setups using GTM, GA4, Piwik, and CMPs.</li>
-      <li>Worked on both solo builds and larger team projects.</li>
-      <li>
-        Integrated REST and GraphQL APIs for store features and 3rd-party tools.
-      </li>
-      <li>
-        Used tools like ChatGPT, Cursor, and CoPilot daily to improve workflow.
-      </li>
-    </ul>
-  </ExperienceItem>
+    <ExperienceItem
+      title="Developer"
+      place="Woolman"
+      timeframe="March 2024 – Present"
+      tech={["Liquid", "HTML", "CSS", "JS", "React", "GraphQL", "REST"]}
+      tools={[
+        "Git",
+        "Teams",
+        "Slack",
+        "Jira",
+        "Teamwork",
+        "ChatGPT",
+        "Cursor",
+        "Copilot",
+      ]}
+    >
+      <ul>
+        <li>
+          Built custom Shopify themes with Liquid, HTML, CSS, JS, and React.
+        </li>
+        <li>Implemented analytics setups using GTM, GA4, Piwik, and CMPs.</li>
+        <li>Worked on both solo builds and larger team projects.</li>
+        <li>
+          Integrated REST and GraphQL APIs for store features and 3rd-party
+          tools.
+        </li>
+        <li>
+          Used tools like ChatGPT, Cursor, and CoPilot daily to improve
+          workflow.
+        </li>
+      </ul>
+    </ExperienceItem>
 
-  <hr />
+    <ExperienceItem
+      title="Junior Developer"
+      place="Woolman"
+      timeframe="September 2023 – March 2024"
+      tech={["Liquid", "HTML", "CSS", "JS", "REST"]}
+      tools={["Git", "Teams", "Slack", "Jira", "Teamwork", "ChatGPT"]}
+    >
+      <ul>
+        <li>Joined via Saranen Developer Academy after B.Sc. graduation.</li>
+        <li>Started hands-on with Liquid, JS, HTML, and CSS from day one.</li>
+        <li>Worked on both projects and support tasks.</li>
+        <li>
+          Learned the Shopify ecosystem and agency workflows under solid
+          mentorship.
+        </li>
+        <li>Moved from junior to core contributor in under 6 months.</li>
+      </ul>
+    </ExperienceItem>
+  </section>
 
-  <ExperienceItem
-    title="Junior Developer"
-    place="Woolman"
-    timeframe="September 2023 – March 2024"
-    tech={["Liquid", "HTML", "CSS", "JS", "REST"]}
-    tools={["Git", "Teams", "Slack", "Jira", "Teamwork", "ChatGPT"]}
-  >
-    <ul>
-      <li>Joined via Saranen Developer Academy after B.Sc. graduation.</li>
-      <li>Started hands-on with Liquid, JS, HTML, and CSS from day one.</li>
-      <li>Worked on both projects and support tasks.</li>
-      <li>
-        Learned the Shopify ecosystem and agency workflows under solid
-        mentorship.
-      </li>
-      <li>Moved from junior to core contributor in under 6 months.</li>
-    </ul>
-  </ExperienceItem>
+  <section>
+    <h2 id="education">🎓 Education</h2>
 
-  <hr />
+    <ExperienceItem
+      title="M.Sc. in Education Technology"
+      place="University of Jyväskylä"
+      timeframe="September 2025 - Present"
+    >
+      <ul>
+        <li>
+          Studying towards becoming a Technical Specialist in Education
+          Technology alongside full-time work.
+        </li>
+      </ul>
+    </ExperienceItem>
 
-  <h2>🎓 Education</h2>
+    <ExperienceItem
+      title="B.Sc. in Mathematical Information Technology"
+      place="University of Jyväskylä"
+      timeframe="September 2016 - June 2023"
+    >
+      <ul>
+        <li><strong>Major:</strong> Computer Science</li>
+        <li><strong>Minor:</strong> Psychology</li>
+        <li>
+          <strong>Thesis:</strong>
+          <a
+            href="https://jyx.jyu.fi/handle/123456789/81727"
+            target="_blank"
+            rel="noopener noreferrer">Esoteric Programming Languages</a
+          >
+        </li>
+      </ul>
+    </ExperienceItem>
+  </section>
 
-  <ExperienceItem
-    title="M.Sc. in Education Technology"
-    place="University of Jyväskylä"
-    timeframe="starting in September 2025"
-  >
-    <ul>
-      <li>TBD</li>
-    </ul>
-  </ExperienceItem>
+  <section>
+    <h2>✅ Certifications</h2>
 
-  <ExperienceItem
-    title="B.Sc. in Mathematical Information Technology"
-    place="University of Jyväskylä"
-    timeframe="September 2016 - June 2023"
-  >
-    <ul>
-      <li><strong>Major:</strong> Computer Science</li>
-      <li><strong>Minor:</strong> Psychology</li>
-      <li>
-        <strong>Thesis:</strong>
-        <a
-          href="https://jyx.jyu.fi/handle/123456789/81727"
-          target="_blank"
-          rel="noopener noreferrer">Esoteric Programming Languages</a
-        >
-      </li>
-    </ul>
-  </ExperienceItem>
+    <div class="certifications-grid">
+      {
+        certifications.map((cert) => (
+          <CertificationItem
+            title={cert.title}
+            issuer={cert.issuer}
+            date={cert.date}
+            link={cert.link}
+          />
+        ))
+      }
+    </div>
+  </section>
+  <section>
+    <h2>⚙️ Skills</h2>
+
+    <h3 class="normal">Frontend</h3>
+    <div class="tag-list">
+      <span class="tag blue"><Icon name="logos:html-5" /> HTML5</span>
+      <span class="tag blue"><Icon name="logos:css-3" />CSS3</span>
+      <span class="tag blue"><Icon name="logos:javascript" />JavaScript</span>
+      <span class="tag blue"><Icon name="devicon:typescript" />TypeScript</span>
+      <span class="tag blue"
+        ><Icon name="vscode-icons:file-type-liquid" />Liquid</span
+      >
+      <span class="tag blue"><Icon name="logos:react" />React</span>
+      <span class="tag blue"><Icon name="devicon:astro" />Astro</span>
+      <span class="tag blue"><Icon name="devicon:jquery" />jQuery</span>
+      <span class="tag blue"
+        ><Icon name="devicon:tailwindcss" />TailwindCSS</span
+      >
+      <span class="tag blue"><Icon name="logos:bootstrap" />Bootstrap</span>
+      <span class="tag blue"><Icon name="devicon:vite" />Vite</span>
+    </div>
+
+    <h3 class="normal">Backend</h3>
+    <div class="tag-list">
+      <span class="tag red"><Icon name="devicon:python" />Python</span>
+      <span class="tag red"><Icon name="devicon:flask" />Flask</span>
+      <span class="tag red"><Icon name="devicon:nodejs" />Node.js</span>
+      <span class="tag red"><Icon name="devicon:mysql" />SQL</span>
+      <span class="tag red"><Icon name="logos:nginx" />Nginx</span>
+    </div>
+
+    <h3 class="normal">Tools & DevOps</h3>
+    <div class="tag-list">
+      <span class="tag blue"><Icon name="devicon:git" />Git</span>
+      <span class="tag blue"><Icon name="devicon:vscode" />VSCode</span>
+      <span class="tag blue"><Icon name="devicon:docker" />Docker</span>
+      <span class="tag blue"><Icon name="devicon:linux" />Linux</span>
+      <span class="tag blue"><Icon name="devicon:azure" />Azure DevOps</span>
+      <span class="tag blue"><Icon name="devicon:jira" />Jira</span>
+      <span class="tag blue"><Icon name="logos:teamwork-icon" />Teamwork</span>
+      <span class="tag blue"
+        ><Icon name="logos:microsoft-teams" />Microsoft Teams</span
+      >
+      <span class="tag blue"><Icon name="logos:shopify" />Shopify</span>
+    </div>
+
+    <h3 class="normal">Analytics & Marketing Tech</h3>
+    <div class="tag-list">
+      <span class="tag red"
+        ><Icon name="logos:google-analytics" />Google Analytics</span
+      >
+      <span class="tag red"
+        ><Icon name="logos:google-tag-manager" />Google Tag Manager</span
+      >
+      <span class="tag red">🍪 Consent Management</span>
+      <span class="tag red">Channable</span>
+    </div>
+  </section>
+
+  <style>
+    .full-width {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .blue {
+      border: 2px solid var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    .red {
+      border: 2px solid var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    section h3 {
+      margin-bottom: 2rem; /* tilaa otsikon ja listan väliin */
+      margin-top: 2rem;
+    }
+
+    .normal {
+      text-transform: none;
+    }
+
+    section + section {
+      margin-top: 3rem; /* väli lohkojen väliin */
+    }
+
+    .certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .certification-card {
+      border: 2px solid var(--color-text);
+      padding: 1.5rem;
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+      background-color: var(--color-bg);
+    }
+
+    .certification-card:hover {
+      transform: scale(1.02);
+    }
+
+    .certification-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .certification-meta {
+      font-size: 0.9rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .certification-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-weight: bold;
+      color: var(--accent-blue);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent-blue);
+    }
+
+    .certification-link:hover {
+      color: var(--color-text);
+      border-color: var(--color-text);
+    }
+  </style>
 </Layout>
