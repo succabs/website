@@ -73,8 +73,6 @@ h1 {
   font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1;
   font-weight: 700;
-  text-align: right;
-  margin: 0 0 4.5rem 0;
 }
 h2 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
@@ -167,7 +165,6 @@ hr {
   h1 {
     height: 60px;
     line-height: 60px;
-    margin: 0 1rem 3rem 0;
   }
 }
 

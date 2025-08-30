@@ -294,14 +294,14 @@ const allTags = Array.from(
 <body class="page-blog page-blue">
   <Header />
   <main class="content">
-    <div class="corner-decoration top-left"></div>
-    <div class="corner-decoration top-right"></div>
-    <h1>Blog</h1>
+    <h1>Blog Index</h1>
     <p class="page-description">
-      Occasional notes on tech, development, life and curious projects.
+      From here you can find my occasional notes on tech, development, life and
+      curious projects.
     </p>
     <hr />
     <div class="filter-buttons">
+      <span>Filter by tag:</span>
       <button class="filter-btn active" data-tag="all">All</button>
       {
         allTags.map((tag) => (
@@ -312,12 +312,14 @@ const allTags = Array.from(
       }
     </div>
     <div class="sort-control">
+      <span>Sort by:</span>
       <label for="sort-select" class="sr-only">Sort posts</label>
       <select id="sort-select" class="sort-select">
         <option value="newest">Newest first</option>
         <option value="oldest">Oldest first</option>
       </select>
     </div>
+    <hr />
     <section class="posts-list">
       {
         posts.map((post, idx) => (
