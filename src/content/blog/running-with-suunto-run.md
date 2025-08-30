@@ -5,7 +5,7 @@ pubDate: 2025-08-30
 heroImage: "../../assets/running.jpg"
 heroImageAlt: "Runner's legs"
 author: "Arttu Nikkilä"
-tags: ["personal"]
+tags: ["personal", "hobbies"]
 excerpt: "After nearly ten years away from running, I bought the Suunto Run sports watch. Here's how it motivated me to get back into shape and why it's perfect for beginners."
 ---
 
