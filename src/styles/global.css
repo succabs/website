@@ -280,11 +280,30 @@ body {
   color: var(--color-bg);
 }
 
+.tag-list {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .tag {
-  background: var(--accent);
-  color: white;
+  border: 2px solid var(--accent);
+  color: var(--accent);
   font-size: 0.75rem;
   padding: 0.35em 0.75em;
   white-space: nowrap;
   border-radius: 4px;
+  gap: 0.4em; /* space between icon and text */
+  display: inline-flex;
+  align-items: center; /* centers icon + text vertically */
+  gap: 0.4em; /* space between icon and text */
+  padding: 0.3em 0.6em;
+  border-radius: 0.4em;
+  font-size: 0.9rem;
+}
+.tag svg,
+.tag i {
+  width: 1em;
+  height: 1em;
 }
