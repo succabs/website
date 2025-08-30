@@ -308,3 +308,8 @@ body {
 ul {
   padding-inline: 20px;
 }
+
+.full-width {
+  width: 100%;
+  max-width: 100%;
+}
