@@ -304,3 +304,7 @@ body {
   width: 1em;
   height: 1em;
 }
+
+ul {
+  padding-inline: 20px;
+}
