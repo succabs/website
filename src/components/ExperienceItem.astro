@@ -9,7 +9,8 @@ interface Props {
 const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
 ---
 
-<section class="experience-item">
+<section class="experience-item work">
+  <!-- or study -->
   <h3>{title}</h3>
   <h4>@{place}</h4>
   {
@@ -32,7 +33,6 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
       </div>
     )
   }
-
   {
     tools.length > 0 && (
       <div class="tags">
@@ -49,61 +49,107 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
 
 <style>
   .experience-item {
-    border: 2px solid var(--accent);
-    border-radius: 0rem;
-    padding: 2rem;
-    margin-block: 3rem;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
-    transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
+    position: relative;
+    background: var(--accent-paper);
+    color: var(--color-outlines);
+    border: 3px solid #111;
+    border-radius: 0;
+    padding: 1.5rem 1.5rem 1.25rem;
+    margin-block: 2.25rem;
+    box-shadow: none;
+    transition: transform 0.12s ease;
   }
-
   .experience-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
   }
 
+  /* top spine bar */
+  .experience-item::before {
+    content: "";
+    position: absolute;
+    left: -3px;
+    right: -3px;
+    top: -3px;
+    height: 10px;
+    background: #111; /* default if no modifier */
+  }
+  .experience-item.work::before {
+    background: var(--accent);
+  } /* red */
+  .experience-item.study::before {
+    background: var(--color-headings);
+  } /* indigo */
+
+  /* headings */
   .experience-item h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-    color: var(--color-text);
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 1.35rem;
+    line-height: 1.1;
+    margin: 0.25rem 0 0.35rem;
+    color: #111; /* anchor the title */
   }
-
   .experience-item h4 {
-    font-size: 1rem;
-    font-weight: 500;
-    font-style: italic;
-    margin-bottom: 0.5rem;
-  }
-
-  .experience-item p strong {
-    color: var(--accent);
+    font-size: 0.95rem;
     font-weight: 600;
+    font-style: italic;
+    margin: 0 0 0.4rem;
+    opacity: 0.95;
   }
 
+  /* timeframe */
+  .experience-item p {
+    margin: 0 0 0.6rem;
+  }
+  .experience-item p strong {
+    color: #111;
+  }
+
+  /* list */
   .experience-item ul {
-    margin: 1rem 0;
-    padding-left: 1.25rem;
-    list-style-type: disc;
+    margin: 0.6rem 0 0.2rem;
+    padding-left: 1.1rem;
+  }
+  .experience-item li {
+    margin: 0.28rem 0;
   }
 
-  .experience-item ul li {
-    margin-bottom: 0.5rem;
+  /* tags/chips */
+  .tags {
+    margin-top: 0.8rem;
+  }
+  .tags > strong {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+  }
+  .tag {
+    border: 2px solid #111;
+    padding: 0.15rem 0.45rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    background: transparent;
   }
 
+  /* links inside card */
   .experience-item a {
     text-decoration: underline;
-    text-underline-offset: 3px;
+    text-underline-offset: 2px;
   }
 
+  /* mobile */
   @media (max-width: 720px) {
     .experience-item {
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
-
     .experience-item h3 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
   }
 </style>

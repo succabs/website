@@ -5,32 +5,17 @@
  */
 
 :root {
-  --color-bg: #faf8f4;
-  --color-text: #1a1a1a;
-  --color-gray: #bdbdbd;
-  --accent-red: #c62828;
-  --accent-blue: #1565c0;
-  --accent-yellow: #f9a825;
-  --accent-brown: #795548;
-  --accent: var(--accent-blue);
+  --color-bg: #2575b9;
+  --color-headings: #f8f4e6;
+  --color-outlines: #111111;
+  --color-text: #f8f4e6;
+  --accent: #ef4444;
+  --accent-beige: #e5d0a6;
+  --accent-paper: #f8f4e6;
   --max-width: 1200px;
+  --font-heading: "Anton";
 }
 
-/* Generic page color classes */
-.page-red {
-  --accent: var(--accent-red);
-  --corner-color: var(--accent-red);
-}
-
-.page-blue {
-  --accent: var(--accent-blue);
-  --corner-color: var(--accent-blue);
-}
-
-.page-yellow {
-  --accent: var(--accent-yellow);
-  --corner-color: var(--accent-yellow);
-}
 body {
   font-family: "Inter", sans-serif;
   margin: 0;
@@ -63,16 +48,18 @@ h4,
 h5,
 h6 {
   margin: 0 0 0.5rem 0;
-  color: var(--color-text);
+  color: var(--color-headings);
   line-height: 1.2;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 h1 {
   font-size: clamp(2rem, 5vw, 4rem);
   line-height: 1;
-  font-weight: 700;
+  font-weight: 500;
 }
 h2 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
@@ -97,12 +84,55 @@ strong,
 b {
   font-weight: 700;
 }
+
+/* links on blue background (default) */
 a {
-  color: var(--accent);
+  color: var(--accent-paper); /* cream text */
+  text-decoration: underline;
+  text-decoration-color: var(--color-outlines); /* softer than pure black */
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px; /* was tight; now comfy */
+  transition: text-decoration-color 0.15s ease;
 }
 a:hover {
-  color: var(--accent);
+  text-decoration-color: var(--accent); /* red underline on hover */
 }
+
+/* links on cream cards */
+.on-paper a,
+.experience-item a,
+.bauhaus-card a,
+.project-section a {
+  color: var(--color-outlines);
+  text-decoration-color: var(--color-outlines);
+  text-underline-offset: 3px;
+}
+.on-paper a:hover,
+.experience-item a:hover,
+.bauhaus-card a:hover,
+.project-section a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* global focus ring */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+.selectable:focus-visible {
+  outline: 3px solid var(--accent-paper); /* cream */
+  outline-offset: 2px;
+}
+
+/* when the background is cream, switch to ink so it remains visible */
+.on-paper a:focus-visible,
+.experience-item a:focus-visible,
+.bauhaus-card a:focus-visible,
+.project-section a:focus-visible,
+.on-paper button:focus-visible {
+  outline-color: var(--color-outlines); /* black */
+}
+
 p {
   margin-bottom: 1em;
   max-width: 65ch;
@@ -147,13 +177,64 @@ blockquote {
   margin: 2rem 0;
   padding-left: 20px;
 }
+/* Base reset */
 hr {
-  border: none;
-  height: 4px;
-  width: 160px;
-  background: var(--accent);
-  margin: 3rem auto;
+  border: 0;
+  padding: 0;
 }
+
+/* Config knobs (tweak if needed) */
+:root {
+  --hr-height: 10px;
+  --hr-margin: 2.5rem;
+  --hr-red-size: 160px; /* length of the red segment */
+}
+
+/* Shared base: full-width black bar */
+.hr-1,
+.hr-2,
+.hr-3 {
+  position: relative;
+  height: var(--hr-height);
+  width: 100%;
+  background: #111;
+  margin: var(--hr-margin) 0;
+}
+
+/* Red on the RIGHT */
+.hr-1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: var(--hr-red-size);
+  background: var(--accent);
+}
+
+/* Red on the LEFT */
+.hr-2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--hr-red-size);
+  background: var(--accent);
+}
+
+/* Red in the MIDDLE */
+.hr-3::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: var(--hr-red-size);
+  background: var(--accent);
+}
+
 @media (max-width: 720px) {
   body {
     font-size: 16px;
@@ -196,7 +277,7 @@ main.content {
   height: 60px;
   z-index: 1;
   pointer-events: none;
-  background-color: var(--corner-color);
+  background-color: var(--accent);
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 

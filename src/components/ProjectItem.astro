@@ -27,14 +27,37 @@ const { title, tech = [], reverse = false } = Astro.props;
 </section>
 
 <style>
+  /* --- PROJECT CARD CONTAINER --- */
   .project-section {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    margin-block: 4rem;
+    gap: 2.5rem;
     align-items: center;
+
+    background: var(--accent-paper); /* cream */
+    color: var(--color-outlines); /* ink on paper */
+    border: 3px solid #111;
+    padding: 1.25rem 1.5rem;
+    margin-block: 3rem;
+    transition: transform 0.12s ease;
+  }
+  .project-section:hover {
+    transform: translateY(-3px);
   }
 
+  /* top red spine */
+  .project-section::before {
+    content: "";
+    position: absolute;
+    left: -3px;
+    right: -3px;
+    top: -3px;
+    height: 10px;
+    background: var(--accent);
+  }
+
+  /* reverse keeps working */
   .project-section.reverse {
     direction: rtl;
   }
@@ -42,38 +65,116 @@ const { title, tech = [], reverse = false } = Astro.props;
     direction: ltr;
   }
 
+  /* --- TEXT AREA --- */
   .project-text {
     max-width: 65ch;
   }
 
+  .project-text h2 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 1.35rem;
+    line-height: 1.1;
+    margin: 0.25rem 0 0.5rem;
+    color: var(--color-outlines);
+  }
+
+  /* small meta labels like “Code:” “Live:” */
+  .project-text p > strong {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    margin-right: 0.35rem;
+  }
+
+  /* turn links in label paragraphs into buttons (Chrome/Firefox/Safari support :has) */
+  .project-text p:has(strong) a {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+    border: 2px solid #111;
+    color: var(--color-outlines);
+    background: transparent;
+    text-decoration: none;
+    margin-right: 0.5rem;
+  }
+  .project-text p:has(strong) a:hover {
+    background: #111;
+    color: #fff;
+  }
+
+  /* Make “Live” the primary (red) if you keep that word in the strong label */
+  .project-text p:has(strong:contains("Live")) a {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .project-text p:has(strong:contains("Live")) a:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* chips – reuse your poster chip look */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+  .tag {
+    border: 2px solid #111;
+    padding: 0.15rem 0.45rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    background: transparent;
+    color: var(--color-outlines);
+  }
+  .tag:hover {
+    background: var(--accent-paper);
+  }
+
+  /* --- VISUAL AREA --- */
   .project-visual {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
-  .project-svg {
-    width: 120px;
-    height: 120px;
+  .project-visual img.project-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    border: 3px solid #111; /* framed poster */
+    cursor: zoom-in;
+    border-radius: 0; /* square corners to match style */
   }
 
+  /* animation you already had */
+  .project-svg,
+  .project-image {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.6s ease-out;
+  }
+  .project-svg.visible,
+  .project-image.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* --- responsive --- */
   @media (max-width: 720px) {
     .project-section,
     .project-section.reverse {
       grid-template-columns: 1fr;
       direction: ltr;
+      gap: 1.25rem;
+      padding: 1rem 1rem 1.1rem;
     }
-  }
-  .project-svg {
-    width: 120px;
-    height: 120px;
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: all 0.6s ease-out;
-  }
-
-  .project-svg.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+    .project-text h2 {
+      font-size: 1.2rem;
+    }
   }
 </style>

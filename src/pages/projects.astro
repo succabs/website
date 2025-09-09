@@ -1,9 +1,6 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import ProjectItem from "../components/ProjectItem.astro";
-
-const accent = "#c62828"; // sama kuin --accent-red
-const bg = "#faf8f4"; // sama kuin --color-bg
 ---
 
 <Layout
@@ -160,43 +157,21 @@ const bg = "#faf8f4"; // sama kuin --color-bg
     .addEventListener("click", closeModal);
 </script>
 <style>
-  .project-svg {
-    width: 120px;
-    height: 120px;
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: all 0.6s ease-out;
-  }
-
-  .project-svg.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  /* only what this page needs */
+  .project-svg,
   .project-image {
     opacity: 0;
     transform: translateY(20px) scale(0.95);
     transition: all 0.6s ease-out;
     max-width: 100%;
-    height: auto;
   }
-
+  .project-svg.visible,
   .project-image.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-  .project-image {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: all 0.6s ease-out;
-    max-width: 100%;
-    cursor: zoom-in;
-    border-radius: 4px;
-  }
 
-  .project-image.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  /* modal */
   .image-modal {
     display: none;
     position: fixed;
@@ -205,42 +180,38 @@ const bg = "#faf8f4"; // sama kuin --color-bg
     align-items: center;
     justify-content: center;
   }
-
   .image-modal.show {
     display: flex;
   }
-
   .modal-backdrop {
     position: absolute;
     inset: 0;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    background-color: rgba(255, 255, 255, 0.05); /* kevyt huntu */
+    background: rgba(0, 0, 0, 0.25);
     z-index: 1;
   }
-
   .modal-content {
     max-width: 90vw;
     max-height: 80vh;
-    border-radius: 8px;
+    border-radius: 0;
     z-index: 2;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border: 3px solid #111;
   }
-
   .modal-close {
     position: absolute;
     top: 24px;
     right: 32px;
-    color: black;
+    color: #111;
     font-size: 3rem;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     user-select: none;
     z-index: 3;
   }
-
-  body.modal-open,
-  html.modal-open {
+  html.modal-open,
+  body.modal-open {
     overflow: hidden;
     height: 100%;
   }
