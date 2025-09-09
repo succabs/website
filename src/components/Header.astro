@@ -69,13 +69,12 @@ import HeaderLink from "./HeaderLink.astro";
     max-width: var(--max-width);
     margin: 0 auto;
     margin-bottom: 64px;
-    border-bottom: 6px solid var(--corner-color);
+    border-bottom: 6px solid var(--color-outlines);
   }
 
   .site-title {
     font-family: var(--font-heading);
     font-size: 32px;
-    font-weight: 700;
     text-transform: uppercase;
     color: var(--color-text);
     text-decoration: none;
@@ -97,17 +96,15 @@ import HeaderLink from "./HeaderLink.astro";
 
   .nav-links a {
     font-family: var(--font-heading);
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 32px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     color: var(--color-text);
     text-decoration: none;
     position: relative;
   }
 
   .nav-links a.active {
-    color: var(--accent);
     border-bottom: 3px solid var(--accent);
   }
 
@@ -183,7 +180,7 @@ import HeaderLink from "./HeaderLink.astro";
     }
 
     .hamburger .filling-red {
-      fill: var(--accent-red);
+      fill: var(--accent);
     }
 
     .hamburger .filling-yellow {
@@ -191,7 +188,7 @@ import HeaderLink from "./HeaderLink.astro";
     }
 
     .hamburger .filling-blue {
-      fill: var(--accent-blue);
+      fill: var(--accent);
     }
 
     .hamburger.active .bun-top {

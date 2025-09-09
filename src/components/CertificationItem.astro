@@ -36,14 +36,27 @@ const { title, issuer, date, link } = Astro.props;
 
 <style>
   .bauhaus-card {
-    border: 4px solid black;
-    background-color: #faf8f4;
+    border: 3px solid #111;
+    background-color: var(--accent-paper);
+    color: var(--color-outlines);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
     margin-bottom: 2rem;
-    padding-block: 0.5rem;
+    position: relative;
+  }
+
+  /* top + bottom bars */
+  .header-bar {
+    height: 8px;
+    background: var(--accent); /* red */
+    border-bottom: 3px solid #111;
+    border-top: 3px solid #111;
+  }
+  .footer-bar {
+    border-top: none;
+    border-bottom: 3px solid #111;
   }
 
   .content {
@@ -53,54 +66,60 @@ const { title, issuer, date, link } = Astro.props;
     gap: 0.5rem;
   }
 
+  /* title */
   .title {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.25rem;
     text-transform: uppercase;
-    color: #1a1a1a;
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    color: var(--color-outlines);
   }
 
+  /* meta info */
   .issuer,
   .date {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-family: var(--font-body);
-    color: #1a1a1a;
+    color: var(--color-outlines);
   }
 
+  /* button */
   .button {
     margin-top: 1rem;
     background-color: transparent;
     color: var(--accent);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.75rem;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     border: 2px solid var(--accent);
     display: inline-block;
     border-radius: 0;
-    transition: all 0.2s ease;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
   }
 
   .button:hover {
     background-color: var(--accent);
-    color: var(--color-bg); /* taustaväri tekstin väriksi */
-    border-color: var(--accent);
+    color: #fff;
   }
 
+  /* no-link state */
   .no-link {
     font-style: italic;
-    color: #999;
-    font-size: 0.9rem;
+    color: #666;
+    font-size: 0.85rem;
   }
+
+  /* arrow in button */
   .button .arrow {
     display: inline-block;
     transition: transform 0.2s ease;
     margin-left: 0.25em;
   }
-
   .button:hover .arrow {
     transform: translateX(4px);
   }

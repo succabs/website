@@ -12,6 +12,8 @@
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
+    "@fontsource/anton": "^5.2.6",
+    "@fontsource/twinkle-star": "^5.2.6",
     "astro": "^5.9.3",
     "astro-icon": "^1.1.5",
     "sharp": "^0.34.2"
