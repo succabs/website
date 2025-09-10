@@ -77,7 +77,7 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
     background: var(--accent);
   } /* red */
   .experience-item.study::before {
-    background: var(--color-headings);
+    background: var(--color-outlines);
   } /* indigo */
 
   /* headings */
@@ -91,8 +91,9 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
     color: #111; /* anchor the title */
   }
   .experience-item h4 {
+    color: var(--font-outlines);
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 400;
     font-style: italic;
     margin: 0 0 0.4rem;
     opacity: 0.95;
@@ -135,12 +136,6 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
     font-size: 0.8rem;
     line-height: 1.2;
     background: transparent;
-  }
-
-  /* links inside card */
-  .experience-item a {
-    text-decoration: underline;
-    text-underline-offset: 2px;
   }
 
   /* mobile */

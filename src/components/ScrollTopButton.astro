@@ -1,12 +1,26 @@
 ---
+
 ---
+
 <button id="scroll-top-btn" class="scroll-top" aria-label="Scroll to top">
   <svg class="progress-ring" width="60" height="60">
-    <circle class="progress-bg" cx="30" cy="30" r="28" />
-    <circle class="progress" cx="30" cy="30" r="28" />
+    <circle class="progress-bg" cx="30" cy="30" r="28"></circle>
+    <circle class="progress" cx="30" cy="30" r="28"></circle>
   </svg>
-  <svg class="arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-    <polyline points="6 14 12 8 18 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square" stroke-linejoin="bevel" />
+  <svg
+    class="arrow"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    aria-hidden="true"
+  >
+    <polyline
+      points="6 14 12 8 18 14"
+      stroke="currentColor"
+      stroke-width="2"
+      fill="none"
+      stroke-linecap="square"
+      stroke-linejoin="bevel"></polyline>
   </svg>
 </button>
 <style>
@@ -24,7 +38,12 @@
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* poster look */
+    background: var(--accent-paper); /* cream */
+    color: var(--color-outlines); /* ink arrow */
+
+    border-radius: 50%;
+    box-shadow: none;
   }
   .scroll-top.visible {
     visibility: visible;
