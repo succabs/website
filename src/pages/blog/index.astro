@@ -47,7 +47,7 @@ const allTags = Array.from(
       }
       @media (max-width: 720px) {
         main {
-          padding-inline: 32px;
+          padding-inline: 16px;
         }
       }
 
@@ -269,6 +269,8 @@ const allTags = Array.from(
         .controls-bar {
           position: static;
           padding: 0.5rem 0.6rem;
+          flex-direction: column;
+          align-items: flex-start;
         }
         .post-item {
           grid-template-columns: 1fr;
@@ -305,7 +307,7 @@ const allTags = Array.from(
       </div>
 
       <div class="sort-control">
-        <label for="sort-select" class="controls-label">Sort</label>
+        <label for="sort-select" class="controls-label">Sort by:</label>
         <select id="sort-select" class="sort-select">
           <option value="newest">Newest first</option>
           <option value="oldest">Oldest first</option>
