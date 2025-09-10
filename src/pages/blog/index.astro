@@ -38,251 +38,245 @@ const allTags = Array.from(
       description="Personal blog on life, tech and curiosity — from side projects to debugging deep dives."
     />
     <style>
+      /* container */
       main {
         max-width: var(--max-width);
         margin-inline: auto;
         padding-inline: 64px;
         margin-block: 64px;
       }
-
       @media (max-width: 720px) {
         main {
           padding-inline: 32px;
         }
       }
 
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 64px;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      ul li {
-        width: calc(50% - 32px);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-      }
-
-      .title {
-        margin: 0.5rem 0 0.25rem;
-        font-size: 24px;
-        font-family: var(--font-heading);
-        line-height: 1.2;
-      }
-
-      .date {
-        font-size: 14px;
-        margin: 0;
-      }
-
-      ul li a {
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        width: 100%;
-      }
-
-      ul li img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-        margin-bottom: 1rem;
-      }
-
-      ul li a:hover .title {
-        color: var(--accent);
-      }
-
-      ul li a:hover .date {
-        color: var(--accent);
-      }
-
-      .post-red {
-        --accent: var(--accent);
-      }
-
-      .post-blue {
-        --accent: var(--accent);
-      }
-
-      .post-yellow {
-        --accent: var(--accent-yellow);
-      }
-
-      .posts-list {
-        display: flex;
-        flex-direction: column;
-        gap: 4rem;
-        margin-top: 2rem;
-      }
-
-      .post-item {
-        padding-bottom: 2rem;
-        border-bottom: 1px solid var(--accent);
-        display: flex;
-        gap: 2rem;
-        align-items: flex-start;
-      }
-
-      .post-content {
-        flex: 1;
-      }
-
-      .post-image {
-        width: 40%;
-        max-width: 300px;
-      }
-
-      .post-image img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-      }
-
-      .post-title {
-        font-family: var(--font-heading);
-        text-transform: uppercase;
-        margin: 1rem 0 0.5rem;
-      }
-
-      .post-title a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      .post-title a:hover {
-        text-decoration: underline;
-      }
-
-      .post-date {
-        font-family: var(--font-mono, monospace);
-        font-size: 0.85rem;
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 1rem;
-      }
-
-      .post-excerpt {
-        font-size: 1rem;
-        color: var(--color-text, #333);
-        line-height: 1.6;
-        margin-bottom: 1rem;
-      }
-
-      .read-more {
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      .read-more:hover {
-        color: var(--color-text);
-      }
-
+      /* description under page title */
       .page-description {
-        margin: 0 0 1.5rem 0;
+        margin: 0 0 1.25rem;
       }
 
+      /* ===== toolbar (sticky) ===== */
+      .controls-bar {
+        position: sticky;
+        top: 60px; /* adjust if your header is taller */
+        z-index: 10;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.6rem 0.8rem;
+        background: rgba(
+          37,
+          117,
+          185,
+          0.85
+        ); /* blue with slight translucency */
+        backdrop-filter: blur(6px);
+        border: 3px solid var(--color-outlines);
+        margin: 1rem 0;
+      }
+
+      .controls-label {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+      }
+
+      /* filter chips */
       .filter-buttons {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
+        gap: 0.4rem;
+        align-items: center;
       }
-
       .filter-btn {
         font-family: var(--font-heading);
         text-transform: uppercase;
         font-size: 0.75rem;
-        padding: 0.25em 0.5em;
-        border: 2px solid var(--color-text);
+        padding: 0.25em 0.6em;
+        border: 2px solid var(--color-headings); /* cream outline on blue */
         background: transparent;
-        color: var(--color-text);
+        color: var(--color-headings);
         cursor: pointer;
       }
-
+      .filter-btn:hover {
+        transform: translateY(-1px);
+      }
       .filter-btn.active {
-        background: var(--color-text);
-        color: var(--color-bg);
+        background: var(--accent);
+        border-color: var(--color-outlines);
+        color: #fff;
       }
 
+      /* sort select */
       .sort-control {
-        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
-
       .sort-select {
         font-family: var(--font-heading);
         text-transform: uppercase;
         font-size: 0.75rem;
-        padding: 0.25em 0.5em;
-        border: 2px solid var(--color-text);
+        padding: 0.25em 0.6em;
+        border: 2px solid var(--color-headings);
         background: transparent;
-        color: var(--color-text);
+        color: var(--color-headings);
       }
 
+      /* ===== post list ===== */
+      .posts-list {
+        display: grid;
+        gap: 2rem;
+        margin-top: 1.5rem;
+      }
+
+      /* card */
+      .post-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1.25rem;
+        align-items: start;
+
+        background: var(--accent-paper);
+        color: var(--color-outlines);
+        border: 3px solid var(--color-outlines);
+        padding: 1rem 1.25rem 1.1rem;
+      }
+
+      /* red spine */
+      .post-item::before {
+        content: "";
+        position: absolute;
+        left: -3px;
+        right: -3px;
+        top: -3px;
+        height: 10px;
+        background: var(--accent);
+      }
+
+      /* content */
+      .post-content {
+        max-width: 70ch;
+      }
+      .post-title {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        margin: 0.2rem 0 0.35rem;
+        line-height: 1.1;
+        font-size: clamp(1.25rem, 3vw, 1.6rem);
+      }
+      .post-title a {
+        color: var(--color-outlines);
+        text-decoration: underline;
+        text-decoration-color: var(--color-outlines);
+        text-underline-offset: 3px;
+      }
+      .post-title a:hover {
+        text-decoration-color: var(--accent);
+      }
+
+      /* excerpt + meta */
+      .post-excerpt {
+        margin: 0.4rem 0 0.6rem;
+        line-height: 1.6;
+      }
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 0.5rem;
+      }
+      .tag {
+        border: 2px solid var(--color-outlines);
+        color: var(--color-outlines);
+        padding: 0.15rem 0.45rem;
+        font-size: 0.8rem;
+        line-height: 1.2;
+        background: transparent;
+      }
+      .post-date {
+        font-size: 0.85rem;
+        margin: 0.25rem 0 0.6rem;
+      }
+
+      /* CTA */
+      .read-more {
+        display: inline-block;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+        border: 2px solid var(--accent);
+        color: var(--accent);
+        background: transparent;
+        text-decoration: none;
+      }
+      .read-more:hover {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      /* thumbnail */
+      .post-image {
+        --thumb-w: 360px;
+        width: var(--thumb-w);
+      }
+      .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+        border: 3px solid var(--color-outlines);
+      }
+
+      /* pagination */
       .pagination {
         margin-top: 2rem;
         display: flex;
         gap: 0.5rem;
-        flex-wrap: wrap;
-        flex-direction: row;
-        align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
       }
-
       .page-btn {
         font-family: var(--font-heading);
-        font-size: 0.75rem;
-        padding: 0.25em 0.5em;
-        border: 2px solid var(--color-text);
+        font-size: 0.8rem;
+        padding: 0.35em 0.6em;
+        border: 2px solid var(--color-outlines);
         background: transparent;
-        color: var(--color-text);
+        color: var(--accent-paper);
         cursor: pointer;
       }
-
-      .arrow-btn {
-        font-weight: bold;
+      .page-btn.active {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--color-outlines);
       }
-
       .page-btn[disabled] {
         opacity: 0.4;
         cursor: default;
       }
-
-      .page-btn.active {
-        background: var(--color-text);
-        color: var(--color-bg);
+      .arrow-btn {
+        font-weight: 800;
       }
+
+      /* mobile */
       @media (max-width: 720px) {
-        ul {
-          gap: 32px;
+        .controls-bar {
+          position: static;
+          padding: 0.5rem 0.6rem;
         }
-
-        ul li {
-          width: 100%;
-          text-align: left;
-          align-items: flex-start;
-        }
-
         .post-item {
-          flex-direction: column;
-          flex-direction: column-reverse;
+          grid-template-columns: 1fr;
+          gap: 0.9rem;
+          padding: 0.9rem 0.9rem 1rem;
         }
-
         .post-image {
           width: 100%;
-          max-width: none;
         }
       }
     </style>
@@ -297,26 +291,30 @@ const allTags = Array.from(
       curious projects.
     </p>
     <hr />
-    <div class="filter-buttons">
-      <span>Filter by tag:</span>
-      <button class="filter-btn active" data-tag="all">All</button>
-      {
-        allTags.map((tag) => (
-          <button class="filter-btn" data-tag={tag}>
-            {tag}
-          </button>
-        ))
-      }
+    <div class="controls-bar">
+      <div class="filter-buttons">
+        <span class="controls-label">Filter by tag:</span>
+        <button class="filter-btn active" data-tag="all">All</button>
+        {
+          allTags.map((tag) => (
+            <button class="filter-btn" data-tag={tag}>
+              {tag}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="sort-control">
+        <label for="sort-select" class="controls-label">Sort</label>
+        <select id="sort-select" class="sort-select">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </div>
     </div>
-    <div class="sort-control">
-      <span>Sort by:</span>
-      <label for="sort-select" class="sr-only">Sort posts</label>
-      <select id="sort-select" class="sort-select">
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-      </select>
-    </div>
-    <hr />
+
+    <hr class="hr-3" />
+
     <section class="posts-list">
       {
         posts.map((post, idx) => (

@@ -1,121 +1,88 @@
 # Arttu Portfolio – Brandbook
 
-## 🎨 Color Palette
+# Poster Wave UI — Style Guide
 
-| Name        | Hex     | Usage                              |
-| ----------- | ------- | ---------------------------------- |
-| Background  | #FAF8F4 | Page background                    |
-| Text (dark) | #1A1A1A | Headings, main text                |
-| Gray        | #BDBDBD | Borders, secondary text            |
-| Red         | #E53935 | Primary accent (buttons, titles)   |
-| Blue        | #1E88E5 | Secondary accent (hover, links)    |
-| Yellow      | #FDD835 | Tertiary accent (graphics, blocks) |
+- A bold, poster-inspired UI that blends Japanese woodblock color (blue + cream + vermilion) with arcade/fighter-select shapes (thick outlines, stamps, flags). Typography does the heavy lifting; components are simple and graphic.
+- Brand traits
+- Brave: strong blocks of color, oversized type, visible edges.
+- Readable: body on calm surfaces (cream), generous spacing.
+- Playful-serious: arcade hover states, but no gimmicks.
 
-Each page may emphasize one accent color as part of the visual theme.
+## Usage
 
----
+Blue is the stage (page background).
+Cream is the paper (cards, long text).
+Black outlines frame almost everything.
+Red is the punch: buttons, stamps, small bars.
 
-## 🔠 Typography
+## Typography
 
-### Headings
+Headings: Anton, uppercase, tight tracking, heavy.
+Sizes:
+h1: clamp(2rem, 5vw, 4rem)
+h2: clamp(1.5rem, 4vw, 2.5rem) + short underline bar (see Dividers)
+h3: clamp(1.1rem, 4vw, 2rem)
+Body: Inter 400–500, line-height 1.6–1.75.
+On blue: text is cream.
+On cream: text is black (--color-outlines).
 
-- **Font:** Helvetica Neue / Helvetica / Arial fallback
-- **Weight:** 700 (bold) for primary headings, 500 for subheadings
-- **Sizes:**
-  - H1: `clamp(48px, 6vw, 96px)`
-  - H2: 48px
-  - H3: 32px
+## Spacing
 
-### Body Text
+Page gutters: 64px desktop, 16–32px mobile.
+Vertical rhythm between major sections: ~3–4rem.
+Card padding: 1.25–1.5rem.
 
-- **Font:** Inter
-- **Weight:** 400
-- **Size:** 16–18px
-- **Line height:** 1.6
-- **Max width:** 65ch
+## Iconography
 
----
+Solid, single-color, sized to text (usually 1em in chips, 32px in footer).
+fill: currentColor so color changes cascade.
 
-## 🟦 Layout & Structure
+## Interaction
 
-- **Grid:** 12-column, `max-width: 1200px`, `gutter: 64px`
-- **Content padding:** `padding-inline: 32px` on mobile, `64px` on desktop
-- **Vertical spacing:** `margin-block: 64px` minimum between sections
+Links
+On blue: cream text with a muted ink underline, offset for comfort.
+On cream: black text with black underline.
+Hover: underline turns red; text color usually stays.
 
----
+## Motion
 
-## 🧩 UI Components
+Subtle: small translateY on hover (2–4px).
+Respect prefers-reduced-motion.
 
-### Navigation
+## Dividers (HRs)
 
-- Single row, positioned top-left or top-right
-- Link text only (no buttons), uppercase, Helvetica, `font-size: 16px`
-- Active link: accent color or underline
+Three variants carry the “poster bar” motif. Use as structural rhythm, not decoration.
 
-### Hamburger Menu
+## Footer
 
-- Custom SVG or canvas drawing
-- Three distinct bars (vary in size or weight)
-- Animated open/close effect
+Full-bleed vermilion (--accent), white text/icons, black 6px top rule.
+Content constrained inside .inner.
 
-### Buttons
+## Imagery
 
-- Rectangle shape, no shadows, no border-radius
-- Uppercase Helvetica bold
-- Hover: background switches to accent color, text in high-contrast
+Prefer duotone or desaturated images to fit the palette.
+Always framed with a black border in cards.
+Aspect ratios: 16:10 or 16:9.
 
-### Footer
+## Do / Don’t
 
-- Small Helvetica, `font-size: 14px`, color: #BDBDBD
-- Text only or minimal link list
+### Do
 
----
+Use cream cards for any long copy.
+Keep outlines visible and consistent (3px).
+Use red sparingly: actions, stamps, small bars.
 
-## 🧭 Page Color Emphasis
+### Don’t
 
-| Page       | Theme Color   | Emphasis                          |
-| ---------- | ------------- | --------------------------------- |
-| Home       | Blue          | Clarity                           |
-| Experience | Red           | Structure, intensity              |
-| Projects   | Yellow        | Creativity                        |
-| Skills     | Gray          | Technical calm                    |
-| About      | White/Black   | Professional and personal balance |
-| Questbook  | Mixed         | Playful, engaging                 |
-| Blog       | Gray + accent | Readability                       |
+Put long paragraphs directly on blue.
+Use soft drop shadows; rely on borders and motion.
+Overuse gradients; the brand is flat and graphic.
 
----
+## Accessibility notes
 
-## 📐 Graphic Language
-
-- **Shapes:** Circles, squares, triangles – used in backgrounds, dividers, headers
-- **Style:** SVG or drawn by hand (no textures or shadows)
-- **Images:** Minimalist, purpose-driven. No stock images.
-
----
-
-## 🗣️ Tone & Content
-
-- **Tone:** Professional but personal. Clear, human voice.
-- **Style:** Direct, information-first. Avoid fluff.
-- **Examples:**
-  - “I’m a Shopify developer based in Jyväskylä, currently working in consulting.”
-- **Grammar:** Clean and precise, not overly formal
-
----
-
-## ✅ Dev Summary for Codex & Astro
-
-- **Fonts:** Helvetica (headings), Inter (body)
-- **Colors:**
-  - Background: `#FAF8F4`
-  - Accents: `#E53935`, `#1E88E5`, `#FDD835`
-- **Grid:** 12-col, `max-width: 1200px`, `gutter: 64px`
-- **Spacing:** `margin-block: 64px` minimum between blocks
-- **Components:**
-  - Buttons: uppercase, bold, no shadow, accent hover
-  - Navigation: text-only, all caps
-  - Hamburger: custom graphic, three unique bars
-- **No shadows, no border radius**, no UI libraries
+Contrast: cream on blue and black on cream both pass comfortably.
+Focus rings: always visible; swap to black on cream surfaces.
+Touch targets: 44px min for buttons/chips.
 
 ## Blog post tags
 
