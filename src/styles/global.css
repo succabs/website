@@ -108,6 +108,11 @@ a:hover {
   text-decoration-color: var(--accent);
 }
 
+.blog-card a,
+post-item a {
+  text-underline-offset: 1px;
+}
+
 /* global focus ring */
 a:focus-visible,
 button:focus-visible,
@@ -235,11 +240,6 @@ hr {
   }
   main {
     padding: 0 32px;
-  }
-
-  h1 {
-    height: 60px;
-    line-height: 60px;
   }
 }
 
@@ -397,7 +397,7 @@ article {
 }
 @media (max-width: 720px) {
   article {
-    padding-inline: 16px;
+    padding-inline: 0px;
   }
 }
 
