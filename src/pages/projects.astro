@@ -1,218 +1,829 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
-import ProjectItem from "../components/ProjectItem.astro";
+
+// ✅ TS is OK in frontmatter
+interface Link {
+  label: string;
+  href: string;
+}
+interface Project {
+  id: string;
+  codename: string;
+  title: string;
+  desc: string[];
+  tech: string[];
+  links?: Link[];
+  images: string[];
+  thumb?: string;
+}
+
+const projects: Project[] = [
+  {
+    id: "consent",
+    codename: "CONSENT ANALYSER",
+    title: "Consent Analyser",
+    desc: [
+      "Chrome extension for checking CMP ↔ Shopify Customer Privacy API integration.",
+      "Inspects dataLayer pushes for consent mode 2.0 and lets user change consent easily for testing.",
+      "No public code available (work project). Email for a demo :)",
+    ],
+    tech: ["JavaScript", "HTML", "CSS"],
+    images: ["/consent_analyser_screenshot.png"],
+  },
+  {
+    id: "kandi",
+    codename: "KANDI RUSH SAGA",
+    title: "Kandi Rush Saga",
+    desc: [
+      "Earn 180 student credits before you run out of allowance months.",
+      "Updated 06/2025 for mobile and desktop.",
+    ],
+    tech: ["JavaScript", "Phaser"],
+    links: [
+      { label: "Code", href: "https://github.com/succabs/kandirushsaga" },
+      { label: "Live", href: "https://arttu.net/kandirushsaga" },
+    ],
+    images: ["/kandirushsaga_screenshot.png"],
+  },
+  {
+    id: "pitmaster",
+    codename: "PITMASTER",
+    title: "Pitmaster",
+    desc: [
+      "Gladiator manager web game inspired by Areena 5 and Travian.",
+      "Front-end ready; back-end and graphics WIP.",
+    ],
+    tech: ["Svelte", "TailwindCSS", "ExpressJS", "PostgreSQL", "VPS"],
+    images: ["/pitmaster_screenshot.png"],
+  },
+];
+
+const mysteryCount = 3;
 ---
 
 <Layout
   title="Projects"
-  description="A selection of personal and professional projects — from games to browser tools and web apps."
+  description="A selection of personal and professional projects — presented as a character select."
   pageClass="page-blue"
 >
   <h1>Projects</h1>
-
   <p class="full-width">
-    A selection of personal and professional projects. More can be found from <a
+    Pick a “character” to view details. More on
+    <a
       href="https://github.com/succabs"
       target="_blank"
-      rel="noopener noreferrer"
-      aria-label="GitHub">my GitHub profile</a
+      rel="noopener noreferrer">GitHub</a
     >.
   </p>
 
-  <hr class="hr-1" />
-  <ProjectItem title="Consent Analyser" tech={["JavaScript", "HTML", "CSS"]}>
-    <p>Chrome extension that:</p>
-    <ul>
-      <li>
-        Checks if Consent Management Platform is correctly linked to Shopify's
-        Customer Privacy API and respecting user's choices
-      </li>
-      <li>Inspects dataLayer pushes for debugging analytics</li>
-      <li>Lets user change consent easily</li>
-    </ul>
-    <p>
-      No public code available since it's made at work and for work. If you're
-      interested, email me for a demo :)
-    </p>
-
-    <img
-      slot="visual"
-      class="project-image"
-      src="/consent_analyser_screenshot.png"
-      alt="Screenshot of Consent Analyser"
-      width="100%"
-      height="auto"
-    />
-  </ProjectItem>
-
-  <hr />
-
-  <ProjectItem
-    title="Kandi Rush Saga"
-    reverse={true}
-    tech={["JavaScript", "Phaser"]}
-  >
-    <p>
-      A very serious browser game: earn 180 student credits before you run out
-      of allowance months. Watch out for Plagiointisyytös and unexpected Moodle
-      outages. Updated on 6/2025 to work on both mobile and desktop.
-    </p>
-    <p>
-      <strong>Code:</strong>
-      <a href="https://github.com/succabs/kandirushsaga">On GitHub</a>
-    </p>
-    <p>
-      <strong>Live:</strong>
-      <a href="https://arttu.net/kandirushsaga">Arttu.net/kandirushsaga</a>
-    </p>
-    <img
-      slot="visual"
-      class="project-image"
-      src="/kandirushsaga_screenshot.png"
-      alt="Screenshot of Kandi Rush Saga"
-      width="100%"
-      height="auto"
-    />
-  </ProjectItem>
-
-  <hr />
-
-  <ProjectItem
-    title="Pitmaster"
-    tech={["Svelte", "TailwindCSS", "ExpressJS", "PostgreSQL", "VPS"]}
-  >
-    <p>Gladiator manager web game inspired by Areena 5 and Travian.</p>
-    <p>
-      This is an ongoing project to evaluate how well Codex & Cursor perform on
-      a project from start to finish: Vibe coded all the way. The idea is old,
-      never had time to execute it before AI tools.
-    </p>
-    <p>
-      Front-end logic is ready, back-end and graphics are a work in progress.
-    </p>
-    <img
-      slot="visual"
-      class="project-image"
-      src="/pitmaster_screenshot.png"
-      alt="Screenshot of Pitmaster"
-      width="100%"
-      height="auto"
-    />
-  </ProjectItem>
-</Layout>
-<div id="image-modal" class="image-modal">
-  <div class="modal-backdrop"></div>
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modal-image" alt="Expanded project image" />
-</div>
-
-<script>
-  window.requestAnimationFrame(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
+  <div class="projects-wrap">
+    <!-- Character Grid -->
+    <section class="select-grid" aria-label="Project select">
       {
-        threshold: 0.6,
+        projects.map((p, i) => (
+          <button
+            class="select-tile"
+            data-id={p.id}
+            aria-controls="project-detail"
+            aria-label={`Open ${p.title}`}
+            data-index={i}
+          >
+            <div class="tile-frame">
+              <img src={p.thumb ?? p.images[0]} alt="" loading="lazy" />
+              <span class="codename">{p.codename}</span>
+              <span class="stamp" aria-hidden="true">
+                SELECTED
+              </span>
+            </div>
+          </button>
+        ))
       }
-    );
 
-    document.querySelectorAll(".project-svg, .project-image").forEach((el) => {
-      observer.observe(el);
-    });
-  });
-  const modal = document.getElementById("image-modal");
-  const modalImg = document.getElementById("modal-image");
-  const closeBtn = document.querySelector(".modal-close");
+      {
+        Array.from({ length: mysteryCount }).map((_, i) => (
+          <div
+            class="select-tile mystery"
+            aria-hidden="true"
+            data-index={projects.length + i}
+          >
+            <div class="tile-frame glitch">
+              <span class="mystery-text">???</span>
+              <span class="codename">???</span>
+              <span class="stamp" aria-hidden="true">
+                SELECTED
+              </span>
+            </div>
+          </div>
+        ))
+      }
+    </section>
 
-  document.querySelectorAll(".project-image").forEach((img) => {
-    img.addEventListener("click", () => {
-      modal.classList.add("show");
-      modalImg.src = img.src;
-      modalImg.alt = img.alt;
-      document.documentElement.classList.add("modal-open");
-      document.body.classList.add("modal-open");
-    });
-  });
+    <!-- Detail Panel -->
+    <aside id="project-detail" class="detail" tabindex="-1" aria-live="polite">
+      <div class="detail-inner">
+        <div class="detail-head">
+          <h2 class="detail-title">Select a project</h2>
+          <div class="detail-tech" role="list"></div>
+        </div>
 
-  function closeModal() {
-    modal.classList.remove("show");
-    document.documentElement.classList.remove("modal-open");
-    document.body.classList.remove("modal-open");
+        <!-- 2-column on desktop: copy left, media right -->
+        <div class="detail-body">
+          <div class="detail-copy">
+            <div class="detail-desc"></div>
+            <div class="detail-links"></div>
+          </div>
+
+          <div class="detail-media">
+            <div class="media-main">
+              <button class="nav prev" aria-label="Previous screenshot"
+                >‹</button
+              >
+              <img class="detail-image" alt="" />
+              <button class="nav next" aria-label="Next screenshot">›</button>
+            </div>
+            <div
+              class="detail-thumbs"
+              aria-label="Screenshot thumbnails"
+              role="list"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <!-- Hidden JSON for client script (inside Layout) -->
+  <script
+    type="application/json"
+    id="projects-data"
+    hidden
+    aria-hidden="true"
+    set:html={JSON.stringify(projects)}
+  />
+</Layout>
+
+<!-- Inline script must be JS (use JSDoc for hints) -->
+<script>
+  /** @typedef {{id:string,codename:string,title:string,desc:string[],tech:string[],links?:{label:string,href:string}[],images:string[],thumb?:string}} Project */
+
+  /** @type {Project[]} */
+  const DATA = JSON.parse(
+    document.getElementById("projects-data")?.textContent || "[]"
+  );
+  const REAL_COUNT = DATA.length;
+
+  const allTiles = Array.from(document.querySelectorAll(".select-tile"));
+  const tiles = allTiles.filter((t) => !t.classList.contains("mystery"));
+
+  function scrollTileIntoView(el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - 8;
+    window.scrollTo({ top: y, behavior: "smooth" });
   }
 
-  closeBtn.addEventListener("click", closeModal);
+  const detail = /** @type {HTMLElement} */ (
+    document.getElementById("project-detail")
+  );
+  const titleEl = /** @type {HTMLElement} */ (
+    detail.querySelector(".detail-title")
+  );
+  const techEl = /** @type {HTMLElement} */ (
+    detail.querySelector(".detail-tech")
+  );
+  const descEl = /** @type {HTMLElement} */ (
+    detail.querySelector(".detail-desc")
+  );
+  const linksEl = /** @type {HTMLElement} */ (
+    detail.querySelector(".detail-links")
+  );
+  const imgEl = /** @type {HTMLImageElement} */ (
+    detail.querySelector(".detail-image")
+  );
+  const prevBtn = /** @type {HTMLButtonElement} */ (
+    detail.querySelector(".nav.prev")
+  );
+  const nextBtn = /** @type {HTMLButtonElement} */ (
+    detail.querySelector(".nav.next")
+  );
+  const thumbsEl = /** @type {HTMLElement} */ (
+    detail.querySelector(".detail-thumbs")
+  );
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      closeModal();
+  let activeIndex = -1;
+  let imgIndex = 0;
+
+  const isNarrow = () => matchMedia("(max-width: 980px)").matches;
+
+  /** @param {Project} p */
+  function renderDetail(p) {
+    detail.classList.remove("locked");
+    titleEl.textContent = p.title;
+    techEl.innerHTML = p.tech
+      .map((t) => `<span class="tag" role="listitem">${t}</span>`)
+      .join("");
+    descEl.innerHTML = p.desc.map((d) => `<p>${d}</p>`).join("");
+    linksEl.innerHTML = (p.links || [])
+      .map(
+        (l) =>
+          `<a class="btn-link" href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
+      )
+      .join("");
+
+    // thumbs
+    thumbsEl.innerHTML = p.images
+      .map(
+        (src, i) => `
+        <button class="thumb ${i === 0 ? "is-active" : ""}" role="listitem" data-i="${i}" aria-label="Screenshot ${i + 1}">
+          <img src="${src}" alt="" loading="lazy"/>
+        </button>
+      `
+      )
+      .join("");
+
+    thumbsEl.querySelectorAll(".thumb").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const n = Number(btn.getAttribute("data-i"));
+        if (Number.isNaN(n)) return;
+        imgIndex = n;
+        updateImage(p);
+        thumbsEl
+          .querySelectorAll(".thumb")
+          .forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+      });
+    });
+
+    imgIndex = 0;
+    updateImage(p);
+  }
+
+  function renderLockedDetail(label = "COMING SOON") {
+    detail.classList.add("locked");
+    titleEl.textContent = label;
+    techEl.innerHTML = "";
+    descEl.innerHTML = `<p>New challenger approaching… This slot is locked.</p>`;
+    linksEl.innerHTML = "";
+    imgEl.src = "";
+    imgEl.alt = "";
+    thumbsEl.innerHTML = "";
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+  }
+
+  /** @param {Project} p */
+  function updateImage(p) {
+    imgEl.src = p.images[imgIndex];
+    imgEl.alt = `${p.title} screenshot ${imgIndex + 1} of ${p.images.length}`;
+    prevBtn.disabled = imgIndex === 0;
+    nextBtn.disabled = imgIndex === p.images.length - 1;
+  }
+
+  function selectByIndex(i, focusTile = false) {
+    const isLocked = i >= REAL_COUNT;
+
+    allTiles.forEach((t) => t.classList.remove("is-active"));
+    const tile = allTiles[i];
+    if (tile) tile.classList.add("is-active");
+
+    activeIndex = Math.min(i, REAL_COUNT - 1);
+
+    if (isLocked) {
+      // optional: read the visible label from the tile (will be "???")
+      const label =
+        tile?.querySelector(".codename")?.textContent?.trim() || "COMING SOON";
+      renderLockedDetail(label);
+    } else {
+      renderDetail(DATA[i]);
     }
-  });
-  document
-    .querySelector(".modal-backdrop")
-    .addEventListener("click", closeModal);
-</script>
-<style>
-  /* only what this page needs */
-  .project-svg,
-  .project-image {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: all 0.6s ease-out;
-    max-width: 100%;
-  }
-  .project-svg.visible,
-  .project-image.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+
+    if (focusTile && tile instanceof HTMLElement) tile.focus();
+    if (isNarrow() && tile instanceof HTMLElement) {
+      tile.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
   }
 
-  /* modal */
-  .image-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
+  // Clicks
+  document.querySelectorAll(".select-tile").forEach((tile) => {
+    tile.addEventListener("click", () => {
+      const idx = Number(tile.getAttribute("data-index"));
+      if (Number.isNaN(idx)) return;
+      selectByIndex(idx);
+    });
+  });
+
+  // Carousel buttons
+  prevBtn.addEventListener("click", () => {
+    if (activeIndex < 0) return;
+    const p = DATA[activeIndex];
+    if (imgIndex > 0) {
+      imgIndex--;
+      updateImage(p);
+    }
+    thumbsSync();
+  });
+  nextBtn.addEventListener("click", () => {
+    if (activeIndex < 0) return;
+    const p = DATA[activeIndex];
+    if (imgIndex < p.images.length - 1) {
+      imgIndex++;
+      updateImage(p);
+    }
+    thumbsSync();
+  });
+
+  function thumbsSync() {
+    thumbsEl.querySelectorAll(".thumb").forEach((b, i) => {
+      b.classList.toggle("is-active", i === imgIndex);
+    });
   }
-  .image-modal.show {
-    display: flex;
+
+  // Preselect first card
+  if (DATA.length) selectByIndex(0);
+</script>
+
+<style>
+  .projects-wrap {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
   }
-  .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    background: rgba(0, 0, 0, 0.25);
-    z-index: 1;
+
+  /* GRID */
+  .select-grid {
+    --cols: 3;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 1rem;
   }
-  .modal-content {
-    max-width: 90vw;
-    max-height: 80vh;
-    border-radius: 0;
-    z-index: 2;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    border: 3px solid #111;
-  }
-  .modal-close {
-    position: absolute;
-    top: 24px;
-    right: 32px;
-    color: #111;
-    font-size: 3rem;
-    font-weight: 700;
+
+  .select-tile {
+    background: transparent;
+    border: 0;
+    padding: 0;
     cursor: pointer;
-    user-select: none;
-    z-index: 3;
+    text-align: left;
+    outline-offset: 2px;
   }
-  html.modal-open,
-  body.modal-open {
+
+  .tile-frame {
+    position: relative;
+    border: 3px solid #111;
+    background: var(--accent-paper);
+    aspect-ratio: 4/3;
+    display: grid;
+    place-items: end start;
     overflow: hidden;
+    transform: translateZ(0);
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      filter 120ms ease;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+
+  .tile-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
     height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1);
+    transition:
+      transform 140ms ease,
+      filter 140ms ease;
+  }
+
+  .codename {
+    position: relative;
+    z-index: 2;
+    background: #111;
+    color: #fff;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    padding: 0.3rem 0.5rem;
+    margin: 0.35rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  /* Hover glow + snap */
+  .select-tile:hover .tile-frame,
+  .select-tile:focus-visible .tile-frame {
+    transform: scale(1.04);
+    box-shadow:
+      0 0 0 3px #111,
+      0 0 18px 4px rgba(255, 68, 68, 0.55);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+  }
+  .select-tile:hover img {
+    transform: scale(1.05);
+    filter: saturate(1.05) contrast(1.05);
+  }
+
+  /* SELECTED stamp */
+  .stamp {
+    position: absolute;
+    right: 0.4rem;
+    top: 0.4rem;
+    font-weight: 900;
+    color: var(--accent);
+    border: 3px solid var(--accent);
+    padding: 0.15rem 0.45rem;
+    transform: rotate(-12deg) scale(0.9);
+    opacity: 0;
+    background: var(--accent-paper);
+    transition:
+      opacity 120ms ease,
+      transform 120ms ease;
+    pointer-events: none;
+  }
+  .select-tile.is-active .stamp {
+    opacity: 1;
+    transform: rotate(-12deg) scale(1);
+  }
+
+  /* Mystery slot with glitch */
+  .mystery .tile-frame {
+    background: #0b2545;
+    border-color: #111;
+  }
+  .mystery .codename {
+    background: var(--accent);
+    color: #111;
+  }
+  .mystery .mystery-text {
+    font-weight: 900;
+    font-size: 2.4rem;
+    color: #fff;
+    letter-spacing: 0.08em;
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    text-shadow:
+      1px 0 0 #ff0066,
+      -1px 0 0 #00e5ff;
+    animation: glitch 1.8s infinite;
+  }
+  .glitch::after,
+  .glitch::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0 6px,
+      rgba(255, 255, 255, 0.04) 6px 7px
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  @keyframes glitch {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-1px, 1px);
+    }
+    40% {
+      transform: translate(1px, -1px);
+    }
+    60% {
+      transform: translate(0.5px, 1.5px);
+    }
+    80% {
+      transform: translate(-1.5px, -0.5px);
+    }
+  }
+
+  /* DETAIL PANEL */
+  .detail {
+    position: sticky;
+    top: 1rem;
+    border: 3px solid #111;
+    background: var(--accent-paper);
+    color: var(--color-outlines);
+    padding: 1rem;
+    min-height: 22rem;
+  }
+  .detail-inner {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .detail-head {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .detail-title {
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--color-outlines);
+  }
+
+  .detail-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .detail-body {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .detail-media {
+    position: relative;
+    border: 3px solid #111;
+    aspect-ratio: 16/10;
+    background: #eaeaea;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: rgba(17, 17, 17, 0.8);
+    color: #fff;
+    font-weight: 900;
+    width: 36px;
+    height: 44px;
+    cursor: pointer;
+  }
+  .nav.prev {
+    left: 0;
+  }
+  .nav.next {
+    right: 0;
+  }
+  .nav:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .detail-copy {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .detail-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .btn-link {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .btn-link:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* defaults */
+  .select-grid {
+    --cols: 3;
+  }
+
+  /* Large tablets/desktop: keep as-is */
+  @media (min-width: 981px) {
+    .projects-wrap {
+      grid-template-columns: 1.15fr 1fr;
+    }
+    .detail {
+      position: sticky;
+      top: 1rem;
+    }
+  }
+
+  /* Tablets & down: stack, denser grid */
+  @media (max-width: 980px) {
+    .projects-wrap {
+      grid-template-columns: 1fr;
+    }
+    .detail {
+      position: static;
+      margin-top: 1rem;
+    }
+    .select-grid {
+      --cols: 4;
+    } /* tighter by default on mobile */
+    .tile-frame {
+      aspect-ratio: 1 / 1;
+    } /* square “portrait” tiles */
+    .codename {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.35rem;
+      margin: 0.25rem;
+    }
+  }
+
+  /* Very small phones: 4 across */
+  @media (max-width: 420px) {
+    .select-grid {
+      --cols: 4;
+    }
+  }
+
+  /* Small phones but room for labels: 3 across */
+  @media (max-width: 360px) {
+    .select-grid {
+      --cols: 3;
+    }
+  }
+
+  /* tighten gaps on mobile */
+  @media (max-width: 980px) {
+    .select-grid {
+      gap: 0.5rem;
+    }
+  }
+
+  /* Projects page layout: grid on top, detail underneath */
+  .projects-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Character grid */
+  .select-grid {
+    --cols: 6; /* desktop can show more across since detail is below */
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  /* Detail card below grid */
+  .detail {
+    border: 3px solid #111;
+    background: var(--accent-paper);
+    color: var(--color-outlines);
+    padding: 1rem;
+  }
+
+  /* Two-column detail on desktop: text left, media right */
+  .detail-body {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  /* Main image area + thumb strip */
+  .media-main {
+    position: relative;
+    border: 3px solid #111;
+    aspect-ratio: 16/10;
+    background: #eaeaea;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+  .detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .detail-thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    gap: 0.5rem;
+  }
+  .thumb {
+    border: 2px solid #111;
+    padding: 0;
+    background: #fff;
+    cursor: pointer;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .thumb.is-active {
+    outline: 3px solid var(--accent);
+  }
+
+  /* Keep your hover glow + stamp rules as-is */
+
+  /* Responsive: dense tiles on mobile, one-column detail */
+  @media (max-width: 980px) {
+    .select-grid {
+      --cols: 4;
+      gap: 0.5rem;
+    }
+    .tile-frame {
+      aspect-ratio: 1/1;
+    }
+    .codename {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.35rem;
+      margin: 0.25rem;
+    }
+
+    .detail-body {
+      grid-template-columns: 1fr;
+    }
+    .media-main {
+      aspect-ratio: 16/10;
+    }
+  }
+
+  /* Very small phones */
+  @media (max-width: 420px) {
+    .select-grid {
+      --cols: 4;
+    }
+  }
+  @media (max-width: 360px) {
+    .select-grid {
+      --cols: 3;
+    }
+  }
+
+  /* Locked detail state */
+  .detail.locked .detail-tech,
+  .detail.locked .detail-thumbs,
+  .detail.locked .btn-link {
+    display: none;
+  }
+
+  .detail.locked .detail-title {
+    position: relative;
+    padding-right: 7rem;
+  }
+  .detail.locked .media-main {
+    position: relative;
+    border: 3px solid #111;
+    background: #0b2545;
+    overflow: hidden;
+  }
+  .detail.locked .media-main::before {
+    content: "???";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: clamp(2rem, 10vw, 5rem);
+    color: #fff;
+    text-shadow:
+      1px 0 0 #ff0066,
+      -1px 0 0 #00e5ff;
+    animation: glitch 1.8s infinite;
+  }
+  /* light scanline overlay */
+  .detail.locked .media-main::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0 6px,
+      rgba(255, 255, 255, 0.04) 6px 7px
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* normalize buttons so they match div tiles */
+  .select-tile {
+    font: inherit; /* kills UA control font */
+    line-height: 1; /* avoids extra button line-height */
+    -webkit-appearance: none; /* Safari */
+    appearance: none;
+  }
+
+  /* give the stamp an explicit size so it doesn't inherit weirdness */
+  .stamp {
+    font-size: 0.8rem; /* pick what you like (was implicit) */
+    letter-spacing: 0.02em;
+  }
+
+  .select-tile,
+  .tile-frame,
+  .stamp {
+    box-sizing: border-box;
   }
 </style>

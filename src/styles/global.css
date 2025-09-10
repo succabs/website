@@ -611,3 +611,7 @@ article {
     font-size: clamp(1.8rem, 7vw, 2.5rem);
   }
 }
+
+.detail-links a {
+  color: var(--color-outlines);
+}
