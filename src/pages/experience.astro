@@ -283,7 +283,8 @@ const certifications = [
       border: 2px solid #111;
       border-radius: 0;
       background: transparent;
-      color: var(--accent-paper); /* readable on blue background */
+      background: var(--accent-paper); /* indigo */
+      color: var(--color-outlines);
       transition:
         transform 0.08s ease,
         background 0.12s ease,
@@ -303,21 +304,12 @@ const certifications = [
 
     /* Variants (you’re already outputting .blue / .red) */
     .tag.blue:hover {
-      background: var(--color-headings); /* indigo */
+      background: var(--accent); /* vermilion */
       color: var(--color-outlines);
     }
     .tag.red:hover {
       background: var(--accent); /* vermilion */
-      color: var(--color-outlines);
-    }
-
-    /* If you ever drop skills onto a cream card, flip colors for contrast */
-    .on-paper .tag {
-      color: var(--color-outlines);
-    } /* container helper */
-    .on-paper .tag:hover {
-      background: var(--accent-paper);
-      color: var(--color-outlines);
+      color: var(--accent-paper);
     }
 
     /* Mobile tweaks */
