@@ -4,6 +4,7 @@ import Layout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
 import { SITE_DESCRIPTION } from "../consts";
+import "@fontsource/caveat";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -29,8 +30,6 @@ const structuredData = {
 ---
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
-
   .signature {
     font-family: "Caveat", cursive;
     font-size: 2rem;

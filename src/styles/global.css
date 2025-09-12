@@ -12,6 +12,8 @@
 
 body {
   font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
   margin: 0;
   padding: 0;
   text-align: left;
