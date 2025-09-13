@@ -31,7 +31,7 @@ main {
   padding-inline: 64px;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 980px) {
   main {
     padding-inline: 0px;
   }
@@ -236,7 +236,7 @@ hr {
   background: var(--accent);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 980px) {
   body {
     font-size: 16px;
   }
@@ -397,7 +397,7 @@ article {
   margin-inline: auto;
   padding-inline: 64px;
 }
-@media (max-width: 720px) {
+@media (max-width: 980px) {
   article {
     padding-inline: 0px;
   }
@@ -605,7 +605,7 @@ article {
 }
 
 /* mobile */
-@media (max-width: 720px) {
+@media (max-width: 980px) {
   .article-card {
     padding: 1rem 1rem 1.1rem;
   }
