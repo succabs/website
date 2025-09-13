@@ -162,6 +162,7 @@ const mysteryCount = 2;
                 >‹</button
               >
               <img class="detail-image" alt="" />
+              <div class="media-placeholder" hidden aria-hidden="true">???</div>
               <button class="nav next" aria-label="Next screenshot">›</button>
             </div>
             <div
@@ -398,13 +399,8 @@ const mysteryCount = 2;
     gap: 0.35rem;
   }
   .detail-media {
-    position: relative;
-    border: 3px solid #111;
-    aspect-ratio: 16/10;
-    background: #eaeaea;
     display: grid;
-    place-items: center;
-    overflow: hidden;
+    gap: 0.5rem;
   }
   .detail-image {
     width: 100%;
@@ -423,6 +419,7 @@ const mysteryCount = 2;
     width: 36px;
     height: 44px;
     cursor: pointer;
+    z-index: 2;
   }
   .nav.prev {
     left: 0;
@@ -472,7 +469,18 @@ const mysteryCount = 2;
     aspect-ratio: 16/10;
     background: #eaeaea;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+  }
+
+  .media-placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: #0b2545;
+    border-color: #111;
+    color: var(--accent-paper);
+    font-weight: 900;
+    font-size: 2rem;
   }
 
   .detail-thumbs {
@@ -494,8 +502,12 @@ const mysteryCount = 2;
     object-fit: cover;
     display: block;
   }
-  .thumb.is-active {
-    outline: 3px solid var(--color-outlines);
+  .thumb:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .thumb[aria-current="true"] {
+    box-shadow: 0 0 0 3px var(--color-outlines);
   }
 
   /* Keep your hover glow + stamp rules as-is */
@@ -538,5 +550,9 @@ const mysteryCount = 2;
   .select-tile.is-active .stamp {
     opacity: 1;
     transform: rotate(-12deg) scale(1);
+  }
+
+  .media-placeholder[hidden] {
+    display: none !important;
   }
 </style>

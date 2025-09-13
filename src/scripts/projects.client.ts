@@ -50,6 +50,7 @@ function init() {
   const descEl = detail.querySelector<HTMLElement>(".detail-desc")!;
   const linksEl = detail.querySelector<HTMLElement>(".detail-links")!;
   const imgEl = detail.querySelector<HTMLImageElement>(".detail-image")!;
+  const placeholderEl = detail.querySelector<HTMLElement>(".media-placeholder")!;
   const prevBtn = detail.querySelector<HTMLButtonElement>(".nav.prev")!;
   const nextBtn = detail.querySelector<HTMLButtonElement>(".nav.next")!;
   const thumbsEl = detail.querySelector<HTMLElement>(".detail-thumbs")!;
@@ -60,6 +61,7 @@ function init() {
     !descEl ||
     !linksEl ||
     !imgEl ||
+    !placeholderEl ||
     !prevBtn ||
     !nextBtn ||
     !thumbsEl
@@ -68,15 +70,35 @@ function init() {
     return;
   }
 
+  imgEl.addEventListener("error", showPlaceholder);
+
   // State
   let activeIndex = -1;
   let imgIndex = 0;
 
+  function showPlaceholder() {
+    imgEl.hidden = true;
+    placeholderEl.hidden = false;
+  }
+
+  function hidePlaceholder() {
+    imgEl.hidden = false;
+    placeholderEl.hidden = true;
+  }
+
   function updateImage(p: Project) {
+    const total = p.images.length;
+    if (!total) {
+      showPlaceholder();
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+    hidePlaceholder();
     imgEl.src = p.images[imgIndex];
-    imgEl.alt = `${p.title} screenshot ${imgIndex + 1} of ${p.images.length}`;
+    imgEl.alt = `${p.title} screenshot ${imgIndex + 1} of ${total}`;
     prevBtn.disabled = imgIndex === 0;
-    nextBtn.disabled = imgIndex === p.images.length - 1;
+    nextBtn.disabled = imgIndex === total - 1;
   }
 
   function renderDetail(p: Project) {
@@ -97,9 +119,9 @@ function init() {
     thumbsEl.innerHTML = p.images
       .map(
         (src, i) => `
-      <button class="thumb ${
-        i === 0 ? "is-active" : ""
-      }" role="listitem" data-i="${i}" aria-label="Screenshot ${i + 1}">
+      <button class="thumb" role="listitem" data-i="${i}" aria-label="Screenshot ${
+            i + 1
+          }"${i === 0 ? ' aria-current="true"' : ""}>
         <img src="${src}" alt="" loading="lazy"/>
       </button>
     `
@@ -112,10 +134,7 @@ function init() {
         if (Number.isNaN(n)) return;
         imgIndex = n;
         updateImage(p);
-        thumbsEl
-          .querySelectorAll<HTMLButtonElement>(".thumb")
-          .forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
+        thumbsSync();
       });
     });
 
@@ -131,6 +150,7 @@ function init() {
     linksEl.innerHTML = "";
     imgEl.src = "";
     imgEl.alt = "";
+    showPlaceholder();
     thumbsEl.innerHTML = "";
     prevBtn.disabled = true;
     nextBtn.disabled = true;
@@ -138,7 +158,12 @@ function init() {
 
   function thumbsSync() {
     thumbsEl.querySelectorAll<HTMLButtonElement>(".thumb").forEach((b, i) => {
-      b.classList.toggle("is-active", i === imgIndex);
+      const active = i === imgIndex;
+      if (active) {
+        b.setAttribute("aria-current", "true");
+      } else {
+        b.removeAttribute("aria-current");
+      }
     });
   }
 
@@ -186,6 +211,26 @@ function init() {
       imgIndex++;
       updateImage(p);
       thumbsSync();
+    }
+  });
+
+  detail.addEventListener("keydown", (ev: KeyboardEvent) => {
+    if (activeIndex < 0) return;
+    const p = DATA[activeIndex];
+    if (ev.key === "ArrowLeft") {
+      if (imgIndex > 0) {
+        imgIndex--;
+        updateImage(p);
+        thumbsSync();
+      }
+      ev.preventDefault();
+    } else if (ev.key === "ArrowRight") {
+      if (imgIndex < p.images.length - 1) {
+        imgIndex++;
+        updateImage(p);
+        thumbsSync();
+      }
+      ev.preventDefault();
     }
   });
 
