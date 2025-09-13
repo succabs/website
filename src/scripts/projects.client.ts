@@ -13,15 +13,22 @@ interface Project {
   thumb?: string; // URL
 }
 
+declare global {
+  interface Window {
+    projectsData?: Project[];
+    projectData?: Project[];
+  }
+}
+export {};
+
 function init() {
   // Prefer the already-published global, else parse JSON node
-  // @ts-ignore
   const globalData = (window.projectsData ?? window.projectData) as
     | Project[]
     | undefined;
 
   const dataEl = document.getElementById("projects-data");
-  const parsed = dataEl?.textContent
+  const parsed: Project[] = dataEl?.textContent
     ? (JSON.parse(dataEl.textContent) as Project[])
     : [];
 
