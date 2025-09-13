@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+
+import juoksulokiImage from "../juoksuloki_screenshot.png";
 
 // ✅ TS is OK in frontmatter
 interface Link {
@@ -28,7 +31,7 @@ const projects: Project[] = [
       "No public code available (work project). Email for a demo :)",
     ],
     tech: ["JavaScript", "HTML", "CSS"],
-    images: ["/consent_analyser_screenshot.png"],
+    images: [{ juoksulokiImage.src }],
   },
   {
     id: "juoksuloki",
@@ -39,7 +42,7 @@ const projects: Project[] = [
       "Niche tool built for Suunto app on iPhone + Mac users who prefer local run data management and advanced analysis.",
     ],
     tech: ["Python", "Pandas", "Excel"],
-    images: ["/juoksuloki_screenshot.png"],
+    images: ["./juoksuloki_screenshot.png"],
   },
   {
     id: "kandi",
