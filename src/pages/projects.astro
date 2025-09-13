@@ -76,7 +76,7 @@ const projects: Project[] = [
   },
 ];
 
-const projectsData = projects.map((p) => ({
+const projectsData = projects.map((p: Project) => ({
   ...p,
   images: p.images.map((img) => img.src),
   thumb: p.thumb?.src,
@@ -103,7 +103,7 @@ const mysteryCount = 2;
     <!-- Character Grid -->
     <section class="select-grid" aria-label="Project select">
       {
-        projects.map((p, i) => (
+        projects.map((p: Project, i: number) => (
           <button
             class="select-tile"
             data-id={p.id}
@@ -198,33 +198,50 @@ const mysteryCount = 2;
   const allTiles = Array.from(document.querySelectorAll(".select-tile"));
   const tiles = allTiles.filter((t) => !t.classList.contains("mystery"));
 
-  const detail = /** @type {HTMLElement} */ (
-    document.getElementById("project-detail")
-  );
-  const titleEl = /** @type {HTMLElement} */ (
-    detail.querySelector(".detail-title")
-  );
-  const techEl = /** @type {HTMLElement} */ (
-    detail.querySelector(".detail-tech")
-  );
-  const descEl = /** @type {HTMLElement} */ (
-    detail.querySelector(".detail-desc")
-  );
-  const linksEl = /** @type {HTMLElement} */ (
-    detail.querySelector(".detail-links")
-  );
-  const imgEl = /** @type {HTMLImageElement} */ (
-    detail.querySelector(".detail-image")
-  );
-  const prevBtn = /** @type {HTMLButtonElement} */ (
-    detail.querySelector(".nav.prev")
-  );
-  const nextBtn = /** @type {HTMLButtonElement} */ (
-    detail.querySelector(".nav.next")
-  );
-  const thumbsEl = /** @type {HTMLElement} */ (
-    detail.querySelector(".detail-thumbs")
-  );
+  const detail = document.getElementById("project-detail");
+  if (!(detail instanceof HTMLElement)) {
+    throw new Error("Project detail element not found");
+  }
+
+  const titleEl = detail.querySelector(".detail-title");
+  if (!(titleEl instanceof HTMLElement)) {
+    throw new Error("Detail title element not found");
+  }
+
+  const techEl = detail.querySelector(".detail-tech");
+  if (!(techEl instanceof HTMLElement)) {
+    throw new Error("Detail tech element not found");
+  }
+
+  const descEl = detail.querySelector(".detail-desc");
+  if (!(descEl instanceof HTMLElement)) {
+    throw new Error("Detail desc element not found");
+  }
+
+  const linksEl = detail.querySelector(".detail-links");
+  if (!(linksEl instanceof HTMLElement)) {
+    throw new Error("Detail links element not found");
+  }
+
+  const imgEl = detail.querySelector(".detail-image");
+  if (!(imgEl instanceof HTMLImageElement)) {
+    throw new Error("Detail image element not found");
+  }
+
+  const prevBtn = detail.querySelector(".nav.prev");
+  if (!(prevBtn instanceof HTMLButtonElement)) {
+    throw new Error("Prev button not found");
+  }
+
+  const nextBtn = detail.querySelector(".nav.next");
+  if (!(nextBtn instanceof HTMLButtonElement)) {
+    throw new Error("Next button not found");
+  }
+
+  const thumbsEl = detail.querySelector(".detail-thumbs");
+  if (!(thumbsEl instanceof HTMLElement)) {
+    throw new Error("Detail thumbs element not found");
+  }
 
   let activeIndex = -1;
   let imgIndex = 0;
