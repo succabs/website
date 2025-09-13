@@ -76,7 +76,7 @@ const projects: Project[] = [
   },
 ];
 
-const projectsData = projects.map((p) => ({
+const projectsData = projects.map((p: Project) => ({
   ...p,
   images: p.images.map((img) => img.src),
   thumb: p.thumb?.src,
@@ -103,7 +103,7 @@ const mysteryCount = 2;
     <!-- Character Grid -->
     <section class="select-grid" aria-label="Project select">
       {
-        projects.map((p, i) => (
+        projects.map((p: Project, i: number) => (
           <button
             class="select-tile"
             data-id={p.id}
@@ -195,36 +195,75 @@ const mysteryCount = 2;
   );
   const REAL_COUNT = DATA.length;
 
-  const allTiles = Array.from(document.querySelectorAll(".select-tile"));
-  const tiles = allTiles.filter((t) => !t.classList.contains("mystery"));
+  /** @type {HTMLButtonElement[]} */
+  const allTiles = Array.from(
+    /** @type {NodeListOf<HTMLButtonElement>} */ (
+      document.querySelectorAll(".select-tile")
+    )
+  );
 
-  const detail = /** @type {HTMLElement} */ (
+  const detail = /** @type {HTMLElement | null} */ (
     document.getElementById("project-detail")
   );
-  const titleEl = /** @type {HTMLElement} */ (
+  if (!detail) {
+    throw new Error("Project detail element not found");
+  }
+
+  const titleEl = /** @type {HTMLElement | null} */ (
     detail.querySelector(".detail-title")
   );
-  const techEl = /** @type {HTMLElement} */ (
+  if (!titleEl) {
+    throw new Error("Detail title element not found");
+  }
+
+  const techEl = /** @type {HTMLElement | null} */ (
     detail.querySelector(".detail-tech")
   );
-  const descEl = /** @type {HTMLElement} */ (
+  if (!techEl) {
+    throw new Error("Detail tech element not found");
+  }
+
+  const descEl = /** @type {HTMLElement | null} */ (
     detail.querySelector(".detail-desc")
   );
-  const linksEl = /** @type {HTMLElement} */ (
+  if (!descEl) {
+    throw new Error("Detail desc element not found");
+  }
+
+  const linksEl = /** @type {HTMLElement | null} */ (
     detail.querySelector(".detail-links")
   );
-  const imgEl = /** @type {HTMLImageElement} */ (
+  if (!linksEl) {
+    throw new Error("Detail links element not found");
+  }
+
+  const imgEl = /** @type {HTMLImageElement | null} */ (
     detail.querySelector(".detail-image")
   );
-  const prevBtn = /** @type {HTMLButtonElement} */ (
+  if (!imgEl) {
+    throw new Error("Detail image element not found");
+  }
+
+  const prevBtn = /** @type {HTMLButtonElement | null} */ (
     detail.querySelector(".nav.prev")
   );
-  const nextBtn = /** @type {HTMLButtonElement} */ (
+  if (!prevBtn) {
+    throw new Error("Prev button not found");
+  }
+
+  const nextBtn = /** @type {HTMLButtonElement | null} */ (
     detail.querySelector(".nav.next")
   );
-  const thumbsEl = /** @type {HTMLElement} */ (
+  if (!nextBtn) {
+    throw new Error("Next button not found");
+  }
+
+  const thumbsEl = /** @type {HTMLElement | null} */ (
     detail.querySelector(".detail-thumbs")
   );
+  if (!thumbsEl) {
+    throw new Error("Detail thumbs element not found");
+  }
 
   let activeIndex = -1;
   let imgIndex = 0;
@@ -257,18 +296,24 @@ const mysteryCount = 2;
       )
       .join("");
 
-    thumbsEl.querySelectorAll(".thumb").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const n = Number(btn.getAttribute("data-i"));
-        if (Number.isNaN(n)) return;
-        imgIndex = n;
-        updateImage(p);
-        thumbsEl
-          .querySelectorAll(".thumb")
-          .forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-      });
-    });
+      thumbsEl.querySelectorAll(".thumb").forEach(
+        /** @param {HTMLButtonElement} btn */
+        (btn) => {
+          btn.addEventListener("click", () => {
+            const n = Number(btn.getAttribute("data-i"));
+            if (Number.isNaN(n)) return;
+            imgIndex = n;
+            updateImage(p);
+            thumbsEl
+              .querySelectorAll(".thumb")
+              .forEach(
+                /** @param {HTMLButtonElement} b */
+                (b) => b.classList.remove("is-active")
+              );
+            btn.classList.add("is-active");
+          });
+        }
+      );
 
     imgIndex = 0;
     updateImage(p);
@@ -317,13 +362,16 @@ const mysteryCount = 2;
   }
 
   // Clicks
-  document.querySelectorAll(".select-tile").forEach((tile) => {
-    tile.addEventListener("click", () => {
-      const idx = Number(tile.getAttribute("data-index"));
-      if (Number.isNaN(idx)) return;
-      selectByIndex(idx);
-    });
-  });
+  allTiles.forEach(
+    /** @param {HTMLButtonElement} tile */
+    (tile) => {
+      tile.addEventListener("click", () => {
+        const idx = Number(tile.getAttribute("data-index"));
+        if (Number.isNaN(idx)) return;
+        selectByIndex(idx);
+      });
+    }
+  );
 
   // Carousel buttons
   prevBtn.addEventListener("click", () => {
@@ -346,9 +394,12 @@ const mysteryCount = 2;
   });
 
   function thumbsSync() {
-    thumbsEl.querySelectorAll(".thumb").forEach((b, i) => {
-      b.classList.toggle("is-active", i === imgIndex);
-    });
+    thumbsEl.querySelectorAll(".thumb").forEach(
+      /** @param {HTMLButtonElement} b @param {number} i */
+      (b, i) => {
+        b.classList.toggle("is-active", i === imgIndex);
+      }
+    );
   }
 
   // Preselect first card

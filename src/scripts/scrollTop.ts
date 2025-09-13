@@ -1,10 +1,11 @@
 export function setupScrollTopButton() {
-  const btn = document.getElementById(
-    "scroll-top-btn"
-  ) as HTMLButtonElement | null;
-  if (!btn) return;
-  const progress = btn.querySelector<SVGCircleElement>(".progress");
-  if (!progress) return;
+  const btnEl = document.getElementById("scroll-top-btn");
+  if (!(btnEl instanceof HTMLButtonElement)) return;
+  const progressEl = btnEl.querySelector<SVGCircleElement>(".progress");
+  if (!progressEl) return;
+
+  const btn = btnEl;
+  const progress = progressEl;
 
   const radius = progress.r.baseVal.value;
   const circumference = 2 * Math.PI * radius;
