@@ -91,7 +91,7 @@ const mysteryCount = 2;
 >
   <h1>Projects</h1>
   <p class="full-width">
-    Pick a “character” to view details. More on
+    Choose a project to view details. More on
     <a
       href="https://github.com/succabs"
       target="_blank"
@@ -196,6 +196,7 @@ const mysteryCount = 2;
   const REAL_COUNT = DATA.length;
 
   const allTiles = Array.from(document.querySelectorAll(".select-tile"));
+  const tiles = allTiles.filter((t) => !t.classList.contains("mystery"));
 
   const detail = /** @type {HTMLElement} */ (
     document.getElementById("project-detail")
@@ -321,13 +322,6 @@ const mysteryCount = 2;
       const idx = Number(tile.getAttribute("data-index"));
       if (Number.isNaN(idx)) return;
       selectByIndex(idx);
-      if (isNarrow() && tile instanceof HTMLElement) {
-        tile.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest",
-        });
-      }
     });
   });
 
@@ -362,21 +356,36 @@ const mysteryCount = 2;
 </script>
 
 <style>
+  /* GLOBAL stuff */
+  .select-tile,
+  .tile-frame,
+  .stamp {
+    box-sizing: border-box;
+  }
+
   .projects-wrap {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
     align-items: start;
   }
 
   /* GRID */
   .select-grid {
-    --cols: 3;
+    --cols: 6; /* desktop can show more across since detail is below */
     display: grid;
     grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
     gap: 1rem;
   }
 
+  @media screen and (max-width: 720px) {
+    .select-grid {
+      --cols: 3;
+      gap: 0.5rem;
+    }
+  }
+
+  /* THUMBNAIL TILES */
   .select-tile {
     background: transparent;
     border: 0;
@@ -384,6 +393,10 @@ const mysteryCount = 2;
     cursor: pointer;
     text-align: left;
     outline-offset: 2px;
+    font: inherit; /* kills UA control font */
+    line-height: 1; /* avoids extra button line-height */
+    -webkit-appearance: none; /* Safari */
+    appearance: none;
   }
 
   .tile-frame {
@@ -427,6 +440,15 @@ const mysteryCount = 2;
     font-size: 0.8rem;
   }
 
+  /* Responsive: dense tiles on mobile, one-column detail */
+  @media (max-width: 720px) {
+    .codename {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.35rem;
+      margin: 0.25rem;
+    }
+  }
+
   /* Hover glow + snap */
   .select-tile:hover .tile-frame,
   .select-tile:focus-visible .tile-frame {
@@ -441,30 +463,6 @@ const mysteryCount = 2;
     filter: saturate(1.05) contrast(1.05);
   }
 
-  /* SELECTED stamp */
-  .stamp {
-    position: absolute;
-    right: 0.4rem;
-    top: 0.4rem;
-    font-weight: 900;
-    color: var(--accent);
-    border: 3px solid var(--accent);
-    padding: 0.15rem 0.45rem;
-    transform: rotate(-12deg) scale(0.9);
-    opacity: 0;
-    background: var(--accent-paper);
-    transition:
-      opacity 120ms ease,
-      transform 120ms ease;
-    pointer-events: none;
-    font-size: 0.8rem; /* pick what you like (was implicit) */
-    letter-spacing: 0.02em;
-  }
-  .select-tile.is-active .stamp {
-    opacity: 1;
-    transform: rotate(-12deg) scale(1);
-  }
-
   /* Mystery slot with glitch */
   .mystery .tile-frame {
     background: #0b2545;
@@ -472,7 +470,7 @@ const mysteryCount = 2;
   }
   .mystery .codename {
     background: var(--accent);
-    color: #111;
+    color: var(--accent-paper);
   }
   .mystery .mystery-text {
     font-weight: 900;
@@ -549,11 +547,6 @@ const mysteryCount = 2;
     flex-wrap: wrap;
     gap: 0.35rem;
   }
-
-  .detail-body {
-    display: grid;
-    gap: 0.75rem;
-  }
   .detail-media {
     position: relative;
     border: 3px solid #111;
@@ -591,7 +584,6 @@ const mysteryCount = 2;
     opacity: 0.45;
     cursor: default;
   }
-
   .detail-copy {
     display: grid;
     gap: 0.5rem;
@@ -615,45 +607,6 @@ const mysteryCount = 2;
     background: var(--accent);
     color: #fff;
   }
-
-  /* defaults */
-  .select-grid {
-    --cols: 3;
-  }
-
-  /* Large tablets/desktop: keep as-is */
-  @media (min-width: 981px) {
-    .projects-wrap {
-      grid-template-columns: 1.15fr 1fr;
-    }
-    .detail {
-      position: sticky;
-      top: 1rem;
-    }
-  }
-
-  /* Tablets & down: stack, denser grid */
-  @media (max-width: 980px) {
-    .projects-wrap {
-      grid-template-columns: 1fr;
-    }
-    .detail {
-      position: static;
-      margin-top: 1rem;
-    }
-    .select-grid {
-      --cols: 4;
-    } /* tighter by default on mobile */
-    .tile-frame {
-      aspect-ratio: 1 / 1;
-    } /* square “portrait” tiles */
-    .codename {
-      font-size: 0.68rem;
-      padding: 0.2rem 0.35rem;
-      margin: 0.25rem;
-    }
-  }
-
   /* Two-column detail on desktop: text left, media right */
   .detail-body {
     display: grid;
@@ -671,15 +624,10 @@ const mysteryCount = 2;
     overflow: hidden;
     margin-bottom: 0.5rem;
   }
-  .detail-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 
   .detail-thumbs {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
     gap: 0.5rem;
   }
   .thumb {
@@ -697,101 +645,48 @@ const mysteryCount = 2;
     display: block;
   }
   .thumb.is-active {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--color-outlines);
   }
 
   /* Keep your hover glow + stamp rules as-is */
 
   /* Responsive: dense tiles on mobile, one-column detail */
   @media (max-width: 980px) {
-    .select-grid {
-      --cols: 4;
-      gap: 0.5rem;
-    }
-    .tile-frame {
-      aspect-ratio: 1/1;
-    }
-    .codename {
-      font-size: 0.68rem;
-      padding: 0.2rem 0.35rem;
-      margin: 0.25rem;
-    }
-
     .detail-body {
       grid-template-columns: 1fr;
     }
-    .media-main {
-      aspect-ratio: 16/10;
-    }
   }
 
-  /* Very small phones */
-  @media (max-width: 420px) {
-    .select-grid {
-      --cols: 4;
-    }
-  }
-  @media (max-width: 360px) {
-    .select-grid {
-      --cols: 3;
-    }
-  }
-
-  /* Locked detail state */
-  .detail.locked .detail-tech,
-  .detail.locked .detail-thumbs,
-  .detail.locked .btn-link {
-    display: none;
-  }
-
-  .detail.locked .detail-title {
-    position: relative;
-    padding-right: 7rem;
-  }
-  .detail.locked .media-main {
-    position: relative;
-    border: 3px solid #111;
-    background: #0b2545;
-    overflow: hidden;
-  }
-  .detail.locked .media-main::before {
-    content: "???";
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-weight: 900;
-    font-size: clamp(2rem, 10vw, 5rem);
-    color: #fff;
-    text-shadow:
-      1px 0 0 #ff0066,
-      -1px 0 0 #00e5ff;
-    animation: glitch 1.8s infinite;
-  }
-  /* light scanline overlay */
-  .detail.locked .media-main::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0 6px,
-      rgba(255, 255, 255, 0.04) 6px 7px
-    );
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-
-  /* normalize buttons so they match div tiles */
-  .select-tile {
-    font: inherit; /* kills UA control font */
-    line-height: 1; /* avoids extra button line-height */
-    -webkit-appearance: none; /* Safari */
-    appearance: none;
-  }
-  .select-tile,
-  .tile-frame,
+  /* STAMP */
   .stamp {
-    box-sizing: border-box;
+    position: absolute;
+    right: 0.4rem;
+    top: 0.4rem;
+    font-weight: 900;
+    color: var(--accent);
+    border: 3px solid var(--accent);
+    padding: 0.15rem 0.45rem;
+    transform: rotate(-12deg) scale(0.9);
+    opacity: 0;
+    background: var(--accent-paper);
+    transition:
+      opacity 120ms ease,
+      transform 120ms ease;
+    pointer-events: none;
+    font-size: 0.8rem; /* pick what you like (was implicit) */
+    letter-spacing: 0.02em;
+  }
+
+  /* make stamp smaller on mobile */
+  @media (max-width: 720px) {
+    .stamp {
+      font-size: 0.68rem;
+      padding: 0.1rem 0.35rem;
+    }
+  }
+
+  .select-tile.is-active .stamp {
+    opacity: 1;
+    transform: rotate(-12deg) scale(1);
   }
 </style>
