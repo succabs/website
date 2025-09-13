@@ -37,19 +37,15 @@ function init() {
     document.querySelectorAll<HTMLElement>(".select-tile")
   );
 
-  const detail = document.getElementById(
-    "project-detail"
-  ) as HTMLElement | null;
-  if (!detail) return;
-
-  const titleEl = detail.querySelector<HTMLElement>(".detail-title");
-  const techEl = detail.querySelector<HTMLElement>(".detail-tech");
-  const descEl = detail.querySelector<HTMLElement>(".detail-desc");
-  const linksEl = detail.querySelector<HTMLElement>(".detail-links");
-  const imgEl = detail.querySelector<HTMLImageElement>(".detail-image");
-  const prevBtn = detail.querySelector<HTMLButtonElement>(".nav.prev");
-  const nextBtn = detail.querySelector<HTMLButtonElement>(".nav.next");
-  const thumbsEl = detail.querySelector<HTMLElement>(".detail-thumbs");
+  const detail = document.getElementById("project-detail")!;
+  const titleEl = detail.querySelector<HTMLElement>(".detail-title")!;
+  const techEl = detail.querySelector<HTMLElement>(".detail-tech")!;
+  const descEl = detail.querySelector<HTMLElement>(".detail-desc")!;
+  const linksEl = detail.querySelector<HTMLElement>(".detail-links")!;
+  const imgEl = detail.querySelector<HTMLImageElement>(".detail-image")!;
+  const prevBtn = detail.querySelector<HTMLButtonElement>(".nav.prev")!;
+  const nextBtn = detail.querySelector<HTMLButtonElement>(".nav.next")!;
+  const thumbsEl = detail.querySelector<HTMLElement>(".detail-thumbs")!;
 
   if (
     !titleEl ||
