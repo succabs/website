@@ -476,7 +476,8 @@ const mysteryCount = 2;
     inset: 0;
     display: grid;
     place-items: center;
-    background: var(--color-outlines);
+    background: #0b2545;
+    border-color: #111;
     color: var(--accent-paper);
     font-weight: 900;
     font-size: 2rem;
@@ -549,5 +550,9 @@ const mysteryCount = 2;
   .select-tile.is-active .stamp {
     opacity: 1;
     transform: rotate(-12deg) scale(1);
+  }
+
+  .media-placeholder[hidden] {
+    display: none !important;
   }
 </style>
