@@ -176,235 +176,34 @@ const mysteryCount = 2;
     </aside>
   </div>
   <!-- Hidden JSON for client script (inside Layout) -->
-  <script
-    type="application/json"
-    id="projects-data"
-    hidden
-    aria-hidden="true"
-    set:html={JSON.stringify(projectsData)}
-  />
+  <script type="application/json" id="projects-data" hidden aria-hidden="true" set:html={JSON.stringify(projectsData)}>
+
+  </script>
+
+  <!-- Publish a global immediately so nothing can crash earlier -->
+  <script is:inline>
+    (function () {
+      const el = document.getElementById('projects-data');
+      try {
+        const data = el && el.textContent ? JSON.parse(el.textContent) : [];
+        // expose both names to be safe
+        // @ts-ignore
+        window.projectsData = data;
+        // @ts-ignore
+        window.projectData = data;
+      } catch (e) {
+        console.error('[projects] failed to parse projects-data', e);
+        // @ts-ignore
+        window.projectsData = [];
+        // @ts-ignore
+        window.projectData = [];
+      }
+    })();
+  </script>
 </Layout>
 
-<!-- Inline script must be JS (use JSDoc for hints) -->
-<script>
-  /** @typedef {{id:string,codename:string,title:string,desc:string[],tech:string[],links?:{label:string,href:string}[],images:string[],thumb?:string}} Project */
+<script src="../scripts/projects.client.ts" />
 
-  /** @type {Project[]} */
-  const DATA = JSON.parse(
-    document.getElementById("projects-data")?.textContent || "[]"
-  );
-  const REAL_COUNT = DATA.length;
-
-  /** @type {HTMLButtonElement[]} */
-  const allTiles = Array.from(
-    /** @type {NodeListOf<HTMLButtonElement>} */ (
-      document.querySelectorAll(".select-tile")
-    )
-  );
-
-  const detail = /** @type {HTMLElement | null} */ (
-    document.getElementById("project-detail")
-  );
-  if (!detail) {
-    throw new Error("Project detail element not found");
-  }
-
-  const titleEl = /** @type {HTMLElement | null} */ (
-    detail.querySelector(".detail-title")
-  );
-  if (!titleEl) {
-    throw new Error("Detail title element not found");
-  }
-
-  const techEl = /** @type {HTMLElement | null} */ (
-    detail.querySelector(".detail-tech")
-  );
-  if (!techEl) {
-    throw new Error("Detail tech element not found");
-  }
-
-  const descEl = /** @type {HTMLElement | null} */ (
-    detail.querySelector(".detail-desc")
-  );
-  if (!descEl) {
-    throw new Error("Detail desc element not found");
-  }
-
-  const linksEl = /** @type {HTMLElement | null} */ (
-    detail.querySelector(".detail-links")
-  );
-  if (!linksEl) {
-    throw new Error("Detail links element not found");
-  }
-
-  const imgEl = /** @type {HTMLImageElement | null} */ (
-    detail.querySelector(".detail-image")
-  );
-  if (!imgEl) {
-    throw new Error("Detail image element not found");
-  }
-
-  const prevBtn = /** @type {HTMLButtonElement | null} */ (
-    detail.querySelector(".nav.prev")
-  );
-  if (!prevBtn) {
-    throw new Error("Prev button not found");
-  }
-
-  const nextBtn = /** @type {HTMLButtonElement | null} */ (
-    detail.querySelector(".nav.next")
-  );
-  if (!nextBtn) {
-    throw new Error("Next button not found");
-  }
-
-  const thumbsEl = /** @type {HTMLElement | null} */ (
-    detail.querySelector(".detail-thumbs")
-  );
-  if (!thumbsEl) {
-    throw new Error("Detail thumbs element not found");
-  }
-
-  let activeIndex = -1;
-  let imgIndex = 0;
-
-  const isNarrow = () => matchMedia("(max-width: 980px)").matches;
-
-  /** @param {Project} p */
-  function renderDetail(p) {
-    detail.classList.remove("locked");
-    titleEl.textContent = p.title;
-    techEl.innerHTML = p.tech
-      .map((t) => `<span class="tag" role="listitem">${t}</span>`)
-      .join("");
-    descEl.innerHTML = p.desc.map((d) => `<p>${d}</p>`).join("");
-    linksEl.innerHTML = (p.links || [])
-      .map(
-        (l) =>
-          `<a class="btn-link" href="${l.href}" target="_blank" rel="noopener noreferrer">${l.label}</a>`
-      )
-      .join("");
-
-    // thumbs
-    thumbsEl.innerHTML = p.images
-      .map(
-        (src, i) => `
-        <button class="thumb ${i === 0 ? "is-active" : ""}" role="listitem" data-i="${i}" aria-label="Screenshot ${i + 1}">
-          <img src="${src}" alt="" loading="lazy"/>
-        </button>
-      `
-      )
-      .join("");
-
-      thumbsEl.querySelectorAll(".thumb").forEach(
-        /** @param {HTMLButtonElement} btn */
-        (btn) => {
-          btn.addEventListener("click", () => {
-            const n = Number(btn.getAttribute("data-i"));
-            if (Number.isNaN(n)) return;
-            imgIndex = n;
-            updateImage(p);
-            thumbsEl
-              .querySelectorAll(".thumb")
-              .forEach(
-                /** @param {HTMLButtonElement} b */
-                (b) => b.classList.remove("is-active")
-              );
-            btn.classList.add("is-active");
-          });
-        }
-      );
-
-    imgIndex = 0;
-    updateImage(p);
-  }
-
-  function renderLockedDetail(label = "COMING SOON") {
-    detail.classList.add("locked");
-    titleEl.textContent = label;
-    techEl.innerHTML = "";
-    descEl.innerHTML = `<p>New challenger approaching… This slot is locked.</p>`;
-    linksEl.innerHTML = "";
-    imgEl.src = "";
-    imgEl.alt = "";
-    thumbsEl.innerHTML = "";
-    prevBtn.disabled = true;
-    nextBtn.disabled = true;
-  }
-
-  /** @param {Project} p */
-  function updateImage(p) {
-    imgEl.src = p.images[imgIndex];
-    imgEl.alt = `${p.title} screenshot ${imgIndex + 1} of ${p.images.length}`;
-    prevBtn.disabled = imgIndex === 0;
-    nextBtn.disabled = imgIndex === p.images.length - 1;
-  }
-
-  function selectByIndex(i, focusTile = false) {
-    const isLocked = i >= REAL_COUNT;
-
-    allTiles.forEach((t) => t.classList.remove("is-active"));
-    const tile = allTiles[i];
-    if (tile) tile.classList.add("is-active");
-
-    activeIndex = Math.min(i, REAL_COUNT - 1);
-
-    if (isLocked) {
-      // optional: read the visible label from the tile (will be "???")
-      const label =
-        tile?.querySelector(".codename")?.textContent?.trim() || "COMING SOON";
-      renderLockedDetail(label);
-    } else {
-      renderDetail(DATA[i]);
-    }
-
-    if (focusTile && tile instanceof HTMLElement) tile.focus();
-  }
-
-  // Clicks
-  allTiles.forEach(
-    /** @param {HTMLButtonElement} tile */
-    (tile) => {
-      tile.addEventListener("click", () => {
-        const idx = Number(tile.getAttribute("data-index"));
-        if (Number.isNaN(idx)) return;
-        selectByIndex(idx);
-      });
-    }
-  );
-
-  // Carousel buttons
-  prevBtn.addEventListener("click", () => {
-    if (activeIndex < 0) return;
-    const p = DATA[activeIndex];
-    if (imgIndex > 0) {
-      imgIndex--;
-      updateImage(p);
-    }
-    thumbsSync();
-  });
-  nextBtn.addEventListener("click", () => {
-    if (activeIndex < 0) return;
-    const p = DATA[activeIndex];
-    if (imgIndex < p.images.length - 1) {
-      imgIndex++;
-      updateImage(p);
-    }
-    thumbsSync();
-  });
-
-  function thumbsSync() {
-    thumbsEl.querySelectorAll(".thumb").forEach(
-      /** @param {HTMLButtonElement} b @param {number} i */
-      (b, i) => {
-        b.classList.toggle("is-active", i === imgIndex);
-      }
-    );
-  }
-
-  // Preselect first card
-  if (DATA.length) selectByIndex(0);
-</script>
 
 <style>
   /* GLOBAL stuff */
