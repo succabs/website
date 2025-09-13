@@ -89,6 +89,13 @@ import HeaderLink from "./HeaderLink.astro";
     flex-wrap: wrap;
   }
 
+  @media screen and (max-width: 720px) {
+    .nav-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
   .nav-links {
     display: flex;
     gap: 32px;
