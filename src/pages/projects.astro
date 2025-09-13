@@ -196,12 +196,6 @@ const mysteryCount = 2;
   const REAL_COUNT = DATA.length;
 
   const allTiles = Array.from(document.querySelectorAll(".select-tile"));
-  const tiles = allTiles.filter((t) => !t.classList.contains("mystery"));
-
-  function scrollTileIntoView(el) {
-    const y = el.getBoundingClientRect().top + window.scrollY - 8;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  }
 
   const detail = /** @type {HTMLElement} */ (
     document.getElementById("project-detail")
