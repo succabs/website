@@ -85,6 +85,7 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
 
   .title a:hover {
     text-decoration: underline; /* more visible than subtle color shift */
+    text-decoration-color: var(--color-outlines);
   }
 
   .excerpt {
@@ -98,5 +99,9 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
     font-weight: 600;
     margin-top: 1rem;
     color: #444;
+  }
+
+  .blog-card:hover .date {
+    color: #fff;
   }
 </style>
