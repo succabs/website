@@ -2,7 +2,7 @@
 
 # Poster Wave UI — Style Guide
 
-- A bold, poster-inspired UI that blends Japanese woodblock color (blue + cream + vermilion) with arcade/fighter-select shapes (thick outlines, stamps, flags). Typography does the heavy lifting; components are simple and graphic.
+- A bold, poster-inspired UI that blends bold colors with arcade/fighter-select shapes (thick outlines, stamps, flags). Typography does the heavy lifting; components are simple and graphic. Slightly brutalist.
   Brand traits:
 - Brave: strong blocks of color, oversized type, visible edges.
 - Readable: body on calm surfaces (cream), generous spacing.
