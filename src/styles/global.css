@@ -193,8 +193,9 @@ hr {
 
 /* Shared base: full-width black bar */
 .hr-1,
-.hr-2,
-.hr-3 {
+.hr-3,
+.hr-3,
+.hr-4 {
   position: relative;
   height: var(--hr-height);
   width: 100%;
@@ -214,7 +215,7 @@ hr {
 }
 
 /* Red on the LEFT */
-.hr-2::after {
+.hr-3::after {
   content: "";
   position: absolute;
   top: 0;

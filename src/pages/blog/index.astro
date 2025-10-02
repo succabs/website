@@ -36,7 +36,7 @@ const allTags = Array.from(
   <head>
     <BaseHead
       title="Blog"
-      description="Personal blog on life, tech and curiosity — from side projects to debugging deep dives."
+      description="Personal blog on life, tech and curiosity — everything from side projects to events of my life."
     />
     <style>
       /* container */
@@ -124,6 +124,20 @@ const allTags = Array.from(
         border: 2px solid var(--color-headings);
         background: transparent;
         color: var(--color-headings);
+      }
+
+      .sort-select,
+      .filter-btn,
+      .controls-bar {
+        letter-spacing: 0.03em;
+      }
+
+      @media (min-width: 600px) {
+        .sort-select,
+        .filter-btn,
+        .controls-bar {
+          letter-spacing: 0.08em;
+        }
       }
 
       /* ===== post list ===== */
@@ -315,7 +329,7 @@ const allTags = Array.from(
       </div>
     </div>
 
-    <hr class="hr-3" />
+    <hr class="hr-4" />
 
     <section class="posts-list">
       {
