@@ -6,7 +6,7 @@ import type { ImageMetadata } from "astro";
 import consentImage from "../assets/consent_analyser_screenshot.png";
 import juoksulokiImage from "../assets/juoksuloki_screenshot.png";
 import kandirushsagaImage from "../assets/kandirushsaga_screenshot.png";
-import pitmasterImage from "../assets/pitmaster_screenshot.png";
+import graduTheftAutoImage from "../assets/gradu_theft_auto_screenshot.png";
 
 // ✅ TS is OK in frontmatter
 interface Link {
@@ -64,15 +64,15 @@ const projects: Project[] = [
     images: [kandirushsagaImage],
   },
   {
-    id: "pitmaster",
-    codename: "PITMASTER",
-    title: "Pitmaster",
+    id: "gradu",
+    codename: "GRADU THEFT AUTO",
+    title: "Gradu Theft Auto",
     desc: [
-      "Gladiator manager web game inspired by Areena 5 and Travian.",
-      "Front-end ready; back-end and graphics WIP.",
+      "Walk to the university library through Kauppakatu to get your thesis ready.",
+      "Try to manage to graduate before running out of time.",
     ],
-    tech: ["Svelte", "TailwindCSS", "ExpressJS", "PostgreSQL", "VPS"],
-    images: [pitmasterImage],
+    tech: ["JavaScript", "Phaser"],
+    images: [graduTheftAutoImage],
   },
 ];
 
