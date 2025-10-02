@@ -5,8 +5,12 @@ import type { ImageMetadata } from "astro";
 
 import consentImage from "../assets/consent_analyser_screenshot.png";
 import juoksulokiImage from "../assets/juoksuloki_screenshot.png";
-import kandirushsagaImage from "../assets/kandirushsaga_screenshot.png";
+import kandirushsagaImage from "../assets/kandi_2.png";
+import kandirushsagaImage2 from "../assets/kandi_1.png";
+import kandirushsagaImage3 from "../assets/kandi_3.png";
 import graduTheftAutoImage from "../assets/gradu_theft_auto_screenshot.png";
+import graduTheftAutoImage2 from "../assets/gradu_theft_auto_screenshot_2.png";
+import graduTheftAutoImage3 from "../assets/gradu_theft_auto_screenshot_3.png";
 
 // ✅ TS is OK in frontmatter
 interface Link {
@@ -61,7 +65,7 @@ const projects: Project[] = [
       { label: "Code", href: "https://github.com/succabs/kandirushsaga" },
       { label: "Live", href: "https://arttu.net/kandirushsaga" },
     ],
-    images: [kandirushsagaImage],
+    images: [kandirushsagaImage, kandirushsagaImage2, kandirushsagaImage3],
   },
   {
     id: "gradu",
@@ -70,9 +74,13 @@ const projects: Project[] = [
     desc: [
       "Walk to the university library through Kauppakatu to get your thesis ready.",
       "Try to manage to graduate before running out of time.",
+      "This is even harder than Kandi Rush Saga. Naturally.",
     ],
     tech: ["JavaScript", "Phaser"],
-    images: [graduTheftAutoImage],
+        links: [
+      { label: "Code", href: "https://github.com/succabs/gradu-theft-auto" },
+    ],
+    images: [graduTheftAutoImage, graduTheftAutoImage2, graduTheftAutoImage3],
   },
 ];
 
