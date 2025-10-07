@@ -290,6 +290,11 @@ const allTags = Array.from(
       From here you can find my occasional notes on tech, development, life and
       curious projects.
     </p>
+    <p>
+      You can browse all posts below, sort them by date, or filter them by tags
+      to find topics that interest you — whether it's web development, tech or
+      my random hobbies.
+    </p>
     <hr />
     <div class="controls-bar">
       <div class="filter-buttons">
@@ -381,7 +386,7 @@ const allTags = Array.from(
 
   <script type="module">
     if (typeof window !== "undefined") {
-      const postsPerPage = 5;
+      const postsPerPage = 10;
       const postsList = document.querySelector(".posts-list");
       let posts = Array.from(document.querySelectorAll(".post-item"));
       const filterButtons = document.querySelectorAll(".filter-btn");
