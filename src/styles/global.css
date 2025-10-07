@@ -1,17 +1,19 @@
 :root {
   --color-bg: #2473b7;
   --color-headings: #f8f4e6;
-  --color-outlines: #111111;
+  --color-outlines: #eee0e0;
+  --color-outlines-dark: #111;
   --color-text: #f8f4e6;
+  --color-text-dark: #111;
   --accent: #dd1313;
-  --accent-beige: #e5d0a6;
-  --accent-paper: #f8f4e6;
+  --accent-second: #f8f4e6;
   --max-width: 1200px;
-  --font-heading: 'Anton';
+  --font-heading: "Anton", sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-optical-sizing: auto;
   font-weight: normal;
   margin: 0;
@@ -46,7 +48,7 @@ h6 {
   margin: 0 0 0.5rem 0;
   color: var(--color-headings);
   line-height: 1.2;
-  font-family: 'Anton', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 400;
   font-style: normal;
   text-transform: uppercase;
@@ -83,9 +85,9 @@ b {
 
 /* links on blue background (default) */
 a {
-  color: var(--accent-paper); /* cream text */
+  color: var(--color-text); /* cream text */
   text-decoration: underline;
-  text-decoration-color: var(--color-outlines); /* softer than pure black */
+  text-decoration-color: var(--color-text-dark);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px; /* was tight; now comfy */
   transition: text-decoration-color 0.15s ease;
@@ -99,8 +101,8 @@ a:hover {
 .experience-item a,
 .bauhaus-card a,
 .project-section a {
-  color: var(--color-outlines);
-  text-decoration-color: var(--color-outlines);
+  color: var(--color-text-dark);
+  text-decoration-color: var(--color-text-dark);
   text-underline-offset: 2px;
 }
 .on-paper a:hover,
@@ -118,10 +120,10 @@ post-item a {
 /* global focus ring */
 a:focus-visible,
 button:focus-visible,
-[role='button']:focus-visible,
+[role="button"]:focus-visible,
 input:focus-visible,
 .selectable:focus-visible {
-  outline: 3px solid var(--accent-paper); /* cream */
+  outline: 3px solid var(--accent-second); /* cream */
   outline-offset: 2px;
 }
 
@@ -199,13 +201,13 @@ hr {
   position: relative;
   height: var(--hr-height);
   width: 100%;
-  background: #111;
+  background: var(--color-outlines-dark);
   margin: var(--hr-margin) 0;
 }
 
 /* Red on the RIGHT */
 .hr-1::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
@@ -216,7 +218,7 @@ hr {
 
 /* Red on the LEFT */
 .hr-3::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -227,7 +229,7 @@ hr {
 
 /* Red in the MIDDLE */
 .hr-3::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -333,7 +335,7 @@ body {
   padding: 0.5rem 1rem;
   background: transparent;
   border: 2px solid var(--accent);
-  background: var(--accent-paper);
+  background: var(--accent-second);
   color: var(--accent);
   font-weight: bold;
   text-transform: uppercase;
@@ -343,7 +345,7 @@ body {
 
 .cookie-button:hover {
   background: var(--accent);
-  color: var(--accent-paper);
+  color: var(--color-text);
 }
 
 .cookie-button.cancel {
@@ -365,24 +367,27 @@ body {
 }
 
 .tag {
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  font-size: 0.75rem;
-  padding: 0.35em 0.75em;
+  border: 2px solid var(--color-outlines-dark);
+  background-color: var(--accent-second);
+  color: var(--color-text-dark);
+  padding: 0.15rem 0.45rem;
+  font-size: 0.8rem;
   white-space: nowrap;
-  border-radius: 4px;
+  border-radius: 0px;
   gap: 0.4em; /* space between icon and text */
   display: inline-flex;
   align-items: center; /* centers icon + text vertically */
-  gap: 0.4em; /* space between icon and text */
-  padding: 0.3em 0.6em;
-  border-radius: 0.4em;
-  font-size: 0.9rem;
 }
 .tag svg,
 .tag i {
   width: 1em;
   height: 1em;
+}
+
+.tag:hover {
+  background-color: var(--accent);
+  color: var(--color-text);
+  text-decoration: none;
 }
 
 ul {
@@ -423,8 +428,8 @@ article {
 /* ===== article card (cream) ===== */
 .article-card {
   position: relative;
-  background: var(--accent-paper);
-  color: var(--color-outlines);
+  background: var(--accent-second);
+  color: var(--color-text-dark);
   border: 3px solid var(--color-outlines);
   padding: 1.25rem 1.5rem 1.4rem;
   margin: 0 auto 2rem;
@@ -433,7 +438,7 @@ article {
 
 /* red spine */
 .article-card::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -3px;
   right: -3px;
@@ -450,7 +455,7 @@ article {
 .article-header .meta {
   font-size: 0.9rem;
   margin: 0.25rem 0 0.5rem;
-  color: var(--color-outlines);
+  color: var(--color-text-dark);
 }
 .article-header .meta .read-time {
   margin-left: 0.5rem;
@@ -463,7 +468,7 @@ article {
   font-size: clamp(2rem, 5vw, 3.2rem);
   line-height: 1.05;
   margin: 0.25rem 0 0.6rem;
-  color: var(--color-outlines);
+  color: var(--color-text-dark);
 }
 
 /* tags row (reuse your chips) */
@@ -473,25 +478,19 @@ article {
   gap: 0.4rem;
   margin: 0.25rem 0 0.5rem;
 }
-.tag {
-  border: 2px solid var(--color-outlines);
-  color: var(--color-outlines);
-  padding: 0.15rem 0.45rem;
-  font-size: 0.8rem;
-}
 
 /* divider inside card */
 .article-card hr {
   border: 0;
   height: 8px;
-  background: #111;
+  background: var(--color-outlines-dark);
   margin: 1rem 0 1.25rem;
 }
 .article-card hr.hr-3 {
   position: relative;
 }
 .article-card hr.hr-3::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -511,9 +510,9 @@ article {
   line-height: 1.72;
 }
 .article-body a {
-  color: var(--color-outlines);
+  color: var(--color-text-dark);
   text-decoration: underline;
-  text-decoration-color: var(--color-outlines);
+  text-decoration-color: var(--color-text-dark);
   text-underline-offset: 3px;
 }
 .article-body a:hover {
@@ -525,7 +524,7 @@ article {
 .article-body h3 {
   font-family: var(--font-heading);
   text-transform: uppercase;
-  color: var(--color-outlines) !important;
+  color: var(--color-text-dark) !important;
   margin: 2rem 0 0.6rem;
   line-height: 1.15;
 }
@@ -548,27 +547,27 @@ article {
   position: relative;
 }
 .article-body li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -1.05rem;
   top: 0.6em;
   width: 0.5rem;
   height: 0.5rem;
-  background: var(--color-outlines);
+  background: var(--color-outlines-dark);
 }
 
 /* quotes & code */
 .article-body blockquote {
   margin: 1.1rem 0;
   padding: 0.7rem 0.9rem;
-  border: 2px solid var(--color-outlines);
+  border: 2px solid var(--color-outlines-dark);
   background: transparent;
   font-style: normal;
 }
 .article-body pre {
   margin: 1rem 0;
   padding: 1rem;
-  border: 2px solid var(--color-outlines);
+  border: 2px solid var(--color-outlines-dark);
   background: var(--accent);
   color: #fff;
   font-size: 0.9rem;
@@ -603,7 +602,7 @@ article {
 /* focus rings (use your globals if present) */
 .article-card a:focus-visible,
 .back-to-index a:focus-visible {
-  outline: 3px solid var(--color-outlines);
+  outline: 3px solid var(--color-outlines-dark);
   outline-offset: 2px;
 }
 
@@ -618,5 +617,6 @@ article {
 }
 
 .detail-links a {
-  color: var(--color-outlines);
+  color: var(--color-text-dark);
+  text-decoration-color: var(--color-text-dark);
 }
