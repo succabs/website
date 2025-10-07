@@ -154,10 +154,12 @@ const structuredData = {
 
   // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
   if (localStorage.getItem("cookiesAccepted") === "true") {
-    window.gtag("consent", "update", {
-      ad_storage: "granted",
-      analytics_storage: "granted",
-    });
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        analytics_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+      });
   }
 
   if (banner && localStorage.getItem("cookiesAccepted")) {
@@ -171,6 +173,8 @@ const structuredData = {
       window.gtag("consent", "update", {
         ad_storage: "granted",
         analytics_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
       });
       localStorage.setItem("cookiesAccepted", "true");
       banner.style.display = "none";
