@@ -491,25 +491,6 @@ const allTags = Array.from(
 
       sortPosts();
       update();
-
-      const pageMap = {
-        "/": "home",
-        "/experience": "experience",
-        "/projects": "projects",
-        "/skills": "skills",
-        "/about": "about",
-        "/blog": "blog",
-      };
-
-      const path = window.location.pathname.replace(/\/$/, "");
-      const key = pageMap[path];
-
-      if (key) {
-        const storageKey = "visitedPages";
-        const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
-        stored[key] = true;
-        localStorage.setItem(storageKey, JSON.stringify(stored));
-      }
     }
   </script>
 </body><script is:inline>

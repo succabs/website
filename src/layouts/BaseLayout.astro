@@ -58,29 +58,6 @@ const { pageClass = "", title = SITE_TITLE, description } = Astro.props;
   </body>
 </html>
 
-<script type="module">
-  if (typeof window !== "undefined") {
-    const pageMap = {
-      "/": "home",
-      "/experience": "experience",
-      "/projects": "projects",
-      "/skills": "skills",
-      "/about": "about",
-      "/blog": "blog",
-    };
-
-    const path = window.location.pathname.replace(/\/$/, "") || "/";
-    const key = pageMap[path];
-
-    if (key) {
-      const storageKey = "visitedPages";
-      const stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      stored[key] = true;
-      localStorage.setItem(storageKey, JSON.stringify(stored));
-    }
-  }
-</script>
-
 <script is:inline>
   const banner = document.getElementById("cookie-banner");
   const accept = document.getElementById("accept-cookies");
