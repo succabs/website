@@ -1,4 +1,5 @@
 ---
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
@@ -9,24 +10,34 @@ import ScrollTopButton from "../../components/ScrollTopButton.astro";
 import "@fontsource/anton";
 import "@fontsource/inter";
 
-const wordsPerMinute = 200;
+export async function getStaticPaths() {
+  const wordsPerMinute = 200;
+  const posts = await getCollection("blog");
+  const allTags = Array.from(
+    new Set(posts.flatMap((post) => post.data.tags ?? []))
+  );
+  return allTags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((post) => (post.data.tags ?? []).includes(tag))
+        .map((post) => {
+          const wordCount = post.body?.trim().split(/\s+/).length ?? 0;
+          const readTime = Math.max(1, Math.round(wordCount / wordsPerMinute));
+          return {
+            ...post,
+            data: {
+              ...post.data,
+              readTime,
+            },
+          };
+        }),
+    },
+  }));
+}
 
-const posts = (await getCollection("blog"))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map((post) => {
-    const wordCount = post.body?.trim().split(/\s+/).length ?? 0;
-    const readTime = Math.max(1, Math.round(wordCount / wordsPerMinute));
-    return {
-      ...post,
-      data: {
-        ...post.data,
-        readTime,
-      },
-    };
-  });
-const allTags = Array.from(
-  new Set(posts.flatMap((p) => p.data.tags ?? []))
-).sort();
+const { tag, posts } = Astro.props;
 ---
 
 <!doctype html>
@@ -34,10 +45,17 @@ const allTags = Array.from(
   <head>
     <BaseHead
       title="Blog"
-      description="Personal blog on life, tech and curiosity — everything from side projects to events of my life."
+      description="Posts tagged with {tag} on the blog of Arttu Nikkilä."
     />
     <style>
       /* container */
+      .back-to-index a {
+        background-color: var(--accent-second);
+      }
+      .back-to-index a:hover {
+        background-color: var(--accent);
+        color: var(--color-text);
+      }
       main {
         max-width: var(--max-width);
         margin-inline: auto;
@@ -285,58 +303,22 @@ const allTags = Array.from(
 <body class="page-blog">
   <Header />
   <main class="content">
-    <h1>Blog Index</h1>
-    <p class="page-description full-width">
-      From here you can find my occasional notes on tech, development, life and
-      curious projects.
-    </p>
-    <hr />
-    <div class="controls-bar">
-      <div class="filter-buttons">
-        <span class="controls-label">Filter by tag:</span>
-        <button class="filter-btn active" data-tag="all">All</button>
-        {
-          allTags.map((tag) => (
-            <button class="filter-btn" data-tag={tag}>
-              {tag}
-            </button>
-          ))
-        }
-      </div>
-
-      <div class="sort-control">
-        <label for="sort-select" class="controls-label">Sort by:</label>
-        <select id="sort-select" class="sort-select">
-          <option value="newest">Newest first</option>
-          <option value="oldest">Oldest first</option>
-        </select>
-      </div>
-    </div>
-
-    <hr class="hr-4" />
-
+    <h1>All posts tagged with: <strong>{tag}</strong></h1>
     <section class="posts-list">
       {
-        posts.map((post, idx) => (
-          <article
-            class={`post-item`}
-            data-tags={(post.data.tags ?? []).join(",")}
-            data-date={post.data.pubDate.valueOf()}
-          >
+        posts.map((post) => (
+          <article class="post-item">
             <div class="post-content">
               <h2 class="post-title">
                 <a href={`/blog/${post.id}/`}>{post.data.title}</a>
               </h2>
-
               {post.data.excerpt && (
                 <p class="post-excerpt">{post.data.excerpt}</p>
               )}
               {post.data.tags && post.data.tags.length > 0 && (
                 <div class="tag-list">
                   {post.data.tags.map((t) => (
-                    <a class="tag" href={`/tags/${encodeURIComponent(t)}/`}>
-                      {t}
-                    </a>
+                    <span class="tag">{t}</span>
                   ))}
                 </div>
               )}
@@ -361,124 +343,13 @@ const allTags = Array.from(
           </article>
         ))
       }
-    </section>
-    <div class="pagination"></div>
-  </main>
-  <div id="cookie-banner" class="cookie-banner">
-    <div>
-      This site uses cookies to measure traffic with Google Analytics 4. Link to
-      Google's privacy policy: <a href="https://policies.google.com/privacy"
-        >https://policies.google.com/privacy</a
-      >.
-      <div style="padding-top: 0.5rem;">
-        <button id="accept-cookies" class="cookie-button">Accept</button>
-        <button id="reject-cookies" class="cookie-button cancel">Cancel</button>
+      <div class="back-to-index">
+        <a href="/blog/">← Back to blog index</a>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
   <Footer />
   <ScrollTopButton />
-
-  <script type="module">
-    if (typeof window !== "undefined") {
-      const postsPerPage = 5;
-      const postsList = document.querySelector(".posts-list");
-      let posts = Array.from(document.querySelectorAll(".post-item"));
-      const filterButtons = document.querySelectorAll(".filter-btn");
-      const pagination = document.querySelector(".pagination");
-      const sortSelect = document.getElementById("sort-select");
-      let currentTag = "all";
-      let currentPage = 1;
-      let sortOrder = "newest";
-
-      if (sortSelect) {
-        sortSelect.addEventListener("change", () => {
-          sortOrder = sortSelect.value;
-          sortPosts();
-          currentPage = 1;
-          update();
-        });
-      }
-
-      filterButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          filterButtons.forEach((b) => b.classList.remove("active"));
-          btn.classList.add("active");
-          currentTag = btn.dataset.tag || "all";
-          currentPage = 1;
-          update();
-        });
-      });
-
-      function sortPosts() {
-        posts.sort((a, b) => {
-          const aDate = Number(a.dataset.date);
-          const bDate = Number(b.dataset.date);
-          return sortOrder === "newest" ? bDate - aDate : aDate - bDate;
-        });
-        posts.forEach((p) => postsList.appendChild(p));
-      }
-
-      function update() {
-        const visible = posts.filter((p) => {
-          if (currentTag === "all") return true;
-          const tags = p.dataset.tags ? p.dataset.tags.split(",") : [];
-          return tags.includes(currentTag);
-        });
-        const totalPages = Math.max(
-          1,
-          Math.ceil(visible.length / postsPerPage)
-        );
-        pagination.innerHTML = "";
-
-        const prev = document.createElement("button");
-        prev.textContent = "\u2190";
-        prev.className = "page-btn arrow-btn";
-        prev.disabled = currentPage === 1;
-        prev.addEventListener("click", () => {
-          if (currentPage > 1) {
-            currentPage--;
-            update();
-          }
-        });
-        pagination.appendChild(prev);
-
-        for (let i = 1; i <= totalPages; i++) {
-          const b = document.createElement("button");
-          b.textContent = String(i);
-          b.className = "page-btn" + (i === currentPage ? " active" : "");
-          b.addEventListener("click", () => {
-            currentPage = i;
-            update();
-          });
-          pagination.appendChild(b);
-        }
-
-        const next = document.createElement("button");
-        next.textContent = "\u2192";
-        next.className = "page-btn arrow-btn";
-        next.disabled = currentPage === totalPages;
-        next.addEventListener("click", () => {
-          if (currentPage < totalPages) {
-            currentPage++;
-            update();
-          }
-        });
-        pagination.appendChild(next);
-        posts.forEach((p) => (p.style.display = "none"));
-        visible.forEach((p, idx) => {
-          const start = (currentPage - 1) * postsPerPage;
-          const end = start + postsPerPage;
-          if (idx >= start && idx < end) {
-            p.style.display = "";
-          }
-        });
-      }
-
-      sortPosts();
-      update();
-    }
-  </script>
 </body><script is:inline>
   const banner = document.getElementById("cookie-banner");
   const accept = document.getElementById("accept-cookies");

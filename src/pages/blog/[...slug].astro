@@ -7,18 +7,13 @@ export async function getStaticPaths() {
   const posts = (await getCollection("blog")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
   );
-  const colors = ["blue", "red"];
   return posts.map((post, idx) => ({
     params: { slug: post.id },
-    props: { ...post, color: colors[idx % colors.length] },
+    props: { ...post },
   }));
 }
 
-type PostWithColor = CollectionEntry<"blog"> & {
-  color: "red" | "blue";
-};
-
-const post = Astro.props as PostWithColor;
+const post = Astro.props;
 
 const { Content } = await render(post);
 const rawBody = post.body!;
@@ -28,6 +23,6 @@ const wordCount = rawBody.trim().split(/\s+/).length;
 const readTime = Math.max(1, Math.round(wordCount / wordsPerMinute));
 ---
 
-<BlogPost {...post.data} color={post.color} readTime={readTime}>
+<BlogPost {...post.data} readTime={readTime}>
   <Content />
 </BlogPost>

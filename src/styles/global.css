@@ -620,3 +620,8 @@ article {
   color: var(--color-text-dark);
   text-decoration-color: var(--color-text-dark);
 }
+
+.post-content a.tag:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-text);
+}

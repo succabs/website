@@ -5,7 +5,7 @@ pubDate: 2025-10-01
 heroImage: "../../assets/dj-controller.png"
 heroImageAlt: "Close-up of a DJ controller with colorful pads"
 author: "Arttu Nikkilä"
-tags: ["hobbies", "personal"]
+tags: ["hobbies", "personal", "dj"]
 excerpt: "I had been thinking about DJ’ing for a long time but never started - until a party changed everything. Here’s the story of how I began my DJ journey."
 url: "/blog/why-and-how-i-started-my-dj-career"
 ---

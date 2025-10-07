@@ -5,7 +5,7 @@ pubDate: 2025-09-10
 heroImage: "../../assets/arttunet-screenshot.png"
 heroImageAlt: "Screenshot of the front page of the site"
 author: "Arttu Nikkilä"
-tags: ["development", "personal"]
+tags: ["development"]
 excerpt: "Surprise surprise, I was again dissatisfied by the design of this website and decided to change it boldly. Read out how and why."
 url: "/blog/yet-another-overhaul-to-the-websites-design"
 ---

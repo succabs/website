@@ -9,6 +9,8 @@ tags: ["personal", "hobbies"]
 excerpt: "After nearly ten years away from running, I bought the Suunto Run sports watch. Here's how it motivated me to get back into shape and why it's perfect for beginners."
 ---
 
+## Introduction
+
 For almost ten years, running was nothing more than a distant memory for me. In high school, I could run 5K in about 25 minutes, and at the end of my mandatory military service I even passed the magical 3000m mark in the Cooper test. After that, life happened: student years full of parties, long nights behind the computer, and later on, sitting at a desk for work.
 
 Now I’m 29, and this summer I decided it was finally time to get back into shape. The biggest motivator? Buying a brand new **Suunto Run sports watch**.
