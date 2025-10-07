@@ -36,9 +36,9 @@ const { title, issuer, date, link } = Astro.props;
 
 <style>
   .bauhaus-card {
-    border: 3px solid #111;
-    background-color: var(--accent-paper);
-    color: var(--color-outlines);
+    border: 3px solid var(--color-outlines-dark);
+    background-color: var(--accent-second);
+    color: var(--color-text-dark);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -51,12 +51,12 @@ const { title, issuer, date, link } = Astro.props;
   .header-bar {
     height: 8px;
     background: var(--accent); /* red */
-    border-bottom: 3px solid #111;
-    border-top: 3px solid #111;
+    border-bottom: 3px solid var(--color-outlines-dark);
+    border-top: 3px solid var(--color-outlines-dark);
   }
   .footer-bar {
     border-top: none;
-    border-bottom: 3px solid #111;
+    border-bottom: 3px solid var(--color-outlines-dark);
   }
 
   .content {
@@ -73,7 +73,7 @@ const { title, issuer, date, link } = Astro.props;
     text-transform: uppercase;
     margin: 0 0 0.5rem;
     line-height: 1.2;
-    color: var(--color-outlines);
+    color: var(--color-text-dark);
   }
 
   /* meta info */
@@ -81,7 +81,7 @@ const { title, issuer, date, link } = Astro.props;
   .date {
     font-size: 0.9rem;
     font-family: var(--font-body);
-    color: var(--color-outlines);
+    color: var(--color-text-dark);
   }
 
   /* button */

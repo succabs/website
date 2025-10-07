@@ -260,8 +260,8 @@ const mysteryCount = 2;
 
   .tile-frame {
     position: relative;
-    border: 3px solid #111;
-    background: var(--accent-paper);
+    border: 3px solid var(--color-outlines-dark);
+    background: var(--accent-second);
     aspect-ratio: 4/3;
     display: grid;
     place-items: end start;
@@ -289,8 +289,8 @@ const mysteryCount = 2;
   .codename {
     position: relative;
     z-index: 2;
-    background: #111;
-    color: #fff;
+    background: var(--color-outlines-dark);
+    color: var(--color-text);
     font-weight: 900;
     letter-spacing: 0.02em;
     padding: 0.3rem 0.5rem;
@@ -313,7 +313,7 @@ const mysteryCount = 2;
   .select-tile:focus-visible .tile-frame {
     transform: scale(1.04);
     box-shadow:
-      0 0 0 3px #111,
+      0 0 0 3px var(--color-outlines-dark),
       0 0 18px 4px rgba(255, 68, 68, 0.55);
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
   }
@@ -325,11 +325,11 @@ const mysteryCount = 2;
   /* Mystery slot with glitch */
   .mystery .tile-frame {
     background: #0b2545;
-    border-color: #111;
+    border-color: var(--color-outlines-dark);
   }
   .mystery .codename {
     background: var(--accent);
-    color: var(--accent-paper);
+    color: var(--color-text);
   }
   .mystery .mystery-text {
     font-weight: 900;
@@ -381,9 +381,9 @@ const mysteryCount = 2;
   .detail {
     position: sticky;
     top: 1rem;
-    border: 3px solid #111;
-    background: var(--accent-paper);
-    color: var(--color-outlines);
+    border: 3px solid var(--color-outlines-dark);
+    background: var(--accent-second);
+    color: var(--color-text-dark);
     padding: 1rem;
     min-height: 22rem;
   }
@@ -398,7 +398,7 @@ const mysteryCount = 2;
   .detail-title {
     margin: 0;
     text-transform: uppercase;
-    color: var(--color-outlines);
+    color: var(--color-text-dark);
   }
 
   .detail-tech {
@@ -473,7 +473,7 @@ const mysteryCount = 2;
   /* Main image area + thumb strip */
   .media-main {
     position: relative;
-    border: 3px solid #111;
+    border: 3px solid var(--color-outlines-dark);
     aspect-ratio: 16/10;
     background: #eaeaea;
     overflow: hidden;
@@ -485,8 +485,8 @@ const mysteryCount = 2;
     display: grid;
     place-items: center;
     background: #0b2545;
-    border-color: #111;
-    color: var(--accent-paper);
+    border-color: var(--color-outlines-dark);
+    color: var(--color-text);
     font-weight: 900;
     font-size: 2rem;
   }
@@ -497,7 +497,7 @@ const mysteryCount = 2;
     gap: 0.5rem;
   }
   .thumb {
-    border: 2px solid #111;
+    border: 2px solid var(--color-outlines-dark);
     padding: 0;
     background: #fff;
     cursor: pointer;
@@ -538,7 +538,7 @@ const mysteryCount = 2;
     padding: 0.15rem 0.45rem;
     transform: rotate(-12deg) scale(0.9);
     opacity: 0;
-    background: var(--accent-paper);
+    background: var(--accent-second);
     transition:
       opacity 120ms ease,
       transform 120ms ease;

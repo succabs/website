@@ -50,9 +50,9 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
 <style>
   .experience-item {
     position: relative;
-    background: var(--accent-paper);
-    color: var(--color-outlines);
-    border: 3px solid #111;
+    background: var(--accent-second);
+    color: var(--color-text-dark);
+    border: 3px solid var(--color-outlines-dark);
     border-radius: 0;
     padding: 1.5rem 1.5rem 1.25rem;
     margin-block: 2.25rem;
@@ -71,14 +71,14 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
     right: -3px;
     top: -3px;
     height: 10px;
-    background: #111; /* default if no modifier */
+    background: var(--color-background);
   }
   .experience-item.work::before {
     background: var(--accent);
-  } /* red */
+  }
   .experience-item.study::before {
-    background: var(--color-outlines);
-  } /* indigo */
+    background: var(--color-outlines-dark);
+  }
 
   /* headings */
   .experience-item h3 {
@@ -88,10 +88,10 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
     font-size: 1.35rem;
     line-height: 1.1;
     margin: 0.25rem 0 0.35rem;
-    color: #111; /* anchor the title */
+    color: var(--color-text-dark);
   }
   .experience-item h4 {
-    color: var(--font-outlines);
+    color: var(--color-text-dark);
     font-size: 0.95rem;
     font-weight: 400;
     font-style: italic;
@@ -104,7 +104,7 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
     margin: 0 0 0.6rem;
   }
   .experience-item p strong {
-    color: #111;
+    color: var(--color-text-dark);
   }
 
   /* list */

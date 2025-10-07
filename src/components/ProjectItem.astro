@@ -35,9 +35,9 @@ const { title, tech = [], reverse = false } = Astro.props;
     gap: 2.5rem;
     align-items: center;
 
-    background: var(--accent-paper); /* cream */
+    background: var(--accent-second); /* cream */
     color: var(--color-outlines); /* ink on paper */
-    border: 3px solid #111;
+    border: 3px solid var(--color-outlines-dark);
     padding: 1.25rem 1.5rem;
     margin-block: 3rem;
     transition: transform 0.12s ease;
@@ -94,14 +94,14 @@ const { title, tech = [], reverse = false } = Astro.props;
     font-weight: 800;
     font-size: 0.85rem;
     padding: 0.4rem 0.6rem;
-    border: 2px solid #111;
+    border: 2px solid var(--color-outlines-dark);
     color: var(--color-outlines);
     background: transparent;
     text-decoration: none;
     margin-right: 0.5rem;
   }
   .project-text p:has(strong) a:hover {
-    background: #111;
+    background: var(--color-outlines-dark);
     color: #fff;
   }
 
@@ -127,7 +127,7 @@ const { title, tech = [], reverse = false } = Astro.props;
     height: auto;
     aspect-ratio: 16/10;
     object-fit: cover;
-    border: 3px solid #111; /* framed poster */
+    border: 3px solid var(--color-outlines-dark); /* framed poster */
     cursor: zoom-in;
     border-radius: 0; /* square corners to match style */
   }

@@ -39,8 +39,8 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
 
 <style>
   .blog-card {
-    border: 3px solid #111; /* heavier, arcade-style outline */
-    background: var(--accent-paper); /* cream/paper tone for contrast */
+    border: 3px solid var(--color-outlines-dark); /* heavier, arcade-style outline */
+    background: var(--accent-second); /* cream/paper tone for contrast */
     padding: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -48,13 +48,15 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
     transition:
       transform 0.15s ease,
       background 0.15s ease;
-    color: var(--color-outlines);
+    color: var(--color-text-dark);
+    text-decoration-color: var(--color-text-dark);
   }
 
   .blog-card:hover {
     transform: translateY(-4px);
     background: var(--accent); /* red hover (Akira punch) */
-    color: #fff; /* invert text */
+    color: var(--color-text);
+    text-decoration-color: var(--color-text);
   }
 
   .image img {
@@ -64,7 +66,7 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
     aspect-ratio: 16 / 9;
     object-fit: cover;
     margin-bottom: 1rem;
-    border: 2px solid #111; /* framed like a poster */
+    border: 2px solid var(--color-outlines-dark); /* framed like a poster */
   }
 
   .title {
@@ -76,16 +78,18 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
   }
 
   .blog-card .title a {
-    color: var(--color-outlines); /* matches your card text */
+    color: var(--color-text-dark); /* matches your card text */
+    text-decoration-color: var(--color-text-dark);
   }
 
   .blog-card:hover .title a {
     color: inherit; /* flips with hover state */
+    text-decoration-color: var(--color-text);
   }
 
   .title a:hover {
     text-decoration: underline; /* more visible than subtle color shift */
-    text-decoration-color: var(--color-outlines);
+    text-decoration-color: var(--color-text);
   }
 
   .excerpt {
@@ -98,10 +102,10 @@ const { title, date, href, excerpt, heroImage, heroImageAlt } =
     font-size: 0.8rem;
     font-weight: 600;
     margin-top: 1rem;
-    color: #444;
+    color: var(--color-text-dark);
   }
 
   .blog-card:hover .date {
-    color: #fff;
+    color: var(--color-text);
   }
 </style>
