@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
 import { SITE_DESCRIPTION } from "../consts";
 import "@fontsource/caveat";
+import { ACTION_ERROR_CODES } from "astro:actions";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -126,14 +127,13 @@ const structuredData = {
     <div class="intro-text">
       <h1>Hello / Tervetuloa.</h1>
       <p>
-        I'm <strong>Arttu Nikkilä</strong>. In my current role as a <strong
-          >developer</strong
-        > I adapt to a wide range of situations deeply in the <em
-          >client interface</em
-        >, balancing technical expertise with customer-facing responsibilities
-        in the field of eCommerce. I'm based in <strong
-          >Jyväskylä, Finland</strong
-        >.
+        I'm <strong>Arttu Nikkilä</strong>. Nice to meet you.
+      </p>
+      <p>
+        In my current role as a <strong>developer</strong> I adapt to a wide range
+        of situations deeply in the <em>client interface</em>, balancing
+        technical expertise with customer-facing responsibilities in the field
+        of eCommerce. I'm based in <strong>Jyväskylä, Finland</strong>.
       </p>
 
       <p>
@@ -147,13 +147,13 @@ const structuredData = {
         reading and <a
           href="https://arttu.net/blog/why-and-how-i-started-my-dj-career/"
           >DJ'ing</a
-        >. You'll find some of that here too.
+        >.
       </p>
 
       <p>
-        This is a my personal website which acts as a display of my skills: a
-        playground for me to test different things related to web development.
-        Expect things to change on a quick pace here. Feel free to check out my <a
+        That was my elevator pitch. This website, however, is my personal
+        website which is a display of my skills and a playground for me to test
+        different things related to web development. Feel free to check out my <a
           href="/projects/">projects</a
         >, read about my <a href="/experience/">experience</a>, or explore the <a
           href="/blog/">blog</a
