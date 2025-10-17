@@ -1,7 +1,7 @@
 ---
 title: "My Go-To Tools and Workflow for Shopify Theme Development (And What to Avoid)"
 description: "The tools I actually use to develop Shopify themes - from Shopify CLI to Cursor and Copilot, plus lessons learned from tools that slowed me down."
-pubDate: 2025-11-17
+pubDate: 2025-10-17
 tags: ["development", "tech"]
 heroImage: "../../assets/shopify-developer-tools.jpg"
 heroImageAlt: "Laptop with Shopify website on screen"
