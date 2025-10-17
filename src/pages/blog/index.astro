@@ -29,7 +29,14 @@ const allTags = Array.from(
 ).sort();
 ---
 
-<!doctype html>
+<style>
+  @media screen and (max-width: 600px) {
+    .page-blog img {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+
 <html lang="en">
   <head>
     <BaseHead
@@ -198,7 +205,7 @@ const allTags = Array.from(
       }
       .post-date {
         font-size: 0.85rem;
-        margin: 0.25rem 0 0.6rem;
+        margin: 0.6rem 0 0.6rem;
       }
 
       /* CTA */
@@ -328,6 +335,16 @@ const allTags = Array.from(
             data-tags={(post.data.tags ?? []).join(",")}
             data-date={post.data.pubDate.valueOf()}
           >
+            {post.data.heroImage && (
+              <div class="post-image">
+                <Image
+                  width={800}
+                  height={450}
+                  src={post.data.heroImage}
+                  alt={post.data.heroImageAlt ?? post.data.title}
+                />
+              </div>
+            )}
             <div class="post-content">
               <h2 class="post-title">
                 <a href={`/blog/${post.id}/`}>{post.data.title}</a>
@@ -353,34 +370,12 @@ const allTags = Array.from(
                 Read The Post →
               </a>
             </div>
-            {post.data.heroImage && (
-              <div class="post-image">
-                <Image
-                  width={800}
-                  height={450}
-                  src={post.data.heroImage}
-                  alt={post.data.heroImageAlt ?? post.data.title}
-                />
-              </div>
-            )}
           </article>
         ))
       }
     </section>
     <div class="pagination"></div>
   </main>
-  <div id="cookie-banner" class="cookie-banner">
-    <div>
-      This site uses cookies to measure traffic with Google Analytics 4. Link to
-      Google's privacy policy: <a href="https://policies.google.com/privacy"
-        >https://policies.google.com/privacy</a
-      >.
-      <div style="padding-top: 0.5rem;">
-        <button id="accept-cookies" class="cookie-button">Accept</button>
-        <button id="reject-cookies" class="cookie-button cancel">Cancel</button>
-      </div>
-    </div>
-  </div>
   <Footer />
   <ScrollTopButton />
 
@@ -484,51 +479,4 @@ const allTags = Array.from(
       update();
     }
   </script>
-</body><script is:inline>
-  const banner = document.getElementById("cookie-banner");
-  const accept = document.getElementById("accept-cookies");
-  const reject = document.getElementById("reject-cookies");
-
-  // Initialize dataLayer
-  window.dataLayer = window.dataLayer || [];
-
-  // Define gtag function
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-
-  // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
-  if (localStorage.getItem("cookiesAccepted") === "true") {
-    window.gtag("consent", "update", {
-      ad_storage: "granted",
-      analytics_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
-    });
-  }
-
-  if (banner && localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "none";
-  }
-
-  if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "block";
-
-    accept.addEventListener("click", () => {
-      window.gtag("consent", "update", {
-        ad_storage: "granted",
-        analytics_storage: "granted",
-        ad_user_data: "granted",
-        ad_personalization: "granted",
-      });
-      localStorage.setItem("cookiesAccepted", "true");
-      banner.style.display = "none";
-    });
-
-    reject.addEventListener("click", () => {
-      // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
-      localStorage.setItem("cookiesAccepted", "rejected");
-      banner.style.display = "none";
-    });
-  }
-</script>
+</body>

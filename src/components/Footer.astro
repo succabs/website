@@ -4,7 +4,26 @@ const today = new Date();
 
 <footer>
   <div class="inner">
-    &copy; {today.getFullYear()} Arttu Nikkilä. All rights reserved.
+    <p>&copy; {today.getFullYear()} Arttu Nikkilä. All rights reserved.</p>
+    <p>
+      This website is made with
+      <a
+        href="https://en.wikipedia.org/wiki/Love"
+        target="_blank"
+        rel="noopener noreferrer">Love</a
+      > and
+      <a href="https://astro.build/" target="_blank" rel="noopener noreferrer"
+        >Astro</a
+      > and it is hosted on <a
+        href="https://docs.github.com/en/pages"
+        target="_blank"
+        rel="noopener noreferrer">Github Pages</a
+      >.
+    </p>
+    <p class="legal-links">
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a onclick="changeConsent();">Cookie Settings</a>
+    </p>
     <div class="social-links">
       <a
         href="https://github.com/succabs"
@@ -75,6 +94,19 @@ const today = new Date();
   </div>
 </footer>
 
+<div id="cookie-banner" class="cookie-banner">
+  <div>
+    This site uses cookies to measure traffic with Google Analytics 4. Link to
+    Google's privacy policy: <a href="https://policies.google.com/privacy"
+      >https://policies.google.com/privacy</a
+    >.
+    <div style="padding-top: 0.5rem;">
+      <button id="accept-cookies" class="cookie-button">Accept</button>
+      <button id="reject-cookies" class="cookie-button cancel">Reject</button>
+    </div>
+  </div>
+</div>
+
 <style>
   /* size knobs */
   :root {
@@ -139,4 +171,102 @@ const today = new Date();
       );
     }
   }
+
+  .inner p {
+    margin: 0;
+  }
+
+  .inner a:hover {
+    text-decoration: underline;
+  }
+
+  .legal-links {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
 </style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const banner = document.getElementById("cookie-banner");
+    const accept = document.getElementById("accept-cookies");
+    const reject = document.getElementById("reject-cookies");
+
+    // Initialize dataLayer
+    window.dataLayer = window.dataLayer || [];
+
+    // Define gtag function
+    window.gtag = function gtag() {
+      dataLayer.push(arguments);
+    };
+
+    // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
+    if (localStorage.getItem("cookiesAccepted") === "true") {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        analytics_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+      });
+    }
+
+    if (banner && localStorage.getItem("cookiesAccepted")) {
+      banner.style.display = "none";
+    }
+
+    if (
+      banner &&
+      accept &&
+      reject &&
+      !localStorage.getItem("cookiesAccepted")
+    ) {
+      banner.style.display = "block";
+
+      accept.addEventListener("click", () => {
+        window.gtag("consent", "update", {
+          ad_storage: "granted",
+          analytics_storage: "granted",
+          ad_user_data: "granted",
+          ad_personalization: "granted",
+        });
+        localStorage.setItem("cookiesAccepted", "true");
+        banner.style.display = "none";
+      });
+
+      reject.addEventListener("click", () => {
+        // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
+        localStorage.setItem("cookiesAccepted", "false");
+        banner.style.display = "none";
+      });
+    }
+  });
+
+  function changeConsent() {
+    const banner = document.getElementById("cookie-banner");
+    const accept = document.getElementById("accept-cookies");
+    const reject = document.getElementById("reject-cookies");
+    if (banner && accept && reject) {
+      banner.style.display = "block";
+
+      accept.addEventListener("click", () => {
+        window.gtag("consent", "update", {
+          ad_storage: "granted",
+          analytics_storage: "granted",
+          ad_user_data: "granted",
+          ad_personalization: "granted",
+        });
+        localStorage.setItem("cookiesAccepted", "true");
+        banner.style.display = "none";
+      });
+
+      reject.addEventListener("click", () => {
+        // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
+        localStorage.setItem("cookiesAccepted", "false");
+        banner.style.display = "none";
+      });
+    }
+  }
+</script>

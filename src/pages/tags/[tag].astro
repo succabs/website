@@ -216,7 +216,7 @@ const { tag, posts } = Astro.props;
       }
       .post-date {
         font-size: 0.85rem;
-        margin: 0.25rem 0 0.6rem;
+        margin: 0.6rem 0 0.6rem;
       }
 
       /* CTA */
@@ -304,6 +304,11 @@ const { tag, posts } = Astro.props;
   <Header />
   <main class="content">
     <h1>All posts tagged with: <strong>{tag}</strong></h1>
+    <p>
+      From this page, you can browse all posts tagged with <strong>{tag}</strong
+      > -tag on the blog. If you want to see all blog posts, head over to
+      <a href="/blog/">the blog index page</a>.
+    </p>
     <section class="posts-list">
       {
         posts.map((post) => (
@@ -350,51 +355,4 @@ const { tag, posts } = Astro.props;
   </main>
   <Footer />
   <ScrollTopButton />
-</body><script is:inline>
-  const banner = document.getElementById("cookie-banner");
-  const accept = document.getElementById("accept-cookies");
-  const reject = document.getElementById("reject-cookies");
-
-  // Initialize dataLayer
-  window.dataLayer = window.dataLayer || [];
-
-  // Define gtag function
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-
-  // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
-  if (localStorage.getItem("cookiesAccepted") === "true") {
-    window.gtag("consent", "update", {
-      ad_storage: "granted",
-      analytics_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
-    });
-  }
-
-  if (banner && localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "none";
-  }
-
-  if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "block";
-
-    accept.addEventListener("click", () => {
-      window.gtag("consent", "update", {
-        ad_storage: "granted",
-        analytics_storage: "granted",
-        ad_user_data: "granted",
-        ad_personalization: "granted",
-      });
-      localStorage.setItem("cookiesAccepted", "true");
-      banner.style.display = "none";
-    });
-
-    reject.addEventListener("click", () => {
-      // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
-      localStorage.setItem("cookiesAccepted", "rejected");
-      banner.style.display = "none";
-    });
-  }
-</script>
+</body>

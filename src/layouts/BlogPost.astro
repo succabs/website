@@ -92,7 +92,7 @@ const structuredData = {
                 </span>
               )
             }
-            <span class="read-time"> • {readTime} min read</span>
+            <span class="read-time">🕒 {readTime} min read</span>
           </div>
 
           <h1>{title}</h1>
@@ -122,72 +122,11 @@ const structuredData = {
       </div>
     </article>
   </main>
-  <div id="cookie-banner" class="cookie-banner">
-    <div>
-      This site uses cookies to measure traffic with Google Analytics 4. Link to
-      Google's privacy policy: <a href="https://policies.google.com/privacy"
-        >https://policies.google.com/privacy</a
-      >.
-      <div style="padding-top: 0.5rem;">
-        <button id="accept-cookies" class="cookie-button">Accept</button>
-        <button id="reject-cookies" class="cookie-button cancel">Cancel</button>
-      </div>
-    </div>
-  </div>
   <Footer />
   <ScrollTopButton />
 </body>
 
 <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-
-<script is:inline>
-  const banner = document.getElementById("cookie-banner");
-  const accept = document.getElementById("accept-cookies");
-  const reject = document.getElementById("reject-cookies");
-
-  // Initialize dataLayer
-  window.dataLayer = window.dataLayer || [];
-
-  // Define gtag function
-  window.gtag = function gtag() {
-    dataLayer.push(arguments);
-  };
-
-  // Aina sivulatauksessa – jos suostumus on annettu aiemmin, päivitä consent
-  if (localStorage.getItem("cookiesAccepted") === "true") {
-    window.gtag("consent", "update", {
-      ad_storage: "granted",
-      analytics_storage: "granted",
-      ad_user_data: "granted",
-      ad_personalization: "granted",
-    });
-  }
-
-  if (banner && localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "none";
-  }
-
-  if (banner && accept && reject && !localStorage.getItem("cookiesAccepted")) {
-    banner.style.display = "block";
-
-    accept.addEventListener("click", () => {
-      window.gtag("consent", "update", {
-        ad_storage: "granted",
-        analytics_storage: "granted",
-        ad_user_data: "granted",
-        ad_personalization: "granted",
-      });
-      localStorage.setItem("cookiesAccepted", "true");
-      banner.style.display = "none";
-    });
-
-    reject.addEventListener("click", () => {
-      // Ei muuta consenteja, mutta voi halutessa estää uudelleen esiin tulemisen:
-      localStorage.setItem("cookiesAccepted", "rejected");
-      banner.style.display = "none";
-    });
-  }
-</script>
 
 <style>
   @media (max-width: 980px) {
