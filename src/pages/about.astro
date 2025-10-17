@@ -1,5 +1,10 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import me1 from "../assets/Arttu-1.jpg";
+import me2 from "../assets/Arttu-2.jpg";
+import me3 from "../assets/Arttu-3.jpg";
+import me4 from "../assets/Arttu-4.jpg";
 ---
 
 <Layout
@@ -67,25 +72,7 @@ import Layout from "../layouts/BaseLayout.astro";
       </p>
     </div>
     <div class="about-visual">
-      <svg
-        class="about-svg"
-        viewBox="0 0 120 120"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="30" cy="30" r="30" fill="var(--accent)"></circle>
-        <circle
-          cx="80"
-          cy="80"
-          r="20"
-          fill="var(--color-bg)"
-          stroke="var(--accent)"
-          stroke-width="6"></circle>
-        <path
-          d="M 0 100 Q 60 60 120 100"
-          stroke="var(--accent)"
-          stroke-width="5"
-          fill="none"></path>
-      </svg>
+      <Image src={me4} alt="Arttu as a santa" />
     </div>
   </div>
 
@@ -114,29 +101,7 @@ import Layout from "../layouts/BaseLayout.astro";
       </p>
     </div>
     <div class="about-visual">
-      <svg
-        class="about-svg"
-        viewBox="0 0 120 120"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect x="10" y="10" width="40" height="40" fill="var(--accent)"></rect>
-        <rect
-          x="60"
-          y="60"
-          width="50"
-          height="50"
-          fill="none"
-          stroke="var(--accent)"
-          stroke-width="5"
-          rx="10"></rect>
-        <line
-          x1="10"
-          y1="110"
-          x2="110"
-          y2="10"
-          stroke="var(--accent)"
-          stroke-width="4"></line>
-      </svg>
+      <Image src={me2} alt="Arttu as an elf" />
     </div>
   </div>
 
@@ -153,8 +118,7 @@ import Layout from "../layouts/BaseLayout.astro";
         I often find myself questioning things - not just how something should
         be done, but why we're doing it in the first place. Sometimes the real
         improvement comes from asking whether something needs to be done at all.
-        That kind of thinking helps me see the bigger picture and make better
-        decisions, both in code and in work in general.
+        It helps understand the bigger picture.
       </p>
       <p>
         I admire people who are genuinely into things. Doesn't matter what:
@@ -162,40 +126,25 @@ import Layout from "../layouts/BaseLayout.astro";
         Passion is cool.
       </p>
       <p>
-        I respect people who treat others as people — regardless of title, role,
+        I respect people who treat others as people - regardless of title, role,
         or status. Staying grounded and human matters, both in everyday life and
         professional setting.
       </p>
+      <p>
+        And lastly, I like good vibes and try to make everyday situation more
+        fun - as you can see from these pictures I made my little sister take of
+        me in a toy store.
+      </p>
     </div>
     <div class="about-visual">
-      <svg
-        class="about-svg"
-        viewBox="0 0 120 120"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="60" cy="60" r="25" fill="var(--accent)"></circle>
-        <line
-          x1="60"
-          y1="0"
-          x2="60"
-          y2="120"
-          stroke="var(--accent)"
-          stroke-width="4"></line>
-        <line
-          x1="0"
-          y1="60"
-          x2="120"
-          y2="60"
-          stroke="var(--accent)"
-          stroke-width="4"></line>
-      </svg>
+      <Image src={me3} alt="Arttu as a reindeer" />
     </div>
   </div>
 
   <hr class="hr-3" />
 
   <p>
-    If any of this feels familiar, you’ll probably enjoy my <a href="/blog/"
+    If any of this feels familiar, you'll probably enjoy my <a href="/blog/"
       >blog</a
     >.
   </p>
@@ -301,18 +250,14 @@ import Layout from "../layouts/BaseLayout.astro";
       align-items: center;
       min-height: 100%;
     }
-    .about-svg {
-      width: 140px;
-      height: 140px;
-    }
 
     /* enter animation (kept) */
-    .about-svg {
+    .about-visual {
       opacity: 0;
       transform: translateY(20px) scale(0.95);
       transition: all 0.6s ease-out;
     }
-    .about-svg.visible {
+    .about-visual.visible {
       opacity: 1;
       transform: translateY(0) scale(1);
     }
@@ -332,10 +277,6 @@ import Layout from "../layouts/BaseLayout.astro";
         min-height: auto;
         height: auto;
       }
-      .about-svg {
-        width: 120px;
-        height: 120px;
-      }
     }
   </style>
 </Layout>
@@ -354,7 +295,7 @@ import Layout from "../layouts/BaseLayout.astro";
     }
   );
 
-  document.querySelectorAll(".about-svg").forEach((el) => {
+  document.querySelectorAll(".about-visual").forEach((el) => {
     observer.observe(el);
   });
 </script>
