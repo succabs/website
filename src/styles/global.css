@@ -159,13 +159,11 @@ img {
   border-radius: 0;
 }
 code {
-  background: var(--accent);
-  color: white;
   padding: 0.2em 0.4em;
 }
 pre {
   background: var(--accent);
-  color: white;
+
   padding: 1.25rem;
   font-size: 0.95rem;
   overflow-x: auto;
