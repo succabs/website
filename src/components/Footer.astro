@@ -96,10 +96,19 @@ const today = new Date();
 
 <div id="cookie-banner" class="cookie-banner">
   <div>
-    This site uses cookies to measure traffic with Google Analytics 4. Link to
-    Google's privacy policy: <a href="https://policies.google.com/privacy"
-      >https://policies.google.com/privacy</a
-    >.
+    <div class="cookie-title">
+      <strong>Would you like some cookies?</strong>
+    </div>
+    <div>
+      I'd love to set some cookies to measure traffic with Google Analytics 4.
+      It helps me understand how people use my site and improve it. It is
+      completely optional, and you can choose to reject them if you prefer. You
+      can always change your consent from a link in the footer at the bottom of
+      the site. For more details, please check my <a href="/privacy-policy/"
+        >Privacy Policy</a
+      > and
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
+    </div>
     <div style="padding-top: 0.5rem;">
       <button id="accept-cookies" class="cookie-button">Accept</button>
       <button id="reject-cookies" class="cookie-button cancel">Reject</button>
@@ -186,6 +195,10 @@ const today = new Date();
     justify-content: center;
     gap: 1rem;
     font-size: 0.85rem;
+  }
+
+  .cookie-banner {
+    display: none; /* shown via JS */
   }
 </style>
 

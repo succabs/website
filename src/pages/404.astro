@@ -9,20 +9,21 @@ import Layout from "../layouts/BaseLayout.astro";
 
   <style>
     .button {
-      display: inline-block;
-      margin-top: 1rem;
-      background: transparent;
-      color: var(--accent);
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      font-weight: 600;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--accent-second);
+      text-decoration: none;
       border: 2px solid var(--accent);
-      transition: all 0.2s ease;
+      padding: 0.5em 1em;
+      display: inline-block;
     }
+
     .button:hover {
       background: var(--accent);
-      color: var(--color-bg);
+      color: var(--color-text);
     }
   </style>
 </Layout>
