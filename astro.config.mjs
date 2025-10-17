@@ -9,5 +9,11 @@ import icon from "astro-icon";
 export default defineConfig({
   site: "https://arttu.net",
   trailingSlash: "always",
-  integrations: [mdx(), sitemap(), icon()],
+  integrations: [
+    mdx(),
+    sitemap({
+      customPages: ["https://arttu.net/kandirushsaga/"],
+    }),
+    icon(),
+  ],
 });
