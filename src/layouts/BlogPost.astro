@@ -24,6 +24,7 @@ const {
   color,
   readTime,
   tags = [],
+  featured,
 } = Astro.props as Props;
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site ?? "https://arttu.net");

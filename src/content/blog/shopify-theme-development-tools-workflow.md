@@ -6,6 +6,7 @@ tags: ["development", "tech"]
 heroImage: "../../assets/shopify-developer-tools.jpg"
 heroImageAlt: "Laptop with Shopify website on screen"
 excerpt: "These are the tools I trust for Shopify theme work - and a few I've learned to avoid."
+featured: true
 ---
 
 ## Introduction: What This Is and Why

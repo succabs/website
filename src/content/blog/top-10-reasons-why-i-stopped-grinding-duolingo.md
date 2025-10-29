@@ -7,6 +7,7 @@ author: "Arttu Nikkilä"
 excerpt: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it stopped working for me. Here are 10 reasons why I quit - from AI-generated content to gamification burnout."
 pubDate: 2025-06-26
 tags: ["learning", "personal"]
+featured: true
 ---
 
 ## Introduction

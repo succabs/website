@@ -17,6 +17,7 @@ const blog = defineCollection({
       heroImageAlt: z.string().optional(),
       tags: z.array(z.string()).optional(),
       color: z.enum(["red", "blue"]).optional(),
+      featured: z.boolean().optional().default(false),
     }),
 });
 
