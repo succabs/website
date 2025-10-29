@@ -24,7 +24,7 @@ h2: clamp(1.5rem, 4vw, 2.5rem) + short underline bar (see Dividers)
 h3: clamp(1.1rem, 4vw, 2rem)
 Body: Inter 400–500, line-height 1.6–1.75.
 On blue: text is cream.
-On cream: text is black (--color-outlines).
+On cream: text is black.
 
 ## Spacing
 
@@ -51,7 +51,7 @@ Respect prefers-reduced-motion.
 
 ## Dividers (HRs)
 
-Three variants carry the “poster bar” motif. Use as structural rhythm, not decoration.
+Use as structural rhythm, not decoration.
 
 ## Footer
 
