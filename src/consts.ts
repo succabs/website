@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = "Arttu Nikkilä";
 export const SITE_DESCRIPTION =
-  "Website of Arttu Nikkilä — projects, skills, and experiments in web development and a cool blog.";
+  "Digital playground of an eCommerce Expert and Developer Arttu Nikkilä — experience, projects, skills, blog and personal experiments in web development.";
