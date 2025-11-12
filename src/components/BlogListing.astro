@@ -19,10 +19,10 @@ interface PageInfo {
 interface Props {
   page: PageInfo;
   allTags: string[];
+  allPosts: ProcessedBlogEntry[];
 }
 
-const { page, allTags } = Astro.props as Props;
-const pagePosts = page.data;
+const { page, allTags, allPosts } = Astro.props as Props;
 const pageNumbers = Array.from(
   { length: page.lastPage },
   (_, index) => index + 1
@@ -84,16 +84,26 @@ const nextHref =
 
   <hr class="hr-4" />
 
-  <section class="posts-list">
+  <section
+    class="posts-list"
+    data-page-size={page.size}
+    data-current-page={page.currentPage}
+    data-total-pages={page.lastPage}
+  >
     {
-      pagePosts.map((post) => (
-        <article
-          class={`post-item`}
-          data-tags={(post.data.tags ?? []).join(",")}
-          data-date={post.data.pubDate.valueOf()}
-        >
-          {post.data.heroImage && (
-            <div class="post-image">
+      allPosts.map((post, index) => {
+        const pageNumber = Math.floor(index / page.size) + 1;
+        const isVisible = pageNumber === page.currentPage;
+        return (
+          <article
+            class={`post-item`}
+            data-tags={(post.data.tags ?? []).join(",")}
+            data-date={post.data.pubDate.valueOf()}
+            data-page-number={pageNumber}
+            style={isVisible ? undefined : "display: none;"}
+          >
+            {post.data.heroImage && (
+              <div class="post-image">
               <Image
                 width={800}
                 height={450}
@@ -128,13 +138,19 @@ const nextHref =
             </a>
           </div>
         </article>
-      ))
+        );
+      })
     }
   </section>
   <nav class="pagination" aria-label="Pagination">
     {
       prevHref ? (
-        <a class="page-btn arrow-btn" href={prevHref}>
+        <a
+          class="page-btn arrow-btn"
+          href={prevHref}
+          data-role="prev"
+          data-base-href={prevHref}
+        >
           ←
         </a>
       ) : (
@@ -146,11 +162,14 @@ const nextHref =
     {
       pageNumbers.map((pageNumber) => {
         const isActive = pageNumber === page.currentPage;
+        const href = getPageHref(pageNumber);
         return (
           <a
             class={`page-btn${isActive ? " active" : ""}`}
-            href={getPageHref(pageNumber)}
+            href={href}
             aria-current={isActive ? "page" : undefined}
+            data-page-number={pageNumber}
+            data-base-href={href}
           >
             {pageNumber}
           </a>
@@ -159,7 +178,12 @@ const nextHref =
     }
     {
       nextHref ? (
-        <a class="page-btn arrow-btn" href={nextHref}>
+        <a
+          class="page-btn arrow-btn"
+          href={nextHref}
+          data-role="next"
+          data-base-href={nextHref}
+        >
           →
         </a>
       ) : (
@@ -426,10 +450,45 @@ const nextHref =
     const filterButtons = document.querySelectorAll(".filter-btn");
     const sortSelect = document.getElementById("sort-select");
     const posts = Array.from(document.querySelectorAll(".post-item"));
-    let currentTag = "all";
-    let sortOrder = "newest";
+    const paginationLinks = Array.from(
+      document.querySelectorAll(".pagination a")
+    );
+    const params = new URLSearchParams(window.location.search);
+    const availableTags = new Set(
+      Array.from(filterButtons).map((btn) => btn.dataset.tag || "")
+    );
+    let currentTag = params.get("tag") || "all";
+    if (!availableTags.has(currentTag)) {
+      currentTag = "all";
+    }
+    let sortOrder = params.get("sort") || "newest";
 
-    function sortPosts() {
+    const validSortOrders = new Set(["newest", "oldest"]);
+    if (!validSortOrders.has(sortOrder)) {
+      sortOrder = "newest";
+    }
+
+    const pageSize = Number(postsList?.dataset.pageSize || "10");
+    let currentPage = Number(postsList?.dataset.currentPage || "1");
+    let totalPages = Number(postsList?.dataset.totalPages || "1");
+    const pageNumberLinks = paginationLinks.filter((link) =>
+      link.dataset.pageNumber
+    );
+    const prevLink = paginationLinks.find((link) => link.dataset.role === "prev");
+    const nextLink = paginationLinks.find((link) => link.dataset.role === "next");
+
+    paginationLinks.forEach((link) => {
+      if (!link.dataset.baseHref) {
+        link.dataset.baseHref = link.getAttribute("href") || "";
+      }
+      link.addEventListener("click", (event) => {
+        if (link.dataset.disabled === "true") {
+          event.preventDefault();
+        }
+      });
+    });
+
+    function sortAllPosts() {
       posts.sort((a, b) => {
         const aDate = Number(a.dataset.date);
         const bDate = Number(b.dataset.date);
@@ -440,32 +499,163 @@ const nextHref =
       }
     }
 
-    function updateVisibility() {
-      posts.forEach((p) => {
-        const tags = p.dataset.tags ? p.dataset.tags.split(",") : [];
-        const matchesTag = currentTag === "all" || tags.includes(currentTag);
-        p.style.display = matchesTag ? "" : "none";
+    function ensureTrailingSlash(path) {
+      if (!path.endsWith("/")) {
+        return `${path}/`;
+      }
+      return path;
+    }
+
+    function updateUrlParams() {
+      const nextParams = new URLSearchParams();
+
+      if (currentTag && currentTag !== "all") {
+        nextParams.set("tag", currentTag);
+      }
+
+      if (sortOrder && sortOrder !== "newest") {
+        nextParams.set("sort", sortOrder);
+      }
+
+      const queryString = nextParams.toString();
+      const currentPath = window.location.pathname;
+      const basePath = currentPath.replace(/page\/\d+\/?$/, "");
+      const normalizedBasePath = ensureTrailingSlash(
+        basePath === "" ? "/" : basePath
+      );
+      const trimmedBasePath =
+        normalizedBasePath === "/"
+          ? ""
+          : normalizedBasePath.substring(0, normalizedBasePath.length - 1);
+      const targetPath =
+        currentPage === 1
+          ? normalizedBasePath
+          : `${trimmedBasePath}/page/${currentPage}/`;
+      const newUrl = `${targetPath}${queryString ? `?${queryString}` : ""}`;
+      history.replaceState(null, "", newUrl);
+      updatePaginationLinks(nextParams);
+    }
+
+    function updatePaginationLinks(nextParams) {
+      const queryString = nextParams.toString();
+      paginationLinks.forEach((link) => {
+        const baseHref = link.dataset.baseHref;
+        if (!baseHref) return;
+        link.setAttribute(
+          "href",
+          queryString ? `${baseHref}?${queryString}` : baseHref
+        );
       });
     }
 
+    function toggleLinkDisabled(link, disabled) {
+      if (!link) return;
+      link.dataset.disabled = disabled ? "true" : "false";
+      if (disabled) {
+        link.classList.add("disabled");
+        link.setAttribute("aria-disabled", "true");
+      } else {
+        link.classList.remove("disabled");
+        link.removeAttribute("aria-disabled");
+      }
+    }
+
+    function refreshPosts({ resetPage = false } = {}) {
+      const matchingPosts = posts.filter((post) => {
+        const tags = post.dataset.tags ? post.dataset.tags.split(",") : [];
+        return currentTag === "all" || tags.includes(currentTag);
+      });
+
+      const indexLookup = new Map();
+      matchingPosts.forEach((post, index) => {
+        indexLookup.set(post, index);
+      });
+
+      totalPages = Math.max(1, Math.ceil(matchingPosts.length / pageSize));
+      if (resetPage) {
+        currentPage = 1;
+      }
+      if (currentPage > totalPages) {
+        currentPage = totalPages;
+      }
+
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+
+      posts.forEach((post) => {
+        const matchIndex = indexLookup.get(post);
+        if (matchIndex === undefined) {
+          post.style.display = "none";
+          return;
+        }
+        if (matchIndex >= startIndex && matchIndex < endIndex) {
+          post.style.display = "";
+        } else {
+          post.style.display = "none";
+        }
+      });
+
+      postsList?.setAttribute("data-current-page", String(currentPage));
+      postsList?.setAttribute("data-total-pages", String(totalPages));
+
+      pageNumberLinks.forEach((link) => {
+        const pageNumber = Number(link.dataset.pageNumber || "0");
+        const withinRange = pageNumber <= totalPages;
+        const isActive = pageNumber === currentPage;
+        if (withinRange) {
+          link.classList.toggle("active", isActive);
+          if (isActive) {
+            link.setAttribute("aria-current", "page");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+          link.dataset.disabled = "false";
+          link.classList.remove("disabled");
+          link.removeAttribute("aria-disabled");
+        } else {
+          link.classList.remove("active");
+          link.removeAttribute("aria-current");
+          link.dataset.disabled = "true";
+          link.classList.add("disabled");
+          link.setAttribute("aria-disabled", "true");
+        }
+      });
+
+      toggleLinkDisabled(prevLink, currentPage <= 1);
+      toggleLinkDisabled(nextLink, currentPage >= totalPages);
+
+      updateUrlParams();
+    }
+
     if (sortSelect) {
+      sortSelect.value = sortOrder;
       sortSelect.addEventListener("change", () => {
         sortOrder = sortSelect.value;
-        sortPosts();
-        updateVisibility();
+        sortAllPosts();
+        refreshPosts();
       });
     }
+
+    filterButtons.forEach((btn) => {
+      if (btn.dataset.tag === currentTag) {
+        btn.classList.add("active");
+      } else if (currentTag === "all" && btn.dataset.tag === "all") {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
 
     filterButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         filterButtons.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         currentTag = btn.dataset.tag || "all";
-        updateVisibility();
+        refreshPosts({ resetPage: true });
       });
     });
 
-    sortPosts();
-    updateVisibility();
+    sortAllPosts();
+    refreshPosts();
   }
 </script>
