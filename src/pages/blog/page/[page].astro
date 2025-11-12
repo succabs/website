@@ -20,17 +20,18 @@ export async function getStaticPaths({ paginate }) {
       props: {
         ...route.props,
         allTags,
+        allPosts: posts,
       },
     }));
 }
 
-const { page, allTags } = Astro.props;
+const { page, allTags, allPosts } = Astro.props;
 ---
 <html lang="en">
   <head>
     <BaseHead title={`Blog - Page ${page.currentPage}`} description={pageDescription} />
   </head>
   <body class="page-blog">
-    <BlogListing page={page} allTags={allTags} />
+    <BlogListing page={page} allTags={allTags} allPosts={allPosts} />
   </body>
 </html>

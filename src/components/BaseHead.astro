@@ -12,7 +12,10 @@ interface Props {
   image?: ImageMetadata;
 }
 
-const rawURL = new URL(Astro.url.pathname, Astro.site);
+const pathname = Astro.url.pathname.startsWith("/blog/page/")
+  ? "/blog/"
+  : Astro.url.pathname;
+const rawURL = new URL(pathname, Astro.site);
 const canonicalURL = rawURL.toString().replace(/\/$/, "") || Astro.site;
 
 const { title, description, image = FallbackImage } = Astro.props;
