@@ -44,8 +44,8 @@ const { tag, posts } = Astro.props;
 <html lang="en">
   <head>
     <BaseHead
-      title="Blog"
-      description="Posts tagged with {tag} on the blog of Arttu Nikkilä."
+      title={`Blog posts tagged with tag: ${tag}`}
+      description="From here you can find all posts tagged with {tag} on the blog of Arttu Nikkilä."
     />
     <style>
       /* container */
@@ -299,60 +299,65 @@ const { tag, posts } = Astro.props;
       }
     </style>
   </head>
-</html>
-<body class="page-blog">
-  <Header />
-  <main class="content">
-    <h1>All posts tagged with: <strong>{tag}</strong></h1>
-    <p>
-      From this page, you can browse all posts tagged with <strong>{tag}</strong
-      > -tag on the blog. If you want to see all blog posts, head over to
-      <a href="/blog/">the blog index page</a>.
-    </p>
-    <section class="posts-list">
-      {
-        posts.map((post) => (
-          <article class="post-item">
-            <div class="post-content">
-              <h2 class="post-title">
-                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-              </h2>
-              {post.data.excerpt && (
-                <p class="post-excerpt">{post.data.excerpt}</p>
-              )}
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="tag-list">
-                  {post.data.tags.map((t) => (
-                    <span class="tag">{t}</span>
-                  ))}
+
+  <body class="page-blog">
+    <Header />
+    <main class="content">
+      <h1>All posts tagged with: <strong>{tag}</strong></h1>
+      <p>
+        From this page, you can browse all posts tagged with <strong
+          >{tag}</strong
+        > -tag on the blog. If you want to see all blog posts, head over to
+        <a href="/blog/">the blog index</a>.
+      </p>
+      <section class="posts-list">
+        {
+          posts.map((post) => (
+            <article class="post-item">
+              <div class="post-content">
+                <h2 class="post-title">
+                  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                </h2>
+                {post.data.excerpt && (
+                  <p class="post-excerpt">{post.data.excerpt}</p>
+                )}
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="tag-list">
+                    {post.data.tags.map((t) => (
+                      <span class="tag">{t}</span>
+                    ))}
+                  </div>
+                )}
+                <p class="post-date">
+                  <FormattedDate date={post.data.pubDate} />
+                  <span class="read-time">
+                    {" "}
+                    🕒 {post.data.readTime} min read
+                  </span>
+                </p>
+                <a href={`/blog/${post.id}/`} class="read-more">
+                  Read The Post →
+                </a>
+              </div>
+              {post.data.heroImage && (
+                <div class="post-image">
+                  <Image
+                    width={800}
+                    height={450}
+                    src={post.data.heroImage}
+                    alt={post.data.heroImageAlt ?? post.data.title}
+                  />
                 </div>
               )}
-              <p class="post-date">
-                <FormattedDate date={post.data.pubDate} />
-                <span class="read-time"> 🕒 {post.data.readTime} min read</span>
-              </p>
-              <a href={`/blog/${post.id}/`} class="read-more">
-                Read The Post →
-              </a>
-            </div>
-            {post.data.heroImage && (
-              <div class="post-image">
-                <Image
-                  width={800}
-                  height={450}
-                  src={post.data.heroImage}
-                  alt={post.data.heroImageAlt ?? post.data.title}
-                />
-              </div>
-            )}
-          </article>
-        ))
-      }
-      <div class="back-to-index">
-        <a href="/blog/">← Back to blog index</a>
-      </div>
-    </section>
-  </main>
-  <Footer />
-  <ScrollTopButton />
-</body>
+            </article>
+          ))
+        }
+        <div class="back-to-index">
+          <a href="/blog/">← Back to blog index</a>
+        </div>
+      </section>
+    </main>
+    <Footer />
+    <ScrollTopButton />
+  </body>
+</html>
