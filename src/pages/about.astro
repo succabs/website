@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import me2 from "../assets/arttu-2.jpg";
-import me3 from "../assets/arttu-3.jpg";
-import me4 from "../assets/arttu-4.jpg";
+import me2 from "../assets/me/skiing.png";
+import me3 from "../assets/me/troll.jpg";
+import me4 from "../assets/me/first_phone.jpg";
 ---
 
 <Layout
@@ -73,8 +73,8 @@ import me4 from "../assets/arttu-4.jpg";
       </p>
     </div>
     <div class="about-image">
-      <Image src={me4} alt="Arttu as a Santa Claus." />
-      <span>Arttu as a Santa Claus.</span>
+      <Image src={me2} alt="Rare photo of me skiing." />
+      <span>Rare photo of me skiing.</span>
     </div>
   </div>
 
@@ -111,14 +111,17 @@ import me4 from "../assets/arttu-4.jpg";
       <p>
         Nowadays I don't have that much time for fun side-projects, since I'm
         working and studying at the same time. Most of my free time around
-        computers is spent on this site and research about new tech and AI
-        tools. In this industry, staying curious and up-to-date is half the
-        battle.
+        tinkering with development is spent on this site and research about new
+        tech and AI tools. In this industry, staying curious and up-to-date is
+        half the battle.
       </p>
     </div>
     <div class="about-image">
-      <Image src={me2} alt="Arttu as an Elf" />
-      <span>Arttu as an elf.</span>
+      <Image
+        src={me4}
+        alt="Me as a child with my first phone I got as a christmas gift."
+      />
+      <span>Me as a child with my first phone I got as a christmas gift.</span>
     </div>
   </div>
 
@@ -141,18 +144,16 @@ import me4 from "../assets/arttu-4.jpg";
         professional setting.
       </p>
       <p>
-        And lastly, I like good vibes and try to make everyday situation more
-        fun - maybe too much sometimes. Still figuring out the good balance of
-        serious and playful. Good example of that is this page: the sections
-        could have gone without the christmas photos altogether, but where's the
-        fun in that? Me smiling psychotically as different christmas charactes
-        is way more memorable. Plus, they fit almost perfectly to the colors of
-        the site!
+        And lastly, I like good vibes and prefer everyday situations more
+        lighthearted - maybe too much sometimes. Still figuring out the good
+        balance of serious and playful. Good example of that is this whole
+        website: I struggle to keep it serious enough to represent me
+        professionally, but playful enough to show my personality.
       </p>
     </div>
     <div class="about-image">
-      <Image src={me3} alt="Arttu as a reindeer" />
-      <span>Arttu as a reindeer.</span>
+      <Image src={me3} alt="A troll toy holding me in its hands" />
+      <span>A troll toy holding me in its hands.</span>
     </div>
   </div>
 
@@ -276,6 +277,13 @@ import me4 from "../assets/arttu-4.jpg";
     .about-image.visible {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+
+    .about-image img {
+      border: 3px solid var(--color-outlines-dark);
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
     .about-image span {
