@@ -1,0 +1,462 @@
+---
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import FormattedDate from "./FormattedDate.astro";
+import ScrollTopButton from "./ScrollTopButton.astro";
+import { Image } from "astro:assets";
+import type { ProcessedBlogEntry } from "../utils/blog";
+import "@fontsource/anton";
+import "@fontsource/inter";
+
+interface PageInfo {
+  data: ProcessedBlogEntry[];
+  currentPage: number;
+  lastPage: number;
+  size: number;
+  total: number;
+}
+
+interface Props {
+  page: PageInfo;
+  allTags: string[];
+}
+
+const { page, allTags } = Astro.props as Props;
+const pagePosts = page.data;
+const pageNumbers = Array.from({ length: page.lastPage }, (_, index) => index + 1);
+const getPageHref = (pageNumber: number) =>
+  pageNumber === 1 ? "/blog/" : `/blog/page/${pageNumber}/`;
+const prevHref = page.currentPage > 1 ? getPageHref(page.currentPage - 1) : undefined;
+const nextHref =
+  page.currentPage < page.lastPage ? getPageHref(page.currentPage + 1) : undefined;
+---
+<style>
+  @media screen and (max-width: 600px) {
+    .page-blog img {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+
+<Header />
+<main class="content">
+  <h1>Blog Index</h1>
+  <p class="page-description full-width">
+    I write about my experiences as a developer, share tips and tricks I've
+    learned along the way, and discuss topics that interest me — like web
+    development, tracking, analytics, productivity, side projects and
+    sometimes my personal hobbies. Anything goes. It's a mix of technical
+    articles and personal reflections.
+  </p>
+  <p class="page-description full-width">
+    You can browse all posts below, sort them by date, or filter them by tags
+    to find topics that interest you. Have fun!
+  </p>
+  <hr />
+  <div class="controls-bar">
+    <div class="filter-buttons">
+      <span class="controls-label">Filter by tag:</span>
+      <button class="filter-btn active" data-tag="all">All</button>
+      {
+        allTags.map((tag) => (
+          <button class="filter-btn" data-tag={tag}>
+            {tag}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="sort-control">
+      <label for="sort-select" class="controls-label">Sort by:</label>
+      <select id="sort-select" class="sort-select">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="hr-4" />
+
+  <section class="posts-list">
+    {
+      pagePosts.map((post) => (
+        <article
+          class={`post-item`}
+          data-tags={(post.data.tags ?? []).join(",")}
+          data-date={post.data.pubDate.valueOf()}
+        >
+          {post.data.heroImage && (
+            <div class="post-image">
+              <Image
+                width={800}
+                height={450}
+                src={post.data.heroImage}
+                alt={post.data.heroImageAlt ?? post.data.title}
+              />
+            </div>
+          )}
+          <div class="post-content">
+            <h2 class="post-title">
+              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            </h2>
+
+            {post.data.excerpt && (
+              <p class="post-excerpt">{post.data.excerpt}</p>
+            )}
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="tag-list">
+                {post.data.tags.map((t) => (
+                  <a class="tag" href={`/tags/${encodeURIComponent(t)}/`}>
+                    {t}
+                  </a>
+                ))}
+              </div>
+            )}
+            <p class="post-date">
+              <FormattedDate date={post.data.pubDate} />
+              <span class="read-time"> 🕒 {post.data.readTime} min read</span>
+            </p>
+            <a href={`/blog/${post.id}/`} class="read-more">
+              Read The Post →
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </section>
+  <nav class="pagination" aria-label="Pagination">
+    {prevHref ? (
+      <a class="page-btn arrow-btn" href={prevHref}>
+        ←
+      </a>
+    ) : (
+      <span class="page-btn arrow-btn disabled" aria-disabled="true">
+        ←
+      </span>
+    )}
+    {pageNumbers.map((pageNumber) => {
+      const isActive = pageNumber === page.currentPage;
+      return (
+        <a
+          class={`page-btn${isActive ? " active" : ""}`}
+          href={getPageHref(pageNumber)}
+          aria-current={isActive ? "page" : undefined}
+        >
+          {pageNumber}
+        </a>
+      );
+    })}
+    {nextHref ? (
+      <a class="page-btn arrow-btn" href={nextHref}>
+        →
+      </a>
+    ) : (
+      <span class="page-btn arrow-btn disabled" aria-disabled="true">
+        →
+      </span>
+    )}
+  </nav>
+</main>
+<Footer />
+<ScrollTopButton />
+
+<style>
+  /* container */
+  main {
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: 64px;
+    margin-block: 64px;
+  }
+  @media (max-width: 980px) {
+    main {
+      padding-inline: 16px;
+    }
+  }
+
+  /* description under page title */
+  .page-description {
+    margin: 0 0 1.25rem;
+  }
+
+  /* ===== toolbar (sticky) ===== */
+  .controls-bar {
+    position: sticky;
+    top: 60px; /* adjust if your header is taller */
+    z-index: 10;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.8rem;
+    background: rgba(
+      37,
+      117,
+      185,
+      0.85
+    ); /* blue with slight translucency */
+    backdrop-filter: blur(6px);
+    border: 3px solid var(--color-outlines-dark);
+    margin: 1rem 0;
+  }
+
+  .controls-label {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+
+  /* filter chips */
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .filter-btn {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 0.25em 0.6em;
+    border: 2px solid var(--color-headings); /* cream outline on blue */
+    background: transparent;
+    color: var(--color-headings);
+    cursor: pointer;
+  }
+  .filter-btn:hover {
+    transform: translateY(-1px);
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--color-outlines);
+    color: #fff;
+  }
+
+  /* sort select */
+  .sort-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sort-select {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 0.25em 0.6em;
+    border: 2px solid var(--color-headings);
+    background: transparent;
+    color: var(--color-headings);
+  }
+
+  .sort-select,
+  .filter-btn,
+  .controls-bar {
+    letter-spacing: 0.03em;
+  }
+
+  @media (min-width: 600px) {
+    .sort-select,
+    .filter-btn,
+    .controls-bar {
+      letter-spacing: 0.08em;
+    }
+  }
+
+  /* ===== post list ===== */
+  .posts-list {
+    display: grid;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  /* card */
+  .post-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.25rem;
+    align-items: flex-start;
+
+    background: var(--accent-second);
+    color: var(--color-text-dark);
+    border: 3px solid var(--color-outlines-dark);
+    padding: 2rem 1.25rem 2.1rem;
+  }
+
+  /* red spine */
+  .post-item::before {
+    content: "";
+    position: absolute;
+    left: -3px;
+    right: -3px;
+    top: -3px;
+    height: 10px;
+    background: var(--accent);
+  }
+
+  /* content */
+  .post-content {
+    max-width: 70ch;
+  }
+  .post-title {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    margin: 0.2rem 0 0.35rem;
+    line-height: 1.1;
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
+  }
+  .post-title a {
+    color: var(--color-text-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--color-outlines-dark);
+    text-underline-offset: 1px;
+  }
+  .post-title a:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  /* excerpt + meta */
+  .post-excerpt {
+    margin: 0.4rem 0 0.6rem;
+    line-height: 1.6;
+  }
+  .post-date {
+    font-size: 0.85rem;
+    margin: 0.6rem 0 0.6rem;
+  }
+
+  /* CTA */
+  .read-more {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    text-decoration: none;
+  }
+  .read-more:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* thumbnail */
+  .post-image {
+    --thumb-w: 360px;
+    width: var(--thumb-w);
+  }
+  .post-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    border: 3px solid var(--color-outlines-dark);
+  }
+
+  /* pagination */
+  .pagination {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .page-btn {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    padding: 0.35em 0.6em;
+    border: 2px solid var(--color-outlines-dark);
+    background: transparent;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .page-btn.active {
+    background: var(--accent);
+    color: var(--color-text);
+    border-color: var(--color-outlines);
+  }
+  .page-btn[disabled],
+  .page-btn.disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+  }
+  .arrow-btn {
+    font-weight: 800;
+  }
+
+  /* mobile */
+  @media (max-width: 980px) {
+    .controls-bar {
+      position: static;
+      padding: 0.5rem 0.6rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .post-item {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      padding: 0.9rem 0.9rem 1rem;
+    }
+    .post-image {
+      width: 100%;
+    }
+  }
+</style>
+
+<script type="module">
+  if (typeof window !== "undefined") {
+    const postsList = document.querySelector(".posts-list");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const sortSelect = document.getElementById("sort-select");
+    const posts = Array.from(document.querySelectorAll(".post-item"));
+    let currentTag = "all";
+    let sortOrder = "newest";
+
+    function sortPosts() {
+      posts.sort((a, b) => {
+        const aDate = Number(a.dataset.date);
+        const bDate = Number(b.dataset.date);
+        return sortOrder === "newest" ? bDate - aDate : aDate - bDate;
+      });
+      if (postsList) {
+        posts.forEach((p) => postsList.appendChild(p));
+      }
+    }
+
+    function updateVisibility() {
+      posts.forEach((p) => {
+        const tags = p.dataset.tags ? p.dataset.tags.split(",") : [];
+        const matchesTag = currentTag === "all" || tags.includes(currentTag);
+        p.style.display = matchesTag ? "" : "none";
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", () => {
+        sortOrder = sortSelect.value;
+        sortPosts();
+        updateVisibility();
+      });
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentTag = btn.dataset.tag || "all";
+        updateVisibility();
+      });
+    });
+
+    sortPosts();
+    updateVisibility();
+  }
+</script>

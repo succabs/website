@@ -1,0 +1,36 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import BlogListing from "../../../components/BlogListing.astro";
+import { getProcessedBlogPosts, getAllTags, BLOG_PAGE_SIZE } from "../../../utils/blog";
+
+const pageDescription =
+  "Personal blog on life, tech and curiosity — everything from side projects to events of my life.";
+
+export async function getStaticPaths({ paginate }) {
+  const posts = await getProcessedBlogPosts();
+  const allTags = getAllTags(posts);
+  const paginatedRoutes = paginate(posts, {
+    pageSize: BLOG_PAGE_SIZE,
+  });
+
+  return paginatedRoutes
+    .filter((route) => route.props.page.currentPage > 1)
+    .map((route) => ({
+      ...route,
+      props: {
+        ...route.props,
+        allTags,
+      },
+    }));
+}
+
+const { page, allTags } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <BaseHead title={`Blog - Page ${page.currentPage}`} description={pageDescription} />
+  </head>
+  <body class="page-blog">
+    <BlogListing page={page} allTags={allTags} />
+  </body>
+</html>
