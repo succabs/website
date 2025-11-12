@@ -1,33 +1,58 @@
 # Arttu Portfolio
 
-This project is built with [Astro](https://astro.build) and follows the design rules in `brandbook.md`.
+A personal portfolio and blog for Arttu Nikkilä, built with [Astro](https://astro.build) 5, MDX content, and handcrafted CSS. Layout, typography, and colour usage follow the rules defined in [`brandbook.md`](brandbook.md).
 
-## Style Guide
+## Features
 
-- **Fonts:** Helvetica for headings and Inter for body text.
-- **Colors:** Background `#FAF8F4`, text `#1A1A1A`, gray `#BDBDBD` with accent colors `#E53935`, `#1E88E5` and `#FDD835`.
-- **Layout:** A simple 12 column grid with a maximum width of `1200px`. Content is padded `64px` on desktop and `32px` on smaller screens with at least `64px` vertical spacing between sections.
-- **UI elements:** No shadows or border radius. Buttons use uppercase text and change to the accent color on hover.
+### Home
+- Hero introduction with multilingual greeting and biography.
+- Automatically surfaces the three most recent posts and three featured "most read" articles sourced from the blog collection.
 
-These rules are implemented in `src/styles/global.css`.
+### Blog
+- Blog index supports client-side tag filtering, date sorting, read-time estimates, and paginated browsing of the full archive.
+- Individual tag hubs provide sticky filtering controls, per-tag pagination, and calculated read times for every article.
+- RSS feed available at `/rss.xml` for subscription services.
 
-## Technology
+### Projects
+- Interactive "character select" grid with keyboard accessible controls, inline project metadata, and screenshot carousel rendered from structured project data.
 
-The code base uses Astro with MDX content, TypeScript configuration and no UI libraries. Styling is handcrafted in CSS following the rules above.
+### Experience
+- Structured work history, education timeline, certifications, and skills rendered with reusable components for consistent typography and iconography.
 
-## Running locally
+### Reading List
+- Curated book recommendations and yearly reading logs maintained as rich-content sections.
 
-Install dependencies and start the development server:
+### Additional Pages
+- Dedicated About, Projects, Experience, Reading List, Privacy Policy, and 404 views under `src/pages/` for simple routing.
 
-```bash
-npm install
-npm run dev
-```
+## Content & Code Structure
+- `src/pages/` contains route-level Astro files for static and dynamic pages (e.g., `/blog`, `/projects`, `/tags/[tag]`).
+- `src/content/blog/` stores Markdown and MDX posts validated by the blog collection schema defined in `src/content.config.ts` (title, description, dates, optional excerpt, hero media, tags, colour, and featured flag).
+- `src/components/` houses layout primitives (`BaseLayout`, `Header`, `Footer`) and UI elements such as `BlogListing` and `ExperienceItem`.
+- `src/utils/blog.ts` centralises blog pagination size, read-time calculation, and tag aggregation helpers.
+- Assets and client scripts live under `src/assets/` and `src/scripts/` respectively.
 
-To create a production build:
+## Getting Started
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server (default `http://localhost:4321`):
+   ```bash
+   npm run dev
+   ```
+3. Create a production build:
+   ```bash
+   npm run build
+   ```
+4. Preview the production build locally:
+   ```bash
+   npm run preview
+   ```
 
-```bash
-npm run build
-```
+## Tooling
+- Astro CLI commands are exposed through the package scripts in `package.json` (`dev`, `build`, `preview`, `astro`).
+- Image optimisation relies on [`sharp`](https://sharp.pixelplumbing.com/), installed as a dependency for Astro image transformations.
 
-The site will be available at `http://localhost:4321` when running `npm run dev`.
+## Styling Guidance
+Visual direction, component spacing, and typography rules are documented in [`brandbook.md`](brandbook.md). Apply any new styling changes according to that reference.
