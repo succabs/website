@@ -426,8 +426,55 @@ const nextHref =
     const filterButtons = document.querySelectorAll(".filter-btn");
     const sortSelect = document.getElementById("sort-select");
     const posts = Array.from(document.querySelectorAll(".post-item"));
-    let currentTag = "all";
-    let sortOrder = "newest";
+    const paginationLinks = Array.from(
+      document.querySelectorAll(".pagination a")
+    );
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const availableTags = new Set(
+      Array.from(filterButtons).map((btn) => btn.dataset.tag || "")
+    );
+    let currentTag = params.get("tag") || "all";
+    if (!availableTags.has(currentTag)) {
+      currentTag = "all";
+    }
+    let sortOrder = params.get("sort") || "newest";
+
+    const validSortOrders = new Set(["newest", "oldest"]);
+    if (!validSortOrders.has(sortOrder)) {
+      sortOrder = "newest";
+    }
+
+    function updateUrlParams() {
+      const nextParams = new URLSearchParams();
+
+      if (currentTag && currentTag !== "all") {
+        nextParams.set("tag", currentTag);
+      }
+
+      if (sortOrder && sortOrder !== "newest") {
+        nextParams.set("sort", sortOrder);
+      }
+
+      const queryString = nextParams.toString();
+      const newUrl = `${url.pathname}${queryString ? `?${queryString}` : ""}`;
+      history.replaceState(null, "", newUrl);
+      updatePaginationLinks(nextParams);
+    }
+
+    function updatePaginationLinks(nextParams) {
+      const queryString = nextParams.toString();
+      paginationLinks.forEach((link) => {
+        const href = link.getAttribute("href");
+        if (!href) return;
+
+        const [path] = href.split("?");
+        link.setAttribute(
+          "href",
+          queryString ? `${path}?${queryString}` : path
+        );
+      });
+    }
 
     function sortPosts() {
       posts.sort((a, b) => {
@@ -449,12 +496,24 @@ const nextHref =
     }
 
     if (sortSelect) {
+      sortSelect.value = sortOrder;
       sortSelect.addEventListener("change", () => {
         sortOrder = sortSelect.value;
         sortPosts();
         updateVisibility();
+        updateUrlParams();
       });
     }
+
+    filterButtons.forEach((btn) => {
+      if (btn.dataset.tag === currentTag) {
+        btn.classList.add("active");
+      } else if (currentTag === "all" && btn.dataset.tag === "all") {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
 
     filterButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -462,10 +521,12 @@ const nextHref =
         btn.classList.add("active");
         currentTag = btn.dataset.tag || "all";
         updateVisibility();
+        updateUrlParams();
       });
     });
 
     sortPosts();
     updateVisibility();
+    updateUrlParams();
   }
 </script>
