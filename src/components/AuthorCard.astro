@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import authorPhoto from "../assets/me.jpg";
+---
+
+<section class="author-card">
+  <hr />
+  <p class="author-intro">This post was written by</p>
+  <div class="author">
+    <Image
+      src={authorPhoto}
+      alt="Arttu Nikkilä"
+      width={150}
+      height={150}
+      class="author-photo"
+    />
+    <div class="author-info">
+      <h3>Arttu Nikkilä</h3>
+      <p>
+        Arttu Nikkilä is a web developer based in Finland, working in eCommerce
+        where technical work meets customer interaction. He's also pursuing a
+        Master's degree in Educational Technology. When not working or studying,
+        he enjoys running, reading, and DJ'ing.
+      </p>
+    </div>
+  </div>
+  <hr />
+</section>
+
+<style>
+  .author-card {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .author-card p {
+    max-width: 65ch;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .author {
+    max-width: 65ch;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    margin: 0 auto;
+  }
+  .author-photo {
+    border: 3px solid var(--color-text-dark);
+  }
+  .author-info h3 {
+    color: var(--color-text-dark);
+    font-size: 1.5rem;
+  }
+  .author-info p {
+    margin: 0.25rem 0;
+    font-size: 1rem;
+    color: var(--color-text-dark);
+  }
+  .author-info a {
+    color: inherit;
+    text-decoration: underline;
+  }
+  .author-intro {
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 0.05em;
+  }
+</style>

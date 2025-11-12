@@ -86,5 +86,3 @@ Until then, my mission is simple:
 - and keep gathering new songs into my library.
 
 For me, DJ’ing is more than just a hobby: it’s a way to combine my love for music with the joy of learning something new.
-
----

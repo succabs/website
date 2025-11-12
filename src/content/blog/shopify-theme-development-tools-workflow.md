@@ -13,6 +13,8 @@ featured: true
 
 I work on Shopify front-end projects daily, and over time I've found a workflow that actually makes sense. Some tools speed me up, others look great but get in the way. Here's what I use, and what I don't anymore - plus a few principles I try to stick to so my code stays clean and sustainable.
 
+---
+
 ## ✅ Tools I Actually Use (And Why)
 
 ### Shopify CLI

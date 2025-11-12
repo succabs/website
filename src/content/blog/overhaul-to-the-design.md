@@ -113,5 +113,3 @@ If there’s one takeaway from this redesign, it’s this: **don’t settle for 
 And if that means “Akira meets Hokusai meets fighting games,” well… then that’s exactly what it should be. If it works, it works. If it doesn't - reiterate!
 
 Let me know what you think :)
-
----

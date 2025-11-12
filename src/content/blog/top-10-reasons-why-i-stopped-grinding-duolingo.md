@@ -12,7 +12,7 @@ featured: true
 
 ## Introduction
 
-After a 628-day streak, I finally quit Duolingo - it just wasn’t working for me anymore. If you've read my earlier post about spending a full year learning Norwegian on the app ([365 Days of Learning Norwegian on Duolingo](https://arttu.net/blog/365-days-of-learning-norwegian-on-duolingo/)), this might come as a surprise. But after nearly two years of daily practice, I reached a point where continuing no longer made sense. Here's why.
+After a 628-day streak, I finally quit Duolingo: it just wasn’t working for me anymore. If you've read my earlier post about spending a full year learning Norwegian on the app ([365 Days of Learning Norwegian on Duolingo](https://arttu.net/blog/365-days-of-learning-norwegian-on-duolingo/)), this might come as a surprise. But after nearly two years of daily practice, I reached a point where continuing no longer made sense. Here's why.
 
 ## 1. I Was Buying Time With Streak Freezes
 
