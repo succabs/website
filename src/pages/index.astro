@@ -64,6 +64,7 @@ const structuredData = {
   }
 
   .intro-image img {
+    aspect-ratio: 1 / 1;
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -164,15 +165,17 @@ const structuredData = {
       <p>
         That was my elevator pitch. This website, however, is my personal
         website which is both a display of my skills and a playground for me to
-        test different things related to web development. Feel free to explore
-        around. Enjoy your stay!
+        test and play around different things related to web development. Feel
+        free to check out my <a href="/projects/">projects</a>, read about my <a
+          href="/experience/">experience</a
+        >, or explore the <a href="/blog/">blog</a>. Enjoy your stay!
       </p>
       <p>Och samma på finska och svenska.</p>
       <p class="signature">– Arttu :)</p>
     </div>
 
     <div class="intro-image">
-      <img src="/me.jpg" alt="portrait of Arttu Nikkilä" />
+      <img fetchpriority="high" src="/me.jpg" alt="portrait of Arttu Nikkilä" />
     </div>
   </section>
 
