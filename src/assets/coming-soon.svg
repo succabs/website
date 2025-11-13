@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="halftone" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="2" fill="#1a1a1a" opacity="0.2" />
+    </pattern>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.08" />
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="#f5efe0" />
+  <rect width="800" height="600" fill="url(#halftone)" />
+  <rect width="760" height="520" x="20" y="40" rx="32" ry="32" fill="#fdfaf2" stroke="#111" stroke-width="8" />
+  <g filter="url(#noise)">
+    <rect width="760" height="520" x="20" y="40" rx="32" ry="32" fill="#fdfaf2" opacity="0.4" />
+  </g>
+  <g>
+    <rect x="110" y="160" width="580" height="200" rx="22" fill="#f7d046" stroke="#111" stroke-width="8" />
+    <text x="400" y="245" font-family="'Anton', 'Arial Black', sans-serif" font-size="78" fill="#111" text-anchor="middle" letter-spacing="4">COMING</text>
+    <text x="400" y="315" font-family="'Anton', 'Arial Black', sans-serif" font-size="78" fill="#111" text-anchor="middle" letter-spacing="4">SOON</text>
+  </g>
+  <g transform="rotate(-8 220 140)">
+    <rect x="120" y="90" width="220" height="70" fill="#dd1313" stroke="#111" stroke-width="6" rx="12" />
+    <text x="230" y="137" font-family="'Anton', 'Arial Black', sans-serif" font-size="36" fill="#fdfaf2" text-anchor="middle">NEXT ISSUE</text>
+  </g>
+</svg>
