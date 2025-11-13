@@ -29,13 +29,6 @@ const chapters = Array.from(grouped.entries())
     entries: info.entries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
   }));
 
-const teasers = allProjects
-  .filter(isComingSoon)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const formatDate = (value: Date) =>
-  new Intl.DateTimeFormat("en-GB", { month: "short", year: "numeric" }).format(value);
-
 const paragraphs = (text?: string) => text?.split(/\n+/).map((line) => line.trim()).filter(Boolean) ?? [];
 
 const getCtas = (links?: { demo?: string; repo?: string; caseStudy?: string }) =>
@@ -102,7 +95,9 @@ const jsonLdProjects = liveProjects.map((entry) => ({
               >
                 <div class="spread-page spread-page--left">
                   <header class="spread-header">
-                    {data.sticker && <span class={`spread-sticker spread-sticker-${data.sticker.toLowerCase()}`}>{data.sticker}</span>}
+                    {data.sticker && !["selected", "new"].includes(data.sticker.toLowerCase()) && (
+                      <span class={`spread-sticker spread-sticker-${data.sticker.toLowerCase()}`}>{data.sticker}</span>
+                    )}
                     <h3 id={`${data.id}-title`}>{data.title}</h3>
                     <p class="spread-summary">{data.summary}</p>
                     <div class="spread-tags" role="list">
@@ -139,33 +134,23 @@ const jsonLdProjects = liveProjects.map((entry) => ({
                       ))}
                     </div>
                   )}
-                  <div class="spread-meta" aria-label="Project details">
-                    <dl>
-                      <div>
-                        <dt>Released</dt>
-                        <dd>{formatDate(data.date)}</dd>
-                      </div>
-                      {data.role && (
-                        <div>
-                          <dt>Role</dt>
-                          <dd>{data.role}</dd>
-                        </div>
-                      )}
+                  {(data.stack && data.stack.length > 0) || (data.outcomes && data.outcomes.length > 0) ? (
+                    <div class="spread-meta" aria-label="Project details">
                       {data.stack && data.stack.length > 0 && (
-                        <div>
-                          <dt>Stack</dt>
-                          <dd>{data.stack.join(" · ")}</dd>
+                        <div class="spread-stack">
+                          <h4>Stack</h4>
+                          <p>{data.stack.join(" · ")}</p>
                         </div>
                       )}
-                    </dl>
-                    {data.outcomes && data.outcomes.length > 0 && (
-                      <ul class="spread-outcomes">
-                        {data.outcomes.slice(0, 2).map((outcome) => (
-                          <li>{outcome}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+                      {data.outcomes && data.outcomes.length > 0 && (
+                        <ul class="spread-outcomes">
+                          {data.outcomes.slice(0, 2).map((outcome) => (
+                            <li>{outcome}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ) : null}
                   <footer class="spread-footer">
                     {ctas.length > 0 ? (
                       <nav class="spread-ctas" aria-label="Project links">
@@ -189,54 +174,6 @@ const jsonLdProjects = liveProjects.map((entry) => ({
       </section>
     ))}
   </section>
-
-  {teasers.length > 0 && (
-    <section class="next-issue" aria-labelledby="next-issue-title">
-      <header class="next-issue-header">
-        <h2 id="next-issue-title">Next Issue</h2>
-        <p>Coming-soon experiments and collaborations currently pencilled in.</p>
-      </header>
-      <div class="next-issue-list">
-        {teasers.map((entry) => {
-          const { data } = entry;
-          const primaryImage = data.images[0];
-          return (
-            <article
-              id={data.id}
-              class="teaser-card on-paper"
-              data-spread-id={data.id}
-              aria-labelledby={`${data.id}-title`}
-            >
-              <header class="teaser-header">
-                {data.sticker && <span class={`spread-sticker spread-sticker-${data.sticker.toLowerCase()}`}>{data.sticker}</span>}
-                <h3 id={`${data.id}-title`}>{data.title}</h3>
-                <p class="teaser-summary">{data.summary}</p>
-                <div class="spread-tags" role="list">
-                  {data.tags.map((tag) => (
-                    <span class="spread-tag" role="listitem">{tag}</span>
-                  ))}
-                </div>
-              </header>
-              {primaryImage && (
-                <div class="spread-media">
-                  <Image
-                    class="spread-image"
-                    src={primaryImage.src}
-                    alt={primaryImage.alt}
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 720px) 32vw, 92vw"
-                    widths={[360, 540, 720]}
-                  />
-                </div>
-              )}
-              {data.teaser && <p class="teaser-copy">{data.teaser}</p>}
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  )}
 
   <script type="application/ld+json" set:html={JSON.stringify(jsonLdProjects)} />
 </Layout>
@@ -387,8 +324,7 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     gap: clamp(2rem, 4vw, 3rem);
   }
 
-  .project-spread,
-  .teaser-card {
+  .project-spread {
     position: relative;
     display: grid;
     gap: clamp(1.5rem, 3vw, 2.5rem);
@@ -400,11 +336,10 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     isolation: isolate;
     opacity: 0;
     transform: translateY(45px);
-    transition: opacity 250ms ease, transform 250ms ease;
+    transition: opacity 250ms ease, transform 250ms ease, background 150ms ease, color 150ms ease;
   }
 
-  .project-spread::after,
-  .teaser-card::after {
+  .project-spread::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -415,16 +350,21 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     z-index: 0;
   }
 
-  .project-spread.is-visible,
-  .teaser-card.is-visible {
+  .project-spread.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .project-spread > *,
-  .teaser-card > * {
+  .project-spread > * {
     position: relative;
     z-index: 1;
+  }
+
+  .project-spread:hover,
+  .project-spread:focus-within {
+    transform: translateY(-4px);
+    background: var(--accent);
+    color: var(--color-text);
   }
 
   .project-spread {
@@ -488,8 +428,12 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     border: 3px solid var(--color-outlines-dark);
     background: #fff;
     overflow: hidden;
-    transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
-    transition: transform 200ms ease;
+    transition: transform 150ms ease;
+  }
+
+  .project-spread:hover .spread-media,
+  .project-spread:focus-within .spread-media {
+    transform: translateY(-2px);
   }
 
   .spread-image {
@@ -527,29 +471,20 @@ const jsonLdProjects = liveProjects.map((entry) => ({
   .spread-meta {
     display: grid;
     gap: 1rem;
+    align-content: start;
   }
 
-  .spread-meta dl {
-    margin: 0;
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .spread-meta div {
-    display: flex;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  .spread-meta dt {
-    font-weight: 700;
+  .spread-stack h4 {
+    margin: 0 0 0.25rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
-  .spread-meta dd {
+  .spread-stack p {
     margin: 0;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 600;
   }
 
   .spread-outcomes {
@@ -618,47 +553,8 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     letter-spacing: 0.12em;
   }
 
-  .spread-sticker-new {
-    background: rgba(221, 19, 19, 0.18);
-  }
-
   .spread-sticker-wip {
     background: rgba(36, 115, 183, 0.15);
-  }
-
-  .spread-sticker-selected {
-    background: rgba(0, 0, 0, 0.12);
-  }
-
-  .next-issue {
-    display: grid;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-  }
-
-  .next-issue-header {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .next-issue-list {
-    display: grid;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-
-  .teaser-header {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .teaser-summary {
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .teaser-copy {
-    margin: 0;
-    font-style: italic;
   }
 
   @media (max-width: 720px) {
@@ -666,8 +562,7 @@ const jsonLdProjects = liveProjects.map((entry) => ({
       box-shadow: 10px 10px 0 var(--color-outlines-dark);
     }
 
-    .project-spread,
-    .teaser-card {
+    .project-spread {
       box-shadow: 8px 8px 0 var(--color-outlines-dark);
     }
   }

@@ -3,9 +3,7 @@ const initComicPanels = () => {
     document.querySelectorAll<HTMLElement>('.project-spread[data-spread-id]')
   );
   const revealTargets = Array.from(
-    document.querySelectorAll<HTMLElement>(
-      '.project-spread[data-spread-id], .teaser-card[data-spread-id]'
-    )
+    document.querySelectorAll<HTMLElement>('.project-spread[data-spread-id]')
   );
 
   if (revealTargets.length === 0) {
@@ -55,31 +53,6 @@ const initComicPanels = () => {
       { threshold: [0.25, 0.5, 0.75], rootMargin: '-35% 0px -55% 0px' }
     );
     spreads.forEach((panel) => hashObserver.observe(panel));
-  }
-
-  if (!prefersReducedMotion) {
-    const clamp = (value: number, min: number, max: number) =>
-      Math.min(Math.max(value, min), max);
-
-    revealTargets.forEach((panel) => {
-      const media = panel.querySelector<HTMLElement>('.spread-media');
-      if (!media) {
-        return;
-      }
-
-      panel.addEventListener('pointermove', (event) => {
-        const rect = media.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        media.style.setProperty('--parallax-x', `${clamp(x * 12, -10, 10)}px`);
-        media.style.setProperty('--parallax-y', `${clamp(y * 12, -10, 10)}px`);
-      });
-
-      panel.addEventListener('pointerleave', () => {
-        media.style.setProperty('--parallax-x', '0px');
-        media.style.setProperty('--parallax-y', '0px');
-      });
-    });
   }
 
   const currentHash = window.location.hash.replace('#', '');
