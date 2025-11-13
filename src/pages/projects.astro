@@ -1,566 +1,659 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-import consentImage from "../assets/consent_analyser_screenshot.png";
-import juoksulokiImage from "../assets/juoksuloki_screenshot.png";
-import kandirushsagaImage from "../assets/kandi_2.png";
-import kandirushsagaImage2 from "../assets/kandi_1.png";
-import kandirushsagaImage3 from "../assets/kandi_3.png";
-import graduTheftAutoImage from "../assets/gradu_theft_auto_screenshot.png";
-import graduTheftAutoImage2 from "../assets/gradu_theft_auto_screenshot_2.png";
-import graduTheftAutoImage3 from "../assets/gradu_theft_auto_screenshot_3.png";
+const allProjects = await getCollection("projects");
+const isComingSoon = (entry: CollectionEntry<"projects">) =>
+  entry.data.status === "coming-soon";
 
-// ✅ TS is OK in frontmatter
-interface Link {
-  label: string;
-  href: string;
+const liveProjects = allProjects
+  .filter((entry) => !isComingSoon(entry))
+  .sort(
+    (a, b) =>
+      (a.data.chapterIndex ?? Number.POSITIVE_INFINITY) -
+      (b.data.chapterIndex ?? Number.POSITIVE_INFINITY)
+  );
+
+const grouped = new Map<
+  string,
+  { entries: CollectionEntry<"projects">[]; order: number }
+>();
+for (const entry of liveProjects) {
+  const bucket = grouped.get(entry.data.category) ?? {
+    entries: [],
+    order: entry.data.chapterIndex ?? Number.POSITIVE_INFINITY,
+  };
+  bucket.entries.push(entry);
+  bucket.order = Math.min(
+    bucket.order,
+    entry.data.chapterIndex ?? Number.POSITIVE_INFINITY
+  );
+  grouped.set(entry.data.category, bucket);
 }
-interface Project {
-  id: string;
-  codename: string;
-  title: string;
-  desc: string[];
-  tech: string[];
-  links?: Link[];
-  images: ImageMetadata[];
-  thumb?: ImageMetadata;
-}
 
-const projects: Project[] = [
-  {
-    id: "consent",
-    codename: "CONSENT ANALYSER",
-    title: "Consent Analyser",
-    desc: [
-      "Chrome extension for checking CMP ↔ Shopify Customer Privacy API integration.",
-      "Inspects dataLayer pushes for consent mode 2.0 and lets user change consent easily for testing.",
-      "No public code available (work project). Email for a demo :)",
-    ],
-    tech: ["JavaScript", "HTML", "CSS"],
-    images: [consentImage],
-  },
-  {
-    id: "juoksuloki",
-    codename: "JUOKSULOKI",
-    title: "Juoksuloki",
-    desc: [
-      "A Python Command Line Tool for exporting run data from the Suunto App (iOS) into a local Excel file for further analysis.",
-      "Niche tool built for Suunto app on iPhone + Mac users who prefer local run data management and advanced analysis.",
-    ],
-    tech: ["Python", "Pandas", "Excel"],
-    images: [juoksulokiImage],
-  },
-  {
-    id: "kandi",
-    codename: "KANDI RUSH SAGA",
-    title: "Kandi Rush Saga",
-    desc: [
-      "Earn 180 student credits before you run out of allowance months.",
-      "Updated 06/2025 for mobile and desktop.",
-    ],
-    tech: ["JavaScript", "Phaser"],
-    links: [
-      { label: "Code", href: "https://github.com/succabs/kandirushsaga" },
-      { label: "Live", href: "https://arttu.net/kandirushsaga" },
-    ],
-    images: [kandirushsagaImage, kandirushsagaImage2, kandirushsagaImage3],
-  },
-  {
-    id: "gradu",
-    codename: "GRADU THEFT AUTO",
-    title: "Gradu Theft Auto",
-    desc: [
-      "Walk to the university library through Kauppakatu to get your thesis ready.",
-      "Try to manage to graduate before running out of time.",
-      "This is even harder than Kandi Rush Saga. Naturally.",
-    ],
-    tech: ["JavaScript", "Phaser"],
-        links: [
-      { label: "Code", href: "https://github.com/succabs/gradu-theft-auto" },
-    ],
-    images: [graduTheftAutoImage, graduTheftAutoImage2, graduTheftAutoImage3],
-  },
-];
+const chapters = Array.from(grouped.entries())
+  .sort((a, b) => a[1].order - b[1].order || a[0].localeCompare(b[0]))
+  .map(([category, info], index) => ({
+    number: index + 1,
+    category,
+    entries: info.entries.sort(
+      (a, b) => b.data.date.getTime() - a.data.date.getTime()
+    ),
+  }));
 
-const projectsData = projects.map((p: Project) => ({
-  ...p,
-  images: p.images.map((img) => img.src),
-  thumb: p.thumb?.src,
+const paragraphs = (text?: string) =>
+  text
+    ?.split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean) ?? [];
+
+const getCtas = (links?: {
+  demo?: string;
+  code?: string;
+  caseStudy?: string;
+}) =>
+  Object.entries({
+    demo: links?.demo,
+    code: links?.code,
+    caseStudy: links?.caseStudy,
+  }).filter(([, value]) => Boolean(value));
+
+const siteOrigin = Astro.site?.origin ?? "";
+const jsonLdProjects = liveProjects.map((entry) => ({
+  "@context": "https://schema.org",
+  "@type": entry.data.links?.code ? "SoftwareSourceCode" : "CreativeWork",
+  name: entry.data.title,
+  description: entry.data.summary,
+  datePublished: entry.data.date.toISOString(),
+  url: `${siteOrigin}/projects#${entry.data.id}`,
+  keywords: entry.data.tags.join(", "),
+  ...(entry.data.links?.code ? { codecodesitory: entry.data.links.code } : {}),
+  ...(entry.data.links?.demo ? { discussionUrl: entry.data.links.demo } : {}),
 }));
-const mysteryCount = 2;
+
+const now: Date = new Date();
+
+function getISOWeek(date: Date): number {
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+}
+
+const week: string = String(getISOWeek(now)).padStart(2, "0");
+const year: string = String(now.getFullYear()).slice(-2);
+const label: string = `${week}/${year}`;
 ---
 
 <Layout
   title="Projects"
-  description="A selection of personal and professional projects — presented as a character select."
-  pageClass="page-blue"
+  description="Comic book anthology of shipped work, experiments, and upcoming collaborations."
+  pageClass="projects-page page-blog"
 >
-  <h1>Projects</h1>
-  <p class="full-width">
-    Choose a project to view details. More on
+  <section class="projects-hero" aria-labelledby="projects-hero-title">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="hero-kicker">Issue {label}</p>
+        <h1 id="projects-hero-title">Projects</h1>
+        <p class="hero-intro">
+          A single-scroll showcase of tools, games, helpers, and experiments.
+          Some were built to make daily work easier, others just for fun, and a
+          few landed somewhere in between. They've all earned a spot here
+          because they solved a problem, taught me something, or simply made me
+          laugh while building them.
+        </p>
+      </div>
+      <div class="hero-poster" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="projects-main" aria-label="Project anthology">
+    {
+      chapters.map((chapter) => (
+        <section
+          class="projects-chapter"
+          aria-labelledby={`chapter-${chapter.number}`}
+        >
+          <header class="chapter-header" id={`chapter-${chapter.number}`}>
+            <p class="chapter-label">Chapter {chapter.number}</p>
+            <h2>{chapter.category}</h2>
+          </header>
+          <div class="chapter-spreads">
+            {chapter.entries.map((entry) => {
+              const { data } = entry;
+              const ctas = getCtas(data.links);
+              const primaryImage = data.images[0];
+              return (
+                <article
+                  id={data.id}
+                  class="project-spread on-paper"
+                  data-spread-id={data.id}
+                  aria-labelledby={`${data.id}-title`}
+                >
+                  <div class="spread-page spread-page--left">
+                    <header class="spread-header">
+                      {data.sticker &&
+                        !["selected", "new"].includes(
+                          data.sticker.toLowerCase()
+                        ) && (
+                          <span
+                            class={`spread-sticker spread-sticker-${data.sticker.toLowerCase()}`}
+                          >
+                            {data.sticker}
+                          </span>
+                        )}
+                      <h3 id={`${data.id}-title`}>{data.title}</h3>
+                      <p class="spread-summary">{data.summary}</p>
+                    </header>
+                    {primaryImage && (
+                      <div class="spread-media">
+                        <Image
+                          class="spread-image"
+                          src={primaryImage.src}
+                          alt={primaryImage.alt}
+                          loading="lazy"
+                          decoding="async"
+                          sizes="(min-width: 1080px) 40vw, (min-width: 720px) 60vw, 92vw"
+                          widths={[480, 720, 960]}
+                        />
+                      </div>
+                    )}
+                    {data.funFact && (
+                      <p class="spread-callout" role="note">
+                        <span class="callout-prefix">Fun Fact</span>
+                        <span>{data.funFact}</span>
+                      </p>
+                    )}
+                  </div>
+                  <div class="spread-page spread-page--right">
+                    {data.description && (
+                      <div class="spread-body">
+                        {paragraphs(data.description).map((paragraph) => (
+                          <p>{paragraph}</p>
+                        ))}
+                      </div>
+                    )}
+                    {(data.stack && data.stack.length > 0) ||
+                    (data.outcomes && data.outcomes.length > 0) ? (
+                      <div class="spread-meta" aria-label="Project details">
+                        {data.stack && data.stack.length > 0 && (
+                          <div class="spread-stack">
+                            <h4>Tech stack</h4>
+                            <div class="spread-tags" role="list">
+                              {data.tags.map((tag) => (
+                                <span class="spread-tag" role="listitem">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {data.outcomes && data.outcomes.length > 0 && (
+                          <ul class="spread-outcomes">
+                            {data.outcomes.slice(0, 2).map((outcome) => (
+                              <li>{outcome}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ) : null}
+                    <footer class="spread-footer">
+                      {ctas.length > 0 ? (
+                        <nav class="spread-ctas" aria-label="Project links">
+                          {ctas.map(([key, url]) => (
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener"
+                              class={`spread-cta spread-cta-${key}`}
+                            >
+                              {key === "demo" && "Demo"}
+                              {key === "code" && "code"}
+                              {key === "caseStudy" && "Case Study"}
+                            </a>
+                          ))}
+                        </nav>
+                      ) : (
+                        <span />
+                      )}
+                    </footer>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))
+    }
+
     <a
+      class="hero-link"
       href="https://github.com/succabs"
       target="_blank"
-      rel="noopener noreferrer">GitHub</a
-    >.
-  </p>
+      rel="noopener"
+    >
+      More on GitHub
+    </a>
+  </section>
 
-  <div class="projects-wrap">
-    <!-- Character Grid -->
-    <section class="select-grid" aria-label="Project select">
-      {
-        projects.map((p: Project, i: number) => (
-          <button
-            class="select-tile"
-            data-id={p.id}
-            aria-controls="project-detail"
-            aria-label={`Open ${p.title}`}
-            data-index={i}
-          >
-            <div class="tile-frame">
-              <Image src={p.thumb ?? p.images[0]} alt="" />
-              <span class="codename">{p.codename}</span>
-              <span class="stamp" aria-hidden="true">
-                SELECTED
-              </span>
-            </div>
-          </button>
-        ))
-      }
-
-      {
-        Array.from({ length: mysteryCount }).map((_, i) => (
-          <div
-            class="select-tile mystery"
-            aria-hidden="true"
-            data-index={projects.length + i}
-          >
-            <div class="tile-frame glitch">
-              <span class="mystery-text">???</span>
-              <span class="codename">???</span>
-              <span class="stamp" aria-hidden="true">
-                SELECTED
-              </span>
-            </div>
-          </div>
-        ))
-      }
-    </section>
-
-    <!-- Detail Panel -->
-    <aside id="project-detail" class="detail" tabindex="-1" aria-live="polite">
-      <div class="detail-inner">
-        <div class="detail-head">
-          <h2 class="detail-title">Select a project</h2>
-          <div class="detail-tech" role="list"></div>
-        </div>
-
-        <!-- 2-column on desktop: copy left, media right -->
-        <div class="detail-body">
-          <div class="detail-copy">
-            <div class="detail-desc"></div>
-            <div class="detail-links"></div>
-          </div>
-
-          <div class="detail-media">
-            <div class="media-main">
-              <button class="nav prev" aria-label="Previous screenshot"
-                >‹</button
-              >
-              <img class="detail-image" alt="" />
-              <div class="media-placeholder" hidden aria-hidden="true">???</div>
-              <button class="nav next" aria-label="Next screenshot">›</button>
-            </div>
-            <div
-              class="detail-thumbs"
-              aria-label="Screenshot thumbnails"
-              role="list"
-            >
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-  </div>
-  <!-- Hidden JSON for client script (inside Layout) -->
-  <script type="application/json" id="projects-data" hidden aria-hidden="true" set:html={JSON.stringify(projectsData)}>
-
-  </script>
-
-  <!-- Publish a global immediately so nothing can crash earlier -->
-  <script is:inline>
-    (function () {
-      const el = document.getElementById('projects-data');
-      try {
-        const data = el && el.textContent ? JSON.parse(el.textContent) : [];
-        // expose both names to be safe
-        // @ts-ignore
-        window.projectsData = data;
-        // @ts-ignore
-        window.projectData = data;
-      } catch (e) {
-        console.error('[projects] failed to parse projects-data', e);
-        // @ts-ignore
-        window.projectsData = [];
-        // @ts-ignore
-        window.projectData = [];
-      }
-    })();
-  </script>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(jsonLdProjects)}
+  />
 </Layout>
 
-<script src="../scripts/projects.client.ts" />
-
+<script src="../scripts/projects-comic.client.ts"></script>
 
 <style>
-  /* GLOBAL stuff */
-  .select-tile,
-  .tile-frame,
-  .stamp {
-    box-sizing: border-box;
+  :global(.projects-page .content) {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 6vw, 5rem);
+    padding-block: clamp(2rem, 6vw, 4.5rem);
   }
 
-  .projects-wrap {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: start;
-  }
-
-  /* GRID */
-  .select-grid {
-    --cols: 6; /* desktop can show more across since detail is below */
-    display: grid;
-    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  @media screen and (max-width: 980px) {
-    .select-grid {
-      --cols: 3;
-      gap: 0.5rem;
-    }
-  }
-
-  /* THUMBNAIL TILES */
-  .select-tile {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    text-align: left;
-    outline-offset: 2px;
-    font: inherit; /* kills UA control font */
-    line-height: 1; /* avoids extra button line-height */
-    -webkit-appearance: none; /* Safari */
-    appearance: none;
-  }
-
-  .tile-frame {
+  .projects-hero {
     position: relative;
-    border: 3px solid var(--color-outlines-dark);
+    border: 4px solid var(--color-outlines-dark);
     background: var(--accent-second);
-    aspect-ratio: 4/3;
-    display: grid;
-    place-items: end start;
-    overflow: hidden;
-    transform: translateZ(0);
-    transition:
-      transform 120ms ease,
-      box-shadow 120ms ease,
-      filter 120ms ease;
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    color: var(--color-text-dark);
+    padding: clamp(2.5rem, 6vw, 4rem);
+    box-shadow: 14px 14px 0 var(--color-outlines-dark);
+    isolation: isolate;
   }
 
-  .tile-frame :global(img) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.9) contrast(1);
-    transition:
-      transform 140ms ease,
-      filter 140ms ease;
-  }
-
-  .codename {
-    position: relative;
-    z-index: 2;
-    background: var(--color-outlines-dark);
-    color: var(--color-text);
-    font-weight: 900;
-    letter-spacing: 0.02em;
-    padding: 0.3rem 0.5rem;
-    margin: 0.35rem;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-  }
-
-  /* Responsive: dense tiles on mobile, one-column detail */
-  @media (max-width: 980px) {
-    .codename {
-      font-size: 0.68rem;
-      padding: 0.2rem 0.35rem;
-      margin: 0.25rem;
-    }
-  }
-
-  /* Hover glow + snap */
-  .select-tile:hover .tile-frame,
-  .select-tile:focus-visible .tile-frame {
-    transform: scale(1.04);
-    box-shadow:
-      0 0 0 3px var(--color-outlines-dark),
-      0 0 18px 4px rgba(255, 68, 68, 0.55);
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
-  }
-  .select-tile:hover :global(img) {
-    transform: scale(1.05);
-    filter: saturate(1.05) contrast(1.05);
-  }
-
-  /* Mystery slot with glitch */
-  .mystery .tile-frame {
-    background: #0b2545;
-    border-color: var(--color-outlines-dark);
-  }
-  .mystery .codename {
-    background: var(--accent);
-    color: var(--color-text);
-  }
-  .mystery .mystery-text {
-    font-weight: 900;
-    font-size: 2.4rem;
-    color: #fff;
-    letter-spacing: 0.08em;
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    text-shadow:
-      1px 0 0 #ff0066,
-      -1px 0 0 #00e5ff;
-    animation: glitch 1.8s infinite;
-  }
-  .glitch::after,
-  .glitch::before {
+  .projects-hero::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0 6px,
-      rgba(255, 255, 255, 0.04) 6px 7px
+    background-image: radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.08) 0,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px
     );
-    mix-blend-mode: overlay;
+    background-size: 12px 12px;
+    mix-blend-mode: multiply;
+    opacity: 0.3;
     pointer-events: none;
   }
-  @keyframes glitch {
-    0%,
-    100% {
-      transform: translate(0);
-    }
-    20% {
-      transform: translate(-1px, 1px);
-    }
-    40% {
-      transform: translate(1px, -1px);
-    }
-    60% {
-      transform: translate(0.5px, 1.5px);
-    }
-    80% {
-      transform: translate(-1.5px, -0.5px);
+
+  .hero-inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: center;
+    z-index: 1;
+  }
+
+  @media (min-width: 860px) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
     }
   }
 
-  /* DETAIL PANEL */
-  .detail {
-    position: sticky;
-    top: 1rem;
-    border: 3px solid var(--color-outlines-dark);
-    background: var(--accent-second);
-    color: var(--color-text-dark);
-    padding: 1rem;
-    min-height: 22rem;
-  }
-  .detail-inner {
+  .hero-copy {
     display: grid;
+    gap: 1.25rem;
+  }
+
+  .hero-kicker {
+    font-family: var(--font-heading);
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+  }
+
+  .projects-hero h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 0.9;
+    color: var(--color-text-dark);
+  }
+
+  .hero-intro {
+    max-width: 48ch;
+    color: var(--color-text-dark);
+  }
+
+  .hero-link {
+    justify-self: center;
+    padding: 0.85rem 1.8rem;
+    border: 3px solid var(--color-outlines-dark);
+    background: var(--accent);
+    color: var(--color-text);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition:
+      transform 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .hero-link:hover,
+  .hero-link:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 0 var(--color-outlines-dark);
+  }
+
+  .hero-poster {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border: 3px solid var(--color-outlines-dark);
+    background: linear-gradient(135deg, rgba(221, 19, 19, 0.15), transparent),
+      var(--accent-second);
+    position: relative;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 3vw, 1.8rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-dark);
+    overflow: hidden;
+  }
+
+  .hero-poster::before {
+    content: "PRINT EDITION";
+    transform: rotate(-4deg);
+    border: 2px solid var(--color-outlines-dark);
+    padding: 0.5rem 1.25rem;
+    background: var(--accent-second);
+    box-shadow: 6px 6px 0 var(--color-outlines-dark);
+  }
+
+  .projects-main {
+    display: grid;
+    gap: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .projects-chapter {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .chapter-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem;
   }
-  .detail-head {
-    display: grid;
-    gap: 0.4rem;
-  }
-  .detail-title {
-    margin: 0;
-    text-transform: uppercase;
-    color: var(--color-text-dark);
-  }
 
-  .detail-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-  .detail-media {
-    display: grid;
-    gap: 0.5rem;
-  }
-  .detail-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 0;
-    background: rgba(17, 17, 17, 0.8);
-    color: #fff;
-    font-weight: 900;
-    width: 36px;
-    height: 44px;
-    cursor: pointer;
-    z-index: 2;
-  }
-  .nav.prev {
-    left: 0;
-  }
-  .nav.next {
-    right: 0;
-  }
-  .nav:disabled {
-    opacity: 0.45;
-    cursor: default;
-  }
-  .detail-copy {
-    display: grid;
-    gap: 0.5rem;
-  }
-  .detail-links {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .btn-link {
-    display: inline-block;
-    text-transform: uppercase;
-    font-weight: 800;
+  .chapter-label {
     font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
-    border: 2px solid var(--accent);
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .btn-link:hover {
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border: 2px solid var(--color-outlines-dark);
     background: var(--accent);
-    color: #fff;
+    color: var(--color-text);
   }
-  /* Two-column detail on desktop: text left, media right */
-  .detail-body {
+
+  .chapter-spreads {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 1rem;
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  .project-spread {
+    position: relative;
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 4px solid var(--color-outlines-dark);
+    background: var(--accent-second);
+    color: var(--color-text-dark);
+    box-shadow: 12px 12px 0 var(--color-outlines-dark);
+    isolation: isolate;
+    opacity: 0;
+    transform: translateY(45px);
+    transition:
+      opacity 250ms ease,
+      transform 250ms ease,
+      background 150ms ease,
+      color 150ms ease;
+  }
+
+  .project-spread::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")
+      repeat;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .project-spread.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-spread > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-spread:hover,
+  .project-spread:focus-within {
+    transform: translateY(-4px);
+  }
+
+  .project-spread {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
 
-  /* Main image area + thumb strip */
-  .media-main {
-    position: relative;
-    border: 3px solid var(--color-outlines-dark);
-    aspect-ratio: 16/10;
-    background: #eaeaea;
-    overflow: hidden;
-  }
-
-  .media-placeholder {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: #0b2545;
-    border-color: var(--color-outlines-dark);
-    color: var(--color-text);
-    font-weight: 900;
-    font-size: 2rem;
-  }
-
-  .detail-thumbs {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
-    gap: 0.5rem;
-  }
-  .thumb {
-    border: 2px solid var(--color-outlines-dark);
-    padding: 0;
-    background: #fff;
-    cursor: pointer;
-    aspect-ratio: 16/10;
-    overflow: hidden;
-  }
-  .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .thumb:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-  }
-  .thumb[aria-current="true"] {
-    box-shadow: 0 0 0 3px var(--color-outlines);
-  }
-
-  /* Keep your hover glow + stamp rules as-is */
-
-  /* Responsive: dense tiles on mobile, one-column detail */
-  @media (max-width: 980px) {
-    .detail-body {
+  @media (max-width: 960px) {
+    .project-spread {
       grid-template-columns: 1fr;
     }
   }
 
-  /* STAMP */
-  .stamp {
-    position: absolute;
-    right: 0.4rem;
-    top: 0.4rem;
-    font-weight: 900;
-    color: var(--accent);
-    border: 3px solid var(--accent);
-    padding: 0.15rem 0.45rem;
-    transform: rotate(-12deg) scale(0.9);
-    opacity: 0;
-    background: var(--accent-second);
+  .spread-page {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 1.75rem);
+    align-content: start;
+  }
+
+  .spread-header {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .spread-header h3 {
+    color: var(--color-text-dark);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+  }
+
+  .spread-summary {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border: 3px solid var(--color-outlines-dark);
+    background: var(--accent);
+    color: var(--color-text);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .spread-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .spread-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.65rem;
+    border: 2px solid var(--color-outlines-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .spread-media {
+    position: relative;
+    border: 3px solid var(--color-outlines-dark);
+    background: #fff;
+    overflow: hidden;
+    transition: transform 150ms ease;
+  }
+
+  .project-spread:hover .spread-media,
+  .project-spread:focus-within .spread-media {
+    transform: translateY(-2px);
+  }
+
+  .spread-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .spread-callout {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: 3px solid var(--color-outlines-dark);
+    background: #fff;
+    font-weight: 600;
+    display: grid;
+    gap: 0.35rem;
+    max-width: 48ch;
+  }
+
+  .callout-prefix {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: var(--accent);
+    color: var(--color-text);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .spread-body p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .spread-meta {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .spread-stack h4 {
+    margin: 0 0 0.25rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dark);
+  }
+
+  .spread-stack p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .spread-outcomes {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+  }
+
+  .spread-footer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .spread-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .spread-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.4rem;
+    border: 3px solid var(--color-outlines-dark);
+    background: var(--accent);
+    color: var(--color-text);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
     transition:
-      opacity 120ms ease,
-      transform 120ms ease;
-    pointer-events: none;
-    font-size: 0.8rem; /* pick what you like (was implicit) */
-    letter-spacing: 0.02em;
+      background 150ms ease,
+      color 150ms ease;
   }
 
-  /* make stamp smaller on mobile */
-  @media (max-width: 980px) {
-    .stamp {
-      font-size: 0.68rem;
-      padding: 0.1rem 0.35rem;
+  .spread-cta:hover,
+  .spread-cta:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 var(--color-outlines-dark);
+  }
+
+  .spread-cta-demo {
+    background: var(--accent);
+    color: var(--color-text);
+  }
+
+  .spread-cta-code {
+    background: var(--color-text);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .spread-stamp {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 3px solid var(--color-outlines-dark);
+    background: rgba(221, 19, 19, 0.1);
+    color: var(--accent);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .spread-sticker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.75rem;
+    border: 2px solid var(--color-outlines-dark);
+    background: var(--accent-second);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .spread-sticker-wip {
+    background: rgba(36, 115, 183, 0.15);
+  }
+
+  @media (max-width: 720px) {
+    .projects-hero {
+      box-shadow: 10px 10px 0 var(--color-outlines-dark);
     }
-  }
 
-  .select-tile.is-active .stamp {
-    opacity: 1;
-    transform: rotate(-12deg) scale(1);
-  }
-
-  .media-placeholder[hidden] {
-    display: none !important;
+    .project-spread {
+      box-shadow: 8px 8px 0 var(--color-outlines-dark);
+    }
   }
 </style>
