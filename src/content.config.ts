@@ -44,7 +44,7 @@ const projects = defineCollection({
       links: z
         .object({
           demo: z.string().url().optional(),
-          repo: z.string().url().optional(),
+          code: z.string().url().optional(),
           caseStudy: z.string().url().optional(),
         })
         .optional(),

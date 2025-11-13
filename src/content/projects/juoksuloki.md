@@ -1,11 +1,11 @@
 ---
 id: juoksuloki
 title: "Juoksuloki"
-summary: "CLI that exports Suunto iOS workouts into tidy Excel sheets for long-form analysis."
+summary: "CLI that turns Suunto iOS workout exports into a clean Excel log."
 description: |
-  Weekend tool that scratches a personal itch: keeping a local archive of every run without vendor lock-in. Juoksuloki
-  pulls GPX data via the Suunto App API, normalises it with Pandas, and spits out structured Excel workbooks with pace,
-  heart rate and temperature splits ready for pivot tables.
+  Juoksuloki is a small Python script for pulling your Suunto run exports into a local Excel file.  
+  Drop the JSON files into your Mac’s Downloads folder with Airdrop, run the command, and the script moves them into a tidy directory, parses key metrics, and updates a long-term log (juoksuloki.xlsx) sorted by date.  
+  Made for iPhone + macOS users who want their run history stored locally without relying on any cloud service.
 category: "Personal Tools"
 chapterIndex: 2
 status: released
@@ -14,12 +14,12 @@ tags: ["Python", "Pandas", "CLI"]
 stack: ["Python", "Pandas", "Rich", "OpenPyXL"]
 role: "Solo Builder"
 outcomes:
-  - "Turned weekly log reviews into a repeatable 5 minute ritual."
-  - "Shared template adopted by three running buddies."
+  - "Made weekly run reviews quick instead of a manual copy-paste job."
+  - "Keeps years of Suunto data in a single local Excel file without vendor lock-in."
 panelSize: s
-funFact: "Named after the Finnish word for run log."
+funFact: "Built after realising Suunto had no simple way to export a clean history."
 links:
-  repo: "https://github.com/succabs/juoksuloki"
+  code: "https://github.com/succabs/juoksuloki"
 images:
   - src: "../../assets/juoksuloki_screenshot.png"
     alt: "Terminal screenshot of Juoksuloki exporting runs into an Excel file"

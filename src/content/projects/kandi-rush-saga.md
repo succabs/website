@@ -1,11 +1,10 @@
 ---
 id: kandi
 title: "Kandi Rush Saga"
-summary: "Arcade runner where Finnish students race ECTS deadlines before allowance runs dry."
+summary: "A chaotic top-down shooter where you collect study credits and dodge academic doom."
 description: |
-  Built originally as a browser gag for student orientation week and kept alive because alumni still try to beat the
-  leaderboard. Rebuilt for 2025 with responsive Phaser scenes, touch controls, and a custom shader that flickers like a
-  CRT. Features procedurally generated course loads and an end boss called The Thesis.
+  Kandi Rush Saga started as a joke and turned into a small browser game built with JavaScript, Canvas and Phaser.  
+  You play as a Finnish student trying to rack up 180 credits before running out of allowance months. Credits are earned by shooting them, hazards chip away your months, and a plagiointisyytös ends the run on contact unless you slip past it on the pink safe zone. Beer grants an extra month, of course. If you win, you hear me singing Gaudeamus igitur!
 category: "Playable Worlds"
 chapterIndex: 3
 status: released
@@ -14,14 +13,14 @@ tags: ["JavaScript", "Phaser", "Game"]
 stack: ["Phaser", "Vite", "TypeScript"]
 role: "Designer & Developer"
 outcomes:
-  - "Featured in the university orientation arcade two years in a row."
-  - "Served 12k game sessions during launch month."
+  - "Turned a student-life reality into a working arcade game."
+  - "Used as a learning project to get comfortable with Phaser."
 panelSize: l
 sticker: "NEW"
-funFact: "Balanced difficulty using a spreadsheet of real study plans."
+funFact: "The original prototype used a single sprite named 'stud.png' for everything."
 links:
   demo: "https://arttu.net/kandirushsaga"
-  repo: "https://github.com/succabs/kandirushsaga"
+  code: "https://github.com/succabs/kandirushsaga"
 images:
   - src: "../../assets/kandi_2.png"
     alt: "Gameplay screenshot of Kandi Rush Saga showing the student avatar dodging obstacles"

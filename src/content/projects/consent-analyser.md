@@ -1,26 +1,26 @@
 ---
 id: consent
-title: "Consent Analyser"
-summary: "Chrome DevTools helper that inspects CMP ↔ Shopify Customer Privacy API wiring in real time."
+title: "Sentinel"
+summary: "Chrome DevTools Extension for checking Shopify analytics and consent setups."
 description: |
-  Built as an internal QA companion for the ecommerce analytics team. The extension exposes the consent signals coming
-  from the store front, lets the tester flip consent states on demand, and flags missing dataLayer pushes before they
-  become production bugs.
-category: "Client Lab"
+  Sentinel gives quick insight into a Shopify store’s setup. It displays core store details, shows all dataLayer pushes including those from custom pixels, and tracks consent states from the Shopify Customer Privacy API and common cookie banners.  
+  I built it because nothing in the Chrome Web Store covered this workflow, and checking custom pixel dataLayer events for custom GTM setups on Shopify takes way too long without a tool like this.  
+  The extension also reports the default consent status and verifies that consent mode is wired correctly.
+category: "Work Lab"
 chapterIndex: 1
 status: private
 date: 2024-03-12
-tags: ["JavaScript", "DevTools", "Shopify"]
+tags: ["JavaScript", "Chrome API", "HTML", "CSS"]
 stack: ["TypeScript", "Rollup", "Chrome Extensions"]
 role: "Tech Lead & Developer"
 outcomes:
-  - "Cut consent regression triage time from hours to minutes during launches."
-  - "Standardised QA scripts across five parallel storefront builds."
+  - "Reduced time spent validating custom pixel and GTM setups."
+  - "Made consent and dataLayer checks predictable across storefront builds."
 panelSize: m
 sticker: "SELECTED"
-funFact: "Every tester picked a superhero alias before review sessions."
+funFact: "Sentinel turned my usual hour of pixel-checking into something I could do in a few minutes."
 links: {}
 images:
   - src: "../../assets/consent_analyser_screenshot.png"
-    alt: "Screenshot of the Consent Analyser Chrome extension overlay showing consent flags"
+    alt: "Screenshot of the Sentinel Chrome extension overlay showing consent and dataLayer details"
 ---

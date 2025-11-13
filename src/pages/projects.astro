@@ -4,20 +4,31 @@ import { Image } from "astro:assets";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 const allProjects = await getCollection("projects");
-const isComingSoon = (entry: CollectionEntry<"projects">) => entry.data.status === "coming-soon";
+const isComingSoon = (entry: CollectionEntry<"projects">) =>
+  entry.data.status === "coming-soon";
 
 const liveProjects = allProjects
   .filter((entry) => !isComingSoon(entry))
-  .sort((a, b) => (a.data.chapterIndex ?? Number.POSITIVE_INFINITY) - (b.data.chapterIndex ?? Number.POSITIVE_INFINITY));
+  .sort(
+    (a, b) =>
+      (a.data.chapterIndex ?? Number.POSITIVE_INFINITY) -
+      (b.data.chapterIndex ?? Number.POSITIVE_INFINITY)
+  );
 
-const grouped = new Map<string, { entries: CollectionEntry<"projects">[]; order: number }>();
+const grouped = new Map<
+  string,
+  { entries: CollectionEntry<"projects">[]; order: number }
+>();
 for (const entry of liveProjects) {
   const bucket = grouped.get(entry.data.category) ?? {
     entries: [],
     order: entry.data.chapterIndex ?? Number.POSITIVE_INFINITY,
   };
   bucket.entries.push(entry);
-  bucket.order = Math.min(bucket.order, entry.data.chapterIndex ?? Number.POSITIVE_INFINITY);
+  bucket.order = Math.min(
+    bucket.order,
+    entry.data.chapterIndex ?? Number.POSITIVE_INFINITY
+  );
   grouped.set(entry.data.category, bucket);
 }
 
@@ -26,30 +37,56 @@ const chapters = Array.from(grouped.entries())
   .map(([category, info], index) => ({
     number: index + 1,
     category,
-    entries: info.entries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    entries: info.entries.sort(
+      (a, b) => b.data.date.getTime() - a.data.date.getTime()
+    ),
   }));
 
-const paragraphs = (text?: string) => text?.split(/\n+/).map((line) => line.trim()).filter(Boolean) ?? [];
+const paragraphs = (text?: string) =>
+  text
+    ?.split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean) ?? [];
 
-const getCtas = (links?: { demo?: string; repo?: string; caseStudy?: string }) =>
+const getCtas = (links?: {
+  demo?: string;
+  code?: string;
+  caseStudy?: string;
+}) =>
   Object.entries({
     demo: links?.demo,
-    repo: links?.repo,
+    code: links?.code,
     caseStudy: links?.caseStudy,
   }).filter(([, value]) => Boolean(value));
 
 const siteOrigin = Astro.site?.origin ?? "";
 const jsonLdProjects = liveProjects.map((entry) => ({
   "@context": "https://schema.org",
-  "@type": entry.data.links?.repo ? "SoftwareSourceCode" : "CreativeWork",
+  "@type": entry.data.links?.code ? "SoftwareSourceCode" : "CreativeWork",
   name: entry.data.title,
   description: entry.data.summary,
   datePublished: entry.data.date.toISOString(),
   url: `${siteOrigin}/projects#${entry.data.id}`,
   keywords: entry.data.tags.join(", "),
-  ...(entry.data.links?.repo ? { codeRepository: entry.data.links.repo } : {}),
+  ...(entry.data.links?.code ? { codecodesitory: entry.data.links.code } : {}),
   ...(entry.data.links?.demo ? { discussionUrl: entry.data.links.demo } : {}),
 }));
+
+const now: Date = new Date();
+
+function getISOWeek(date: Date): number {
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+}
+
+const week: string = String(getISOWeek(now)).padStart(2, "0");
+const year: string = String(now.getFullYear()).slice(-2);
+const label: string = `${week}/${year}`;
 ---
 
 <Layout
@@ -60,125 +97,156 @@ const jsonLdProjects = liveProjects.map((entry) => ({
   <section class="projects-hero" aria-labelledby="projects-hero-title">
     <div class="hero-inner">
       <div class="hero-copy">
-        <p class="hero-kicker">ISSUE 07</p>
+        <p class="hero-kicker">Issue {label}</p>
         <h1 id="projects-hero-title">Projects</h1>
         <p class="hero-intro">
-          A single-scroll showcase of shipped work, experiments, and upcoming collaborations. Every project has a shareable
-          anchor link for quick reference.
+          A single-scroll showcase of tools, games, helpers, and experiments.
+          Some were built to make daily work easier, others just for fun, and a
+          few landed somewhere in between. They've all earned a spot here
+          because they solved a problem, taught me something, or simply made me
+          laugh while building them.
         </p>
-        <a class="hero-link" href="https://github.com/succabs" target="_blank" rel="noopener">
-          Browse the GitHub Vault
-        </a>
       </div>
       <div class="hero-poster" aria-hidden="true"></div>
     </div>
   </section>
 
   <section class="projects-main" aria-label="Project anthology">
-    {chapters.map((chapter) => (
-      <section class="projects-chapter" aria-labelledby={`chapter-${chapter.number}`}>
-        <header class="chapter-header" id={`chapter-${chapter.number}`}>
-          <p class="chapter-label">Chapter {chapter.number}</p>
-          <h2>{chapter.category}</h2>
-        </header>
-        <div class="chapter-spreads">
-          {chapter.entries.map((entry) => {
-            const { data } = entry;
-            const ctas = getCtas(data.links);
-            const primaryImage = data.images[0];
-            return (
-              <article
-                id={data.id}
-                class="project-spread on-paper"
-                data-spread-id={data.id}
-                aria-labelledby={`${data.id}-title`}
-              >
-                <div class="spread-page spread-page--left">
-                  <header class="spread-header">
-                    {data.sticker && !["selected", "new"].includes(data.sticker.toLowerCase()) && (
-                      <span class={`spread-sticker spread-sticker-${data.sticker.toLowerCase()}`}>{data.sticker}</span>
+    {
+      chapters.map((chapter) => (
+        <section
+          class="projects-chapter"
+          aria-labelledby={`chapter-${chapter.number}`}
+        >
+          <header class="chapter-header" id={`chapter-${chapter.number}`}>
+            <p class="chapter-label">Chapter {chapter.number}</p>
+            <h2>{chapter.category}</h2>
+          </header>
+          <div class="chapter-spreads">
+            {chapter.entries.map((entry) => {
+              const { data } = entry;
+              const ctas = getCtas(data.links);
+              const primaryImage = data.images[0];
+              return (
+                <article
+                  id={data.id}
+                  class="project-spread on-paper"
+                  data-spread-id={data.id}
+                  aria-labelledby={`${data.id}-title`}
+                >
+                  <div class="spread-page spread-page--left">
+                    <header class="spread-header">
+                      {data.sticker &&
+                        !["selected", "new"].includes(
+                          data.sticker.toLowerCase()
+                        ) && (
+                          <span
+                            class={`spread-sticker spread-sticker-${data.sticker.toLowerCase()}`}
+                          >
+                            {data.sticker}
+                          </span>
+                        )}
+                      <h3 id={`${data.id}-title`}>{data.title}</h3>
+                      <p class="spread-summary">{data.summary}</p>
+                    </header>
+                    {primaryImage && (
+                      <div class="spread-media">
+                        <Image
+                          class="spread-image"
+                          src={primaryImage.src}
+                          alt={primaryImage.alt}
+                          loading="lazy"
+                          decoding="async"
+                          sizes="(min-width: 1080px) 40vw, (min-width: 720px) 60vw, 92vw"
+                          widths={[480, 720, 960]}
+                        />
+                      </div>
                     )}
-                    <h3 id={`${data.id}-title`}>{data.title}</h3>
-                    <p class="spread-summary">{data.summary}</p>
-                    <div class="spread-tags" role="list">
-                      {data.tags.map((tag) => (
-                        <span class="spread-tag" role="listitem">{tag}</span>
-                      ))}
-                    </div>
-                  </header>
-                  {primaryImage && (
-                    <div class="spread-media">
-                      <Image
-                        class="spread-image"
-                        src={primaryImage.src}
-                        alt={primaryImage.alt}
-                        loading="lazy"
-                        decoding="async"
-                        sizes="(min-width: 1080px) 40vw, (min-width: 720px) 60vw, 92vw"
-                        widths={[480, 720, 960]}
-                      />
-                    </div>
-                  )}
-                  {data.funFact && (
-                    <p class="spread-callout" role="note">
-                      <span class="callout-prefix">Fun Fact</span>
-                      <span>{data.funFact}</span>
-                    </p>
-                  )}
-                </div>
-                <div class="spread-page spread-page--right">
-                  {data.description && (
-                    <div class="spread-body">
-                      {paragraphs(data.description).map((paragraph) => (
-                        <p>{paragraph}</p>
-                      ))}
-                    </div>
-                  )}
-                  {(data.stack && data.stack.length > 0) || (data.outcomes && data.outcomes.length > 0) ? (
-                    <div class="spread-meta" aria-label="Project details">
-                      {data.stack && data.stack.length > 0 && (
-                        <div class="spread-stack">
-                          <h4>Stack</h4>
-                          <p>{data.stack.join(" · ")}</p>
-                        </div>
-                      )}
-                      {data.outcomes && data.outcomes.length > 0 && (
-                        <ul class="spread-outcomes">
-                          {data.outcomes.slice(0, 2).map((outcome) => (
-                            <li>{outcome}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  ) : null}
-                  <footer class="spread-footer">
-                    {ctas.length > 0 ? (
-                      <nav class="spread-ctas" aria-label="Project links">
-                        {ctas.map(([key, url]) => (
-                          <a href={url} target="_blank" rel="noopener" class={`spread-cta spread-cta-${key}`}>
-                            {key === "demo" && "Demo"}
-                            {key === "repo" && "Repo"}
-                            {key === "caseStudy" && "Case Study"}
-                          </a>
+                    {data.funFact && (
+                      <p class="spread-callout" role="note">
+                        <span class="callout-prefix">Fun Fact</span>
+                        <span>{data.funFact}</span>
+                      </p>
+                    )}
+                  </div>
+                  <div class="spread-page spread-page--right">
+                    {data.description && (
+                      <div class="spread-body">
+                        {paragraphs(data.description).map((paragraph) => (
+                          <p>{paragraph}</p>
                         ))}
-                      </nav>
-                    ) : (
-                      <span class="spread-stamp" aria-label="Links unavailable">Classified</span>
+                      </div>
                     )}
-                  </footer>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-    ))}
+                    {(data.stack && data.stack.length > 0) ||
+                    (data.outcomes && data.outcomes.length > 0) ? (
+                      <div class="spread-meta" aria-label="Project details">
+                        {data.stack && data.stack.length > 0 && (
+                          <div class="spread-stack">
+                            <h4>Tech stack</h4>
+                            <div class="spread-tags" role="list">
+                              {data.tags.map((tag) => (
+                                <span class="spread-tag" role="listitem">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {data.outcomes && data.outcomes.length > 0 && (
+                          <ul class="spread-outcomes">
+                            {data.outcomes.slice(0, 2).map((outcome) => (
+                              <li>{outcome}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ) : null}
+                    <footer class="spread-footer">
+                      {ctas.length > 0 ? (
+                        <nav class="spread-ctas" aria-label="Project links">
+                          {ctas.map(([key, url]) => (
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener"
+                              class={`spread-cta spread-cta-${key}`}
+                            >
+                              {key === "demo" && "Demo"}
+                              {key === "code" && "code"}
+                              {key === "caseStudy" && "Case Study"}
+                            </a>
+                          ))}
+                        </nav>
+                      ) : (
+                        <span />
+                      )}
+                    </footer>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))
+    }
+
+    <a
+      class="hero-link"
+      href="https://github.com/succabs"
+      target="_blank"
+      rel="noopener"
+    >
+      More on GitHub
+    </a>
   </section>
 
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLdProjects)} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(jsonLdProjects)}
+  />
 </Layout>
 
-<script src="../scripts/projects-comic.client.ts" />
+<script src="../scripts/projects-comic.client.ts"></script>
 
 <style>
   :global(.projects-page .content) {
@@ -202,7 +270,12 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     content: "";
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-image: radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.08) 0,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px
+    );
     background-size: 12px 12px;
     mix-blend-mode: multiply;
     opacity: 0.3;
@@ -246,7 +319,7 @@ const jsonLdProjects = liveProjects.map((entry) => ({
   }
 
   .hero-link {
-    justify-self: start;
+    justify-self: center;
     padding: 0.85rem 1.8rem;
     border: 3px solid var(--color-outlines-dark);
     background: var(--accent);
@@ -255,7 +328,9 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     text-transform: uppercase;
     letter-spacing: 0.08em;
     text-decoration: none;
-    transition: transform 150ms ease, box-shadow 150ms ease;
+    transition:
+      transform 150ms ease,
+      box-shadow 150ms ease;
   }
 
   .hero-link:hover,
@@ -268,8 +343,7 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     width: 100%;
     aspect-ratio: 3 / 4;
     border: 3px solid var(--color-outlines-dark);
-    background:
-      linear-gradient(135deg, rgba(221, 19, 19, 0.15), transparent),
+    background: linear-gradient(135deg, rgba(221, 19, 19, 0.15), transparent),
       var(--accent-second);
     position: relative;
     display: grid;
@@ -336,14 +410,19 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     isolation: isolate;
     opacity: 0;
     transform: translateY(45px);
-    transition: opacity 250ms ease, transform 250ms ease, background 150ms ease, color 150ms ease;
+    transition:
+      opacity 250ms ease,
+      transform 250ms ease,
+      background 150ms ease,
+      color 150ms ease;
   }
 
   .project-spread::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E") repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")
+      repeat;
     opacity: 0.18;
     mix-blend-mode: multiply;
     pointer-events: none;
@@ -363,8 +442,6 @@ const jsonLdProjects = liveProjects.map((entry) => ({
   .project-spread:hover,
   .project-spread:focus-within {
     transform: translateY(-4px);
-    background: var(--accent);
-    color: var(--color-text);
   }
 
   .project-spread {
@@ -416,7 +493,6 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     align-items: center;
     padding: 0.35rem 0.65rem;
     border: 2px solid var(--color-outlines-dark);
-    background: rgba(0, 0, 0, 0.08);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -479,6 +555,7 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    color: var(--color-text-dark);
   }
 
   .spread-stack p {
@@ -514,19 +591,32 @@ const jsonLdProjects = liveProjects.map((entry) => ({
     justify-content: center;
     padding: 0.6rem 1.4rem;
     border: 3px solid var(--color-outlines-dark);
-    background: #fff;
-    color: var(--color-text-dark);
+    background: var(--accent);
+    color: var(--color-text);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     text-decoration: none;
-    transition: background 150ms ease, color 150ms ease;
+    transition:
+      background 150ms ease,
+      color 150ms ease;
   }
 
   .spread-cta:hover,
   .spread-cta:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 var(--color-outlines-dark);
+  }
+
+  .spread-cta-demo {
     background: var(--accent);
     color: var(--color-text);
+  }
+
+  .spread-cta-code {
+    background: var(--color-text);
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .spread-stamp {
