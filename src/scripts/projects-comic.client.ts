@@ -1,8 +1,14 @@
 const initComicPanels = () => {
-  const panels = Array.from(
-    document.querySelectorAll<HTMLElement>('.comic-panel[data-panel-id]')
+  const spreads = Array.from(
+    document.querySelectorAll<HTMLElement>('.project-spread[data-spread-id]')
   );
-  if (panels.length === 0) {
+  const revealTargets = Array.from(
+    document.querySelectorAll<HTMLElement>(
+      '.project-spread[data-spread-id], .teaser-card[data-spread-id]'
+    )
+  );
+
+  if (revealTargets.length === 0) {
     return;
   }
 
@@ -20,12 +26,12 @@ const initComicPanels = () => {
       },
       { threshold: 0.35 }
     );
-    panels.forEach((panel) => revealObserver.observe(panel));
+    revealTargets.forEach((panel) => revealObserver.observe(panel));
   } else {
-    panels.forEach((panel) => panel.classList.add('is-visible'));
+    revealTargets.forEach((panel) => panel.classList.add('is-visible'));
   }
 
-  if ('IntersectionObserver' in window) {
+  if ('IntersectionObserver' in window && spreads.length > 0) {
     let lastHash = window.location.hash;
     const hashObserver = new IntersectionObserver(
       (entries) => {
@@ -48,15 +54,15 @@ const initComicPanels = () => {
       },
       { threshold: [0.25, 0.5, 0.75], rootMargin: '-35% 0px -55% 0px' }
     );
-    panels.forEach((panel) => hashObserver.observe(panel));
+    spreads.forEach((panel) => hashObserver.observe(panel));
   }
 
   if (!prefersReducedMotion) {
     const clamp = (value: number, min: number, max: number) =>
       Math.min(Math.max(value, min), max);
 
-    panels.forEach((panel) => {
-      const media = panel.querySelector<HTMLElement>('.panel-media');
+    revealTargets.forEach((panel) => {
+      const media = panel.querySelector<HTMLElement>('.spread-media');
       if (!media) {
         return;
       }
