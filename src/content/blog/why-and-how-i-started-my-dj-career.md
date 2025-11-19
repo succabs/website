@@ -61,7 +61,7 @@ At this point, I only DJ at home. No clubs, no gigs, no crowds. Just me, my cont
 
 And honestly? That’s perfect. It’s training, it’s fun, and it gets me into flow. DJ’ing is one of the few activities where I can completely forget about everything else for hours.
 
-I even have a DJ name (but sorry, I’m keeping it a secret for now).
+I even have a DJ name (AND A SITE FOR THAT!) - [DJ Viivakoodi](https://viivis.com).
 
 ---
 
