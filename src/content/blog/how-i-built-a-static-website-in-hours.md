@@ -10,7 +10,9 @@ excerpt: "A simple walkthrough and tutorial of how I created a fast and cheap st
 url: "/blog/how-i-built-a-website-in-hours"
 ---
 
-Building a small website doesn’t have to be slow or expensive. I recently put together a separate page for my DJ hobby (I wrote about the DJ side of things [in my earlier post](https://arttu.net/blog/why-and-how-i-started-my-dj-career/)), and the whole thing took only a few hours spread over two evenings. It’s a good example of how fast a static setup can be when you want something simple. The easiness of the process depends on your skills and knowledge, naturally, but there are a lot of tutorials out there how to do this. And of course, AI like ChatGPT can be used as a help in the process. All you need is to be familiar with basic web development, like HTML and CSS and changing DNS settings.
+Building a small website doesn’t have to be slow or expensive. I recently put together a separate page for my DJ hobby (I wrote about the DJ side of things [in my earlier post](https://arttu.net/blog/why-and-how-i-started-my-dj-career/)), and the whole thing took only a few hours spread over two evenings. It’s a good example of how fast a static setup can be when you want something simple.
+
+The easiness of the process depends on your skills and knowledge, naturally, but there are a lot of tutorials out there how to do this. And of course, AI like ChatGPT can be used as a help in the process. All you need is to be familiar with basic web development, like HTML and CSS and changing DNS settings.
 
 ## Why a static site works for projects like this
 
