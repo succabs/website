@@ -2,7 +2,7 @@
 title: "Suunto Run Review: How This Watch Got Me Back Into Running After 10 Years"
 description: "A personal look at the Suunto Run watch and how it helped me restart running after nearly a decade-long break."
 pubDate: 2025-08-30
-heroImage: "../../assets/running.jpg"
+heroImage: "../../assets/running.png"
 heroImageAlt: "Runner's legs"
 author: "Arttu Nikkilä"
 tags: ["personal", "hobbies"]

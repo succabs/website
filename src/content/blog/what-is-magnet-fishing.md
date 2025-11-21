@@ -2,7 +2,7 @@
 title: "Magnet Fishing Guide: How I Got Started, What You Need, and Common Myths Debunked"
 description: "A beginner-friendly magnet fishing guide: what gear you need, how much it costs, safety tips, and answers to common myths like whether magnets pick up gold or can damage phones."
 pubDate: 2025-10-29
-heroImage: "../../assets/magnet_fishing_2.jpg"
+heroImage: "../../assets/magnet_fishing.png"
 heroImageAlt: "A person magnet fishing from a bridge in Finland"
 author: "Arttu Nikkilä"
 tags: ["hobbies"]
@@ -22,6 +22,10 @@ keywords:
 I first discovered **magnet fishing** years ago online. The idea of pulling forgotten metal objects from lakes and rivers sounded exciting, but I never tried it until a few friends founded an association called _Ironic Professionals ry_. They invited me to join, and that was enough motivation to finally start.
 
 I ended up being part of the organization for years — first as a **board member**, then as the **secretary**. The association eventually dissolved in 2025 because of low membership and annoying banking fees, but the hobby didn’t go away. We kept going out together, just without the paperwork. Honestly, that made it even more fun.
+
+![Magnets stuck together](../../assets/magnet_fishing_2.jpg)
+
+<p class="image-text">My friend throwing a magnet.</p>
 
 ---
 
