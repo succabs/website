@@ -9,10 +9,12 @@ import ScrollTopButton from "../components/ScrollTopButton.astro";
 import "@fontsource/anton";
 import "@fontsource/inter";
 import AuthorCard from "../components/AuthorCard.astro";
+import type { MarkdownHeading } from "@astrojs/markdown-remark";
 
 type Props = CollectionEntry<"blog">["data"] & {
   readTime: number;
   tags?: string[];
+  headings?: MarkdownHeading[];
 };
 
 const {
@@ -26,7 +28,10 @@ const {
   readTime,
   tags = [],
   featured,
+  headings = [],
 } = Astro.props as Props;
+
+const tocHeadings = headings.filter(({ depth }) => depth > 1 && depth < 4);
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site ?? "https://arttu.net");
 
@@ -113,8 +118,25 @@ const structuredData = {
 
         <hr class="hr-3" />
 
-        <div class="article-body">
-          <slot />
+        <div class="article-body-with-toc">
+          <div class="article-body">
+            <slot />
+          </div>
+
+          {
+            tocHeadings.length > 0 && (
+              <aside class="toc-card" aria-label="Table of contents">
+                <h2 class="toc-title">Table of Contents</h2>
+                <ul class="toc-list">
+                  {tocHeadings.map((heading) => (
+                    <li class={`toc-item depth-${heading.depth}`}>
+                      <a href={`#${heading.slug}`}>{heading.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )
+          }
         </div>
 
         <AuthorCard />
