@@ -15,6 +15,7 @@ type Props = CollectionEntry<"blog">["data"] & {
   readTime: number;
   tags?: string[];
   headings?: MarkdownHeading[];
+  keywords?: string[];
 };
 
 const {
@@ -24,11 +25,10 @@ const {
   updatedDate,
   heroImage,
   heroImageAlt,
-  color,
   readTime,
   tags = [],
-  featured,
   headings = [],
+  keywords = [],
 } = Astro.props as Props;
 
 const tocHeadings = headings.filter(({ depth }) => depth > 1 && depth < 4);
@@ -135,6 +135,15 @@ const structuredData = {
           }
           <div class="article-body">
             <slot />
+
+            {
+              keywords.length > 0 && (
+                <div class="keyword-list">
+                  <span>keywords for the article: </span>
+                  <span class="keyword">{keywords.join(", ")}</span>
+                </div>
+              )
+            }
           </div>
         </div>
 

@@ -1,64 +1,103 @@
 ---
-title: "My Work From Home Developer Setup (That Actually Works Long-Term)"
-description: "A look at my real work-from-home setup as a front-end developer — from adjustable desk and ergonomic chair to peripherals that make daily coding smooth and healthy."
+title: "My Work From Home Developer Setup That Actually Works Long-Term"
+description: "A practical look at my real work-from-home developer setup — from desk and chair to peripherals and accessories that make long coding days easier."
 pubDate: 2025-10-11
+updatedDate: 2025-11-21
 heroImage: "../../assets/work-from-home-setup.png"
 heroImageAlt: "Desk with monitor, laptop, keyboard and mouse"
 tags: ["development", "tech"]
-excerpt: "Here’s the home office setup that keeps me productive and pain-free as a developer working remotely — and why each choice matters."
+excerpt: "Here’s the work-from-home setup that keeps me productive and comfortable as a developer — and why each piece matters for long-term health."
+keywords:
+  [
+    "work from home developer setup",
+    "ergonomic home office for developers",
+    "WFH desk setup",
+    "best chair for developers",
+    "standing desk for coding",
+  ]
 ---
 
-## Introduction: Building a Setup That Lasts
+## Why I Wanted a Work From Home Developer Setup That Lasts
 
-Working from home as a developer can be great — until your back, neck, or wrists start complaining. Over the years, I’ve refined my WFH setup to something that feels comfortable, sustainable, and genuinely productive. This post breaks down the key pieces of my home office gear and why each one matters if you code full-time from home.
-
-## 🪑 The Chair: Real Office Comfort, Not a Gamer Look
-
-Forget flashy gaming chairs. What you want is **a real ergonomic office chair** — one built for sitting 8 hours without regret.  
-I use an **Isku-brand black office chair**, and it’s been a game changer. The lumbar support and adjustability make a huge difference over time. If you buy one thing from this list first, make it a proper chair.
-
-## 🧍 The Desk: Go for Height Adjustability
-
-A **standing desk** isn’t just a luxury — it’s essential for long-term comfort. Being able to switch between sitting and standing helps your posture and focus.  
-Mine is the **Jysk Svaneke 70×140 cm** electric desk. It’s sturdy, smooth to adjust, and big enough for a monitor, laptop, and extra gear. It was relatively cheap (200 euros), and I was amazed of the quality. I was expecting something that feels cheap, but it feels reallu sturdy. If you can’t go electric, at least get a manually adjustable one — never a fixed-height desk.
-
-## ⌨️ Keyboard and Mouse: Reliable, Comfortable, and Wireless
-
-A good keyboard and mouse combo makes daily coding more enjoyable and helps prevent wrist strain.  
-I use the **Logitech MX Keys** and **MX Master 3S**, which I’ve already reviewed in [a previous post](https://arttu.net/blog/the-perfect-mouse-and-keyboard/). The feel, build quality, and easy device switching make them perfect for a multi-computer setup.
-
-## 🖥️ Monitor: Size and Adjustability Matter
-
-Any large, high-resolution monitor will do — but what matters most is **ergonomics**.
-If the included stand isn’t adjustable enough, get a **VESA-compatible monitor arm**. Being able to tweak height, tilt, and angle is crucial for reducing neck strain. Once you experience a flexible setup, you’ll never go back to a fixed stand. My monitor is **AOC Q27G2E**, which is sufficient for front-end related work.
-
-## 💻 Computers: Flexible for Work and Play
-
-I use a mix of machines for different tasks:
-
-- **MacBook Pro M1** (for work)
-- **MacBook Air M3** (personal and travel)
-- **Custom Windows 11 PC** (gaming and testing)
-
-Thanks to Logitech’s multi-device connectivity, switching between them is instant — one keyboard and mouse for everything.
-
-## 🎧 Audio and Accessories: For Focus and Comfort
-
-A few extras that make a big difference:
-
-- **Speakers:** DALI Zensor 1 — clean sound and solid build
-- **Headphones:** JBL Live 650BT + Samsung Buds 2 Pro for calls and music
-- **Microphone:** Samson Q2U (for meetings and recordings)
-- **Cable trays & laptop stand:** keep everything neat
-- **Massage roller:** yes, really. I roll it around the floor with my legs. It keeps blood flowing and me entertained during long sessions.
-
-Small touches like these improve focus and reduce fatigue over time.
-
-## 🧠 Final Thoughts: Ergonomics > Aesthetics
-
-A good work-from-home setup isn’t about how it looks on Instagram — it’s about how it **feels after eight hours of coding**.  
-Invest in comfort, keep your desk organized, and remember to stretch or walk regularly. The best setup is one that supports both your body and your productivity.
+Working from home as a developer can be great — until your back, neck, or wrists start reminding you that your setup isn’t built for eight-hour days. Over the years, I’ve refined my home office into something comfortable, healthy, and genuinely productive. This breakdown covers the gear that has worked for me long-term and why each piece matters if you write code from home.
 
 ---
 
-**Keywords:** work from home setup for developers, ergonomic home office, WFH developer desk setup, best chair for programmers, remote work productivity, developer workstation ideas, standing desk for coders
+## A Real Office Chair Will Save Your Back
+
+The best investment in any home office is a proper ergonomic chair. Not a racing-style gamer chair, not a wooden dining chair — an actual office chair made for long sessions.
+
+I use a **black Isku office chair**, and it’s the most important part of my setup. The lumbar support and adjustability make a huge difference during full workdays. If you upgrade only one item, start here.
+
+---
+
+## A Height-Adjustable Desk Makes a Bigger Difference Than You Think
+
+Being able to switch between sitting and standing keeps your posture fresh and helps with focus, especially during long coding or debugging sessions.
+
+My desk is the **Jysk Svaneke 70×140 cm** electric model.  
+It surprised me in a good way: sturdy frame, smooth height adjustments, and large enough for a monitor, laptop, and extra gear. At around 200 euros, it was better built than I expected. If electric isn’t an option, at least get a manually adjustable desk — fixed-height tables get uncomfortable fast.
+
+---
+
+## Keyboard and Mouse: Get Something Comfortable For Daily Use
+
+Good peripherals make repetitive tasks easier and reduce wrist strain. I use the **Logitech MX Keys** and **MX Master 3S**, which I wrote about [in another post](https://arttu.net/blog/the-perfect-mouse-and-keyboard/). They work well together, feel solid, and make switching between multiple computers quick.
+
+For long-term use, comfort matters more than flashy features.
+
+---
+
+## The Monitor Setup: Prioritize Height and Adjustability
+
+Any decent-sized, high-resolution monitor works for development, but the stand makes or breaks the ergonomics. If the included stand is limited, use a **VESA monitor arm**.
+
+With an adjustable arm you can:
+
+- set the correct eye height
+- tilt and rotate the screen
+- pull the monitor closer or push it back
+
+My monitor is an **AOC Q27G2E**, which is enough for front-end work. The arm upgrade is what made the difference.
+
+---
+
+## The Computers I Use Day-to-Day
+
+I switch between a few machines depending on the task:
+
+- **MacBook Pro M1** — work machine
+- **MacBook Air M3** — personal use and travel
+- **Windows 11 desktop** — gaming and testing
+
+Logitech’s multi-device support makes transitions instant. One keyboard and mouse for everything keeps the desk clean.
+
+---
+
+## Audio and Accessories That Improve Focus
+
+A few extras make everyday work smoother:
+
+- **Speakers:** DALI Zensor 1 — clean, clear sound
+- **Headphones:** JBL Live 650BT and Samsung Buds 2 Pro for calls and music
+- **Microphone:** Samson Q2U — great for meetings or recordings
+- **Cable trays and a laptop stand:** keep the desk neat
+- **Massage roller:** yes, really. I roll it around with my feet during long sessions. Keeps the blood flowing and breaks the monotony a bit.
+
+Small details help more than you expect when you’re sitting in the same space every day.
+
+---
+
+## Key Takeaways for a Developer WFH Setup
+
+- A real office chair should be your first upgrade
+- A height-adjustable desk keeps your posture healthier
+- Good peripherals reduce strain during long sessions
+- Monitor adjustability matters more than monitor specs
+- Accessories like headphones, stands, and cable trays improve comfort
+
+---
+
+## Final Thoughts
+
+A work-from-home developer setup doesn’t need to be fancy — it needs to support you through full days of coding without pain. The right chair, adjustable desk, comfortable peripherals, and clean workspace make the work feel smoother and help you stay focused. Even small changes can build a setup that works for years, not months.

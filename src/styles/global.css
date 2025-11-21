@@ -660,3 +660,17 @@ article-body p .image-text {
   max-width: 100%;
   width: 100%;
 }
+
+.keyword-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.keyword {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}

@@ -8,6 +8,15 @@ excerpt: "I used Duolingo daily for 628 days to learn Norwegian. Eventually, it 
 pubDate: 2025-06-26
 tags: ["learning", "personal"]
 featured: true
+keywords:
+  [
+    "why I quit Duolingo",
+    "Duolingo 2025 review",
+    "stopped using Duolingo",
+    "Duolingo burnout",
+    "is Duolingo worth it 2025",
+    "Duolingo streak problems",
+  ]
 ---
 
 ## Introduction

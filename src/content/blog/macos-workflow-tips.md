@@ -1,87 +1,114 @@
 ---
-title: "My Favorite macOS Workflow Tips That Actually Make You More Productive"
-description: "Practical macOS workflow tips and gestures that help you focus, stay organized, and work faster: whether you're a developer or just someone who uses a Mac every day."
+title: "macOS Workflow Tips That Actually Make Your Day Easier"
+description: "Practical macOS workflow tips that help you stay organized, use gestures effectively, and work faster every day."
 pubDate: 2025-11-12
 heroImage: "../../assets/macbook.jpg"
 heroImageAlt: "MacBook on desk"
 author: "Arttu Nikkilä"
 tags: ["tech", "development"]
-excerpt: "Practical macOS workflow tips and gestures that help you focus, stay organized, and work faster: whether you're a developer or just someone who uses a Mac every day."
+excerpt: "Useful macOS workflow tips and everyday habits that make focusing and working smoother, whether you're a developer or anyone using a Mac daily."
+keywords:
+  [
+    "macOS workflow tips",
+    "productivity tips for Mac",
+    "macOS gestures",
+    "Mac window management",
+    "Rectangle app",
+  ]
 ---
 
-## Introduction: Workflow That Actually Works
+## Why I Started Collecting macOS Workflow Tips
 
-I’ve used both Windows and macOS for years — Windows on my desktop as a gaming computer, but macOS is what I always pick for work or any productive task. Over the time, I’ve built a set of small habits and tweaks that make working on a Mac faster, smoother, and a lot less distracting.
+I’ve used both Windows and macOS for years — Windows mainly for gaming, macOS for everything else. Over time, I ended up with small habits and system tweaks that make working on a Mac noticeably smoother. These macOS workflow tips aren’t technical or niche; they work for anyone who uses a Mac daily, regardless of job or background.
 
-Even though I’m a developer, these tips aren’t just for developers. They make sense for anyone who uses a Mac daily: designers, writers, marketers, students. The goal is simple: make your workflow effortless and let you focus.
-
----
-
-## 1. Use Swipe Gestures Like a Pro
-
-The Mac trackpad is one of the biggest reasons I love macOS. It’s not just smooth: it’s genuinely useful once you learn the gestures (and it feels A LOT better than any trackpad I've tested on other laptops!).
-
-- **Three fingers up:** Brings up Mission Control. From there, you can quickly pick the window you need.
-- **Three fingers down:** Brings that window back to the front. This has almost completely replaced ⌘ + Tab for me.
-- **Three fingers left/right:** Switches between desktops.
-
-I keep **Spotify** on one desktop, **Slack or Teams** on another, and my main work on the third. That way I can jump between focus areas without juggling ten windows on one screen. You can group different kind of apps to separate desktops. Or whatever works for you.
+The goal is simple: make the computer disappear and help you stay focused on the actual task.
 
 ---
 
-## 2. Hide the Dock
+## Use macOS Gestures To Move Between Tasks Faster
 
-Go to **System Settings → Desktop & Dock → Automatically hide and show the Dock**.
+The trackpad is one of the biggest reasons I prefer macOS. The gestures are natural once you learn them, and they replace a lot of manual window switching.
 
-It might sound minor, but hiding the Dock is one of the simplest ways to stay focused. You’ll stop glancing at app icons or notifications. When you really need it, just move your mouse to the bottom edge and it appears.
+My essentials:
 
----
+- **Three fingers up** → Mission Control
+- **Three fingers down** → Bring a window back to the front
+- **Three fingers left/right** → Switch desktops
 
-## 3. Rectangle: The One App I Always Install
-
-If I could recommend one must-have productivity app for Mac, it’s **Rectangle**. It adds proper window snapping and positioning shortcuts.
-
-Here are the ones I use every day:
-
-- **⌃ + ⌥ + ← / →** Moves window to left or right half
-- **⌃ + ⌥ + Return** Makes window go fullscreen
-- There are dozens of other options, but these alone save time constantly.
-
-macOS has added some built-in snapping lately, but Rectangle still feels smoother and faster. It’s lightweight, free, and reliable. No more dragging windows around with a mouse.
+I usually keep a separate desktop for Spotify, another for Slack or Teams, and the main one for work. It keeps the workspace clean and makes it easy to jump between context areas without stacking windows on top of each other.
 
 ---
 
-## 4. Learn the Hotkeys of the Apps You Actually Use
+## Hide the Dock To Reduce Distractions
 
-Everyone knows **⌘ + C**, **⌘ + V**, and **⌘ + T**, but the real speed comes from knowing the shortcuts inside the apps you use daily.
+Go to:  
+**System Settings → Desktop & Dock → Automatically hide and show the Dock**
 
-For example:
+The effect is subtle but noticeable. Without the Dock constantly visible, you stop glancing at notification badges or app icons. When you really need it, moving your mouse to the bottom edge brings it back instantly.
 
-- In **Notes**, you can create a bullet list with **⌘ + ⇧ + L**.
-- In **Finder**, open a new tab with **⌘ + T** and close it with **⌘ + W**. (The same works for most browsers, too.)
-
-Take ten minutes to go through the apps you use the most. Open their settings or help menus and look at the shortcuts section. You’ll probably find a few that instantly make your work smoother. It might take some time to remember them, but once you do, you work a lot faster and smarter.
+It keeps the screen calmer and helps you stay in the task you’re doing.
 
 ---
 
-## 5. Remove Visual Clutter
+## Rectangle: Simple Window Management That Works
 
-Every app has extra buttons, panels, or toolbars that you never touch. Turn them off.
+Rectangle is the first app I install on any new Mac. The built-in macOS window snapping has improved recently, but Rectangle still feels faster and smoother.
 
-Go through the settings of your main apps and hide anything you don’t need. You’ll be surprised how much calmer your screen looks and how much easier it is to focus.
+My most-used shortcuts:
+
+- **⌃ + ⌥ + ← / →** → move window to left or right half
+- **⌃ + ⌥ + Return** → fullscreen
+- **⌃ + ⌥ + ↑** → top half (when I need a quick split layout)
+
+You don’t need all the features — even two or three shortcuts save a surprising amount of time throughout the day. And the app is lightweight and free, which makes it an easy recommendation.
 
 ---
 
-## 6. Get a Keyboard and Mouse That Work Well With macOS
+## Learn the Shortcuts of the Apps You Actually Use
 
-If you’re using your Mac with an external setup, make sure your gear works well with macOS. I use the **Logitech MX Keys** and **MX Master 3S**, which I’ve written about [in another post](https://arttu.net/blog/the-perfect-mouse-and-keyboard/) - they work flawlessly and support all macOS shortcuts natively.
+The biggest productivity gains come from knowing the shortcuts inside the apps you spend most of your time in.
 
-Good hardware doesn’t just feel nicer. It removes friction. You stop thinking about inputs and just work.
+A couple of examples:
+
+- **Notes** → bullet list with **⌘ + ⇧ + L**
+- **Finder** → new tab with **⌘ + T**, close with **⌘ + W**
+- **Browsers** → same tab shortcuts as Finder
+
+Take a few minutes to check the shortcut list inside the apps you rely on. You’ll almost always find a few that instantly make your workflow smoother. It takes a bit of repetition to remember them, but once they stick, you work faster without even thinking about it.
+
+---
+
+## Remove Visual Clutter From Your Apps
+
+Almost every app has toolbars, panels, or buttons that you never touch. Hiding them helps keep the interface focused on what you’re actually doing.
+
+It doesn’t sound like a big deal, but cleaner tools reduce the mental noise around the task. If you’ve ever opened a note-taking app that shows ten panels you don’t use, you know the feeling.
+
+Spend a moment customizing your main tools — they don’t need to look like the default layout.
+
+---
+
+## Use Hardware That Plays Well With macOS
+
+If you use your Mac with an external monitor, keyboard, and mouse, it’s worth choosing gear that works smoothly with macOS.
+
+I’m using the **Logitech MX Keys** and **MX Master 3S**, which I wrote about in another post. They support macOS gestures and shortcuts properly and make switching between devices painless.
+
+Good hardware isn’t about “feel good tech”. It removes friction so you stop thinking about tools while working.
+
+---
+
+## Key Takeaways
+
+- macOS gestures are one of the easiest ways to move faster between tasks
+- Hiding the Dock reduces distractions with zero downside
+- Rectangle gives you proper window management on macOS
+- Small app-specific shortcuts add up to real speed over time
+- Cleaner interfaces help you focus better
+- Hardware that supports macOS well makes a difference in everyday work
 
 ---
 
 ## Final Thoughts
 
-macOS already gives you the tools to build a smooth workflow — it’s just a matter of using them well. Small tweaks like gestures, hidden distractions, and a few key apps can completely change how focused and organized your day feels. It is of course impossible to include all of these straight away into your own workflow, but hopefully this gave you some ideas on improving your everyday life.
-
-These are the things I’ve learned from using MacBooks for years, and they still make a difference every single day.
+macOS already gives you the building blocks for a smooth workflow — gestures, multiple desktops, quick navigation, simple settings. With a few changes, the whole system becomes much easier to use. These macOS workflow tips are things I’ve picked up over years of using MacBooks, and they continue to make everyday work lighter and more organized.

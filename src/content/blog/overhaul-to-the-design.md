@@ -1,115 +1,129 @@
 ---
-title: "Yet Another Overhaul To The Website's Design - Why, Arttu!?"
-description: "A story of how and why I made drastic changes to my portfolio website, again."
+title: "Why I Redesigned My Portfolio Website (Again) — And What Changed"
+description: "A breakdown of why I redesigned my portfolio site again, where the new visual direction came from, and how I built it with Astro."
 pubDate: 2025-09-10
+updatedDate: 2025-11-21
 heroImage: "../../assets/arttunet-screenshot.png"
 heroImageAlt: "Screenshot of the front page of the site"
 author: "Arttu Nikkilä"
 tags: ["development"]
-excerpt: "Surprise surprise, I was again dissatisfied by the design of this website and decided to change it boldly. Read out how and why."
+excerpt: "Yes, I redesigned my site again. Here's why the old version didn’t feel like me anymore, what inspired the new style, and how I built it."
 url: "/blog/yet-another-overhaul-to-the-websites-design"
+keywords:
+  [
+    "website redesign process",
+    "portfolio redesign",
+    "front-end redesign",
+    "Astro website redesign",
+    "personal website design",
+  ]
 ---
 
-## Introduction
+## Why I Needed Another Website Redesign
 
-Yes, I did it again. I changed the design of my website.
+Yes, I redesigned my site again. The previous version looked clean, minimal, and structurally fine — but it didn’t feel like me. It felt more like something you’d see in a generic “developer portfolio” template than something reflecting my personality or the way I actually enjoy presenting things online.
 
-Why? Because the old version didn’t feel like me. It looked minimal and tidy, sure, but also bland. It was a design that didn’t represent me as a person or the way I want to present myself online. I want to be proud of what I publish, and if I can’t even get excited about my own website, then what’s the point?
+If your personal site is the one place you can do anything you want visually, it should represent you. Mine didn’t anymore. So the redesign began.
 
-This post is a look into **why I redesigned the site (again), what inspired the new design, how I built it, and what’s next**.
-
----
-
-## Why the Redesign?
-
-The [old design](http://localhost:4321/blog/portfolio-redesign-bauhaus/) was functional but soulless. It had the classic portfolio vibe: calm, white, minimal. But when I looked at it, I didn’t see myself. If you can do any design you want on the World Wide Web and it presents YOU, why settle?
-
-I wanted something bolder, more personal: something that communicates what excites me visually.  
-That’s where the overhaul started.
+This post goes through **why I changed everything, what guided the visual direction, how I built it with Astro, and what I’m planning next.**
 
 ---
 
-## The Idea Behind the New Design
+## Why the Old Design Didn’t Work Anymore
 
-In my head, the starting point was wild:  
-_"Akira meets superheroes meets fighting games meets Katsushika Hokusai meets modern poster design."_
+The [old design](http://localhost:4321/blog/portfolio-redesign-bauhaus/) was functional but flat. Minimalism for minimalism’s sake.  
+It did its job, but it didn’t say anything about me — what I like visually, what kind of energy I want the site to have, or what inspires me as a designer.
 
-It sounds chaotic, but the vision slowly condensed into something coherent:  
-a **poster-like, bold design** with strong typography and a vibrant color palette. And I absolutely love the hover effects on cards!
+If I'm going to publish writing, projects, and thoughts on a site with my name on it, I want to actually enjoy looking at it. That wasn’t happening with the old layout.
 
-Here’s how I defined it in my brand guide:
+---
 
-- **A bold, poster-inspired UI** that blends Japanese woodblock colors (blue + cream + vermilion) with arcade/fighter-select shapes (thick outlines, stamps, flags).
-- **Typography does the heavy lifting**—components stay simple and graphic.
+## The Vision Behind the New Style
+
+The starting idea was chaotic in the best way:
+
+> “Akira meets superheroes meets fighting games meets Katsushika Hokusai meets modern poster design.”
+
+Somehow that chaos filtered into something coherent: a **bold, poster-inspired interface** with strong typography, vibrant color blocks, and intentional shapes. Think of something you'd see printed large on a wall.
+
+From my brand/style guide, the core traits were:
+
+- **Poster-inspired UI** using Japanese woodblock colors (blue, cream, vermilion) mixed with arcade-like shapes
+- **Typography carries the identity** while components stay simple and graphic
 - **Brand traits:**
-  - _Brave_ → oversized type, strong blocks of color, visible edges.
-  - _Readable_ → calm cream backgrounds, generous spacing.
-  - _Playful-serious_ → arcade-like hover states, but no distracting gimmicks.
+  - _Brave_ — big type, outlined blocks, visible edges
+  - _Readable_ — calm cream backgrounds, clear spacing
+  - _Playful-serious_ — fun card hovers, but no unnecessary animations
 
-In short: I wanted my website to look like a poster you could almost hang on a wall.
-
----
-
-## From Vision to Reality
-
-Having a vision is one thing. Turning it into a usable website is another.
-
-I spent hours hunting for inspiration, sketching ideas, and experimenting with layouts that wouldn’t hurt the eyes or ruin readability. I had a clear picture in my head, but bringing it into the browser took time.
-
-AI also helped. ChatGPT was my planning partner: I bounced ideas, refined concepts, and tested out how far I could push certain elements without making the site a mess.
-
-I mentioned superheroes earlier. I am still on the verge of thinking "does it look too much like Captain America was splattered into the site, with a hint of cream?" but I guess that is okay. I love the colors.
+In short: I wanted my website to look like something you could almost hang on a wall.
 
 ---
 
-## Development Process
+## Turning the Idea Into a Real Interface
 
-Once the design direction was set, the development itself was fast.
+The concept came together quickly; building it took longer. I sketched layouts, searched for references, and tested ideas to make sure the bold visual style didn’t hurt readability.
 
-- The site already had a solid base built with **Astro**.
-- Hosting is still on **GitHub Pages**. It’s not perfect (there are things I’d love to do on a VPS), but the **CI/CD pipeline with Astro + GitHub Pages is smooth and fast**. Emphasize on fast, because time is limited between work and studying + I want to be able to do my own fun activities too.
-- The main work was in **deciding fonts, colors, and styling**, documenting them into a small **brand book / style guide**, and then translating that into CSS.
+I also used AI during the early planning. I tried different combinations of layout, type sizes, colors, and interactions, refining the direction until it felt balanced. The superhero influence still makes me laugh — part of me thinks the site looks like Captain America spilled across it with a bucket of cream paint — but I like it.
 
-That’s it. Suddenly the bland site felt alive.
+Once the colors and shapes clicked, everything else made sense.
 
 ---
 
-## Old vs New
+## The Development Process
 
-A redesign is best shown, not told. Here are comparison shots of the old and new site:
+The technical part was straightforward:
 
-- **Front page:** old vs new
+- The site was already built using **Astro**, so the structure was in place
+- Hosting remains on **GitHub Pages**
+- The Astro + GitHub Pages pipeline is quick, which matters when time is limited between work, studying, and hobbies
 
-![Old front page](../../assets/old_front_page.png)
+Most of the work went into:
+
+- Choosing typefaces
+- Finalizing the color palette
+- Creating a simple brand/style guide
+- Translating it all into reusable CSS patterns
+
+Once that foundation was set, the site went from “fine” to “this actually feels like something I’d design for myself.”
+
+---
+
+## Old vs New: A Quick Comparison
+
+A redesign is easier to understand visually than verbally. Here are some side-by-side comparisons:
+
+### Front Page
+
+![Old front page](../../assets/old_front_page.png)  
 ![New front page](../../assets/new_front_page.png)
 
-- **Blog index:** old vs new
+### Blog Index
 
-![Old blog index](../../assets/old_blog.png)
+![Old blog index](../../assets/old_blog.png)  
 ![New blog index](../../assets/new_blog.png)
 
-- **Experience page:** old vs new
+### Experience Page
 
-![Old experience](../../assets/old_experience.png)
+![Old experience](../../assets/old_experience.png)  
 ![New experience](../../assets/new_experience.png)
 
-The difference is night and day. The new design feels like me. Content stays the same, but representation is drastically different.
+The content didn’t change — the presentation did. And the new version finally feels like something that reflects me instead of generic portfolio minimalism.
 
 ---
 
-## What’s Next?
+## What’s Next for the Design
 
-The work doesn’t end here. Design is never “done.” I’ll keep tweaking, refining, and experimenting. I already see some things I want to tweak a bit, and new functionality is on my mind.
+The redesign isn’t a final state. Design never really is. I already have a list of small tweaks I want to make, and a few features I’d like to experiment with.
 
-But for now? I’m genuinely happy with the outcome.  
-My site finally feels personal, bold, and something I can be proud to call mine.
+But for now, I’m genuinely happy with where the site landed. It feels personal, bold, and natural to use as the home for my writing and projects.
 
 ---
 
 ## Final Thoughts
 
-If there’s one takeaway from this redesign, it’s this: **don’t settle for a design that doesn’t feel like you.** Even if it means starting over (again). Your personal site should reflect who you are: not just follow trends.
+If there’s anything to take from this whole process, it’s this: **don’t settle for a personal website that doesn’t look or feel like you.**  
+It’s the one place online where you can express yourself without constraints.
 
-And if that means “Akira meets Hokusai meets fighting games,” well… then that’s exactly what it should be. If it works, it works. If it doesn't - reiterate!
+Whether your style ends up being “Akira meets Hokusai meets arcade UI” or something completely different, it should be something you’re excited to open every time you work on it — and something that makes you want to keep improving it.
 
-Let me know what you think :)
+Let me know what you think. :)

@@ -9,15 +9,14 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      // Transform string to Date object
       pubDate: z.coerce.date(),
-      excerpt: z.string().optional(), // ← tämä lisättiin
+      excerpt: z.string().optional(),
       updatedDate: z.coerce.date().optional(),
       heroImage: image().optional(),
       heroImageAlt: z.string().optional(),
       tags: z.array(z.string()).optional(),
-      color: z.enum(["red", "blue"]).optional(),
       featured: z.boolean().optional().default(false),
+      keywords: z.array(z.string()),
     }),
 });
 

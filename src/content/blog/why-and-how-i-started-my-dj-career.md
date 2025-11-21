@@ -1,88 +1,105 @@
 ---
-title: "Why and How I Started My DJ Career"
-description: "After years of hesitation, I finally took the leap into DJ’ing. Here’s how I got started, what gear I chose, and why it’s become such a rewarding hobby."
+title: "How to Start DJing: Why I Finally Began and the Gear I Chose"
+description: "A personal walkthrough of how I started DJing, the beginner gear I picked, and what helped me get past years of hesitation."
 pubDate: 2025-10-01
+updatedDate: 2025-11-21
 heroImage: "../../assets/dj-controller.png"
 heroImageAlt: "Close-up of a DJ controller with colorful pads"
 author: "Arttu Nikkilä"
 tags: ["hobbies", "personal"]
-excerpt: "I had been thinking about DJ’ing for a long time but never started - until a party changed everything. Here’s the story of how I began my DJ journey."
-url: "/blog/why-and-how-i-started-my-dj-career"
+excerpt: "I thought about DJing for years but never started. Here’s the moment that changed things, the gear I bought, and how I learned the basics at home."
+keywords:
+  [
+    "how to start DJing",
+    "beginner DJ setup",
+    "best DJ controller for beginners",
+    "learn DJing at home",
+  ]
 ---
 
-## Introduction
+## Why I Wanted to Learn DJing
 
-I had been toying with the idea of becoming a DJ for over ten years.  
-Every now and then I thought: _“Maybe I should just get the gear and start.”_ But I never did. The equipment seemed overwhelming, the choices endless, and none of my close friends were into it so it stayed just an idea.
+I spent more than ten years casually thinking about DJing without taking any steps toward it. The idea kept coming back: _“Maybe I should just buy a controller and start?”_ But it stayed an idea. There were too many choices, too many unknowns, and none of my close friends shared the interest.
 
-Until one weekend, a party changed everything.
-
----
-
-## The Spark
-
-A (now ex-) co-worker of mine threw an amazing party. Full weekend of psytrance and a proper DJ setup with people mixing live throughout the night. The atmosphere was electric, and I couldn’t stop paying attention to what was happening behind the decks.
-
-That weekend, I asked a million questions. How does the gear work? What software do you need? Which controller is best for beginners?
-
-By the end of the party, I knew: _this was finally my time to start._
+That changed after one weekend that finally pushed me past the hesitation and into actually learning how to start DJing.
 
 ---
 
-## Buying My First Controller
+## The Moment That Got Me Started
 
-Initially, I thought I’d get the popular **Pioneer DDJ-FLX4**. It’s the most common beginner controller. But in the end, I decided on the **Numark Party Mix 2**.
+A former co-worker hosted a weekend-long party with a full psytrance setup and people mixing all night. It was the first time I’d really paid attention to what DJs were doing behind the decks, and it clicked immediately.
 
-Why?
+I spent most of the weekend asking questions:
 
-- It cost around **100 euros**, making it far more affordable.
-- It’s **small and portable**, which means I can throw it in a bag and carry it around easily.
-- After watching countless tutorials, I figured it was more than enough to start with.
+- How does this gear work?
+- Which software makes sense for a beginner?
+- What should you buy first when starting DJing?
 
-And if I ever upgrade to a more serious controller, this one will still be useful as a backup or travel unit.
-
----
-
-## Finding the Right Software
-
-Hardware is one side of DJ’ing, but software is where the real battles are fought. I tested a few options:
-
-- **Traktor** – solid but didn’t quite click for me.
-- **Serato (demo)** – polished and intuitive.
-- **Mixxx (open-source)** – I really liked the idea, but the controller mappings weren’t great for my controller. The “best” mapping I found worked for almost everything… except scratching and pad resets. Kind of a dealbreaker.
-
-In the end, I went with **Serato Pro**, even though it’s paid software. I told myself I’d just try it for one month for free, but I’m still using it today.
+By Sunday, the decision was made. I didn’t want the idea to sit for another decade.
 
 ---
 
-## Playing for Myself
+## How I Picked My Beginner DJ Setup
 
-At this point, I only DJ at home. No clubs, no gigs, no crowds. Just me, my controller, and the music.
+I originally thought I would buy the **Pioneer DDJ-FLX4**, since it’s the standard beginner controller everyone recommends. But after comparing prices and watching reviews, I ended up choosing the **Numark Party Mix 2** instead.
 
-And honestly? That’s perfect. It’s training, it’s fun, and it gets me into flow. DJ’ing is one of the few activities where I can completely forget about everything else for hours.
+Why it made sense:
 
-I even have a DJ name (AND A SITE FOR THAT!) - [DJ Viivakoodi](https://viivis.com).
+- About **100 euros**, much cheaper than most beginner options
+- **Light and portable**, easy to carry around
+- Has everything I needed to learn the basics
+- Plenty of tutorials available online
 
----
+If I ever upgrade later, this one still works as a backup or a small travel controller.
 
-## What DJ’ing Has Given Me
-
-- **Flow state** → there’s nothing like getting lost in a mix.
-- **New music discovery** → I’m constantly on the hunt for fresh tracks to fit into my sets.
-- **A creative outlet** → I can play around with different genres and moods.
-
-My taste is broad, and so are my sets: Finnish rap, old American gangsta rap, barbershop beats, psytrance, EDM. What I play depends entirely on my mood that day.
+When you’re learning how to start DJing, the specific controller matters less than simply having one you’re comfortable experimenting with.
 
 ---
 
-## What’s Next?
+## The Software I Ended Up Using
 
-Right now, my “career” is just practice at home. But who knows? Maybe someday I’ll play in front of an audience.
+The controller is only half the setup. DJ software is its own world, and everyone has their preferences. I tried a few:
 
-Until then, my mission is simple:
+- **Traktor** — good, but the workflow didn’t feel natural to me
+- **Serato (demo)** — polished and easy to understand
+- **Mixxx** — I like open-source tools, but the mappings for my controller weren’t great
 
-- keep training,
-- keep experimenting,
-- and keep gathering new songs into my library.
+Mixxx was almost perfect, but scratching and pad resets didn’t work correctly with the best mapping I found. That ruled it out.
 
-For me, DJ’ing is more than just a hobby: it’s a way to combine my love for music with the joy of learning something new.
+Eventually I landed on **Serato Pro**. I meant to use just the free month, but it fit me well enough that I’ve stuck with it.
+
+---
+
+## Learning DJing at Home
+
+I only DJ at home for now. No gigs, no clubs — just headphones, my controller, and a playlist of songs I want to practice mixing.
+
+And honestly, that’s enough. Mixing at home is relaxing and gets me into flow better than most hobbies. It’s one of those activities where time disappears without you noticing.
+
+I made myself a DJ name too: **DJ Viivakoodi** — and even created a tiny website for it at **[viivis.com](https://viivis.com)**. I wrote [a separate post](https://arttu.net/how-i-built-a-static-website-in-hours/) about how I built that site if you're curious about the static setup.
+
+---
+
+## What DJing Has Added to My Life
+
+A few things surprised me once I started practicing regularly:
+
+- **Flow** — mixing for an hour feels like five minutes
+- **New music** — I’m always looking for tracks that fit together
+- **A creative outlet** — styles shift based on mood, and that’s part of the fun
+
+My sets bounce between Finnish rap, old American hip-hop, barbershop-style beats, psytrance, and EDM. It depends on the day and what I feel like experimenting with.
+
+---
+
+## What’s Next for Me as a Beginner DJ
+
+Right now, the “career” part is a stretch — it’s just something I do at home. Maybe someday I’ll play in front of people, but that isn’t my goal at the moment.
+
+For now, I just plan to:
+
+- keep practicing
+- keep experimenting with genres
+- grow the library of tracks I mix with
+
+Learning how to start DJing turned out to be a simple decision that took way too long to make. But once I made it, the whole thing became a surprisingly rewarding part of my weekly routine.
