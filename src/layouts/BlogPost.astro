@@ -119,10 +119,6 @@ const structuredData = {
         <hr class="hr-3" />
 
         <div class="article-body-with-toc">
-          <div class="article-body">
-            <slot />
-          </div>
-
           {
             tocHeadings.length > 0 && (
               <aside class="toc-card" aria-label="Table of contents">
@@ -137,6 +133,9 @@ const structuredData = {
               </aside>
             )
           }
+          <div class="article-body">
+            <slot />
+          </div>
         </div>
 
         <AuthorCard />
