@@ -6,6 +6,8 @@ tags: ["development"]
 heroImage: "../../assets/bauhaus.jpg"
 heroImageAlt: "Bauhaus-inspired geometric design"
 excerpt: "A breakdown of how I redesigned my portfolio site from a retro mess into a clean, Bauhaus-inspired digital home with the help of GenAI tools."
+keywords:
+  ["Bauhaus inspired website", "Bauhaus inspired portfolio", "Astro portfolio"]
 ---
 
 ## Introduction: Why I Redesigned My Site
