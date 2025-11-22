@@ -85,8 +85,8 @@ import me4 from "../assets/me/first_phone.jpg";
       <p>
         I started coding as a young boy, when websites still used table layouts
         and blinking text. First projects were in pure HTML and CSS, and I built
-        small games with CoolBasic. None of them survived. I kind of wish they
-        did.
+        small 2D-games with CoolBasic. None of them survived. I kind of wish
+        they did.
       </p>
 
       <p>
@@ -166,7 +166,6 @@ import me4 from "../assets/me/first_phone.jpg";
   </p>
 
   <style>
-    /* ===== Layout keeps your two-column structure ===== */
     .about-section {
       position: relative;
       display: grid;
@@ -175,14 +174,12 @@ import me4 from "../assets/me/first_phone.jpg";
       gap: 2.5rem;
       margin-bottom: 4rem;
 
-      /* poster card styling */
       background: var(--accent-second);
       color: var(--color-text-dark);
       border: 3px solid var(--color-outlines-dark);
       padding: 1.25rem 1.5rem 1.35rem;
     }
 
-    /* red spine bar on top */
     .about-section::before {
       content: "";
       position: absolute;
@@ -193,7 +190,6 @@ import me4 from "../assets/me/first_phone.jpg";
       background: var(--accent);
     }
 
-    /* reversed rows still work */
     .about-section.reverse {
       direction: rtl;
     }
@@ -201,7 +197,6 @@ import me4 from "../assets/me/first_phone.jpg";
       direction: ltr;
     }
 
-    /* text + links on cream (on-paper rules) */
     .about-text {
       max-width: 65ch;
     }
@@ -219,7 +214,6 @@ import me4 from "../assets/me/first_phone.jpg";
       text-decoration-color: var(--accent);
     }
 
-    /* section titles inside the card */
     .about-text h2 {
       display: flex;
       align-items: center;
@@ -229,7 +223,6 @@ import me4 from "../assets/me/first_phone.jpg";
       font-size: clamp(1.25rem, 3vw, 1.75rem);
     }
 
-    /* tiny red “stamp” before the title (keeps your emojis; stamp sits before them) */
     .about-text h2::before {
       content: "";
       width: 20px;
@@ -239,7 +232,6 @@ import me4 from "../assets/me/first_phone.jpg";
       display: inline-block;
     }
 
-    /* any lists inside about text */
     .about-text ul {
       margin: 0.5rem 0 0;
       padding-left: 1.1rem;
@@ -259,7 +251,6 @@ import me4 from "../assets/me/first_phone.jpg";
       background: var(--color-outlines-dark);
     }
 
-    /* visual column */
     .about-image {
       display: flex;
       flex-direction: column;
@@ -268,7 +259,6 @@ import me4 from "../assets/me/first_phone.jpg";
       min-height: 100%;
     }
 
-    /* enter animation (kept) */
     .about-image {
       opacity: 0;
       transform: translateY(20px) scale(0.95);
@@ -294,7 +284,6 @@ import me4 from "../assets/me/first_phone.jpg";
       text-align: left;
     }
 
-    /* mobile */
     @media (max-width: 980px) {
       .about-section,
       .about-section.reverse {
