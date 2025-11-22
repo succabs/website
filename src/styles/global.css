@@ -99,7 +99,7 @@ a:hover {
 /* links on cream cards */
 .on-paper a,
 .experience-item a,
-.bauhaus-card a,
+.certification-card a,
 .project-section a {
   color: var(--color-text-dark);
   text-decoration-color: var(--color-text-dark);
@@ -107,7 +107,7 @@ a:hover {
 }
 .on-paper a:hover,
 .experience-item a:hover,
-.bauhaus-card a:hover,
+.certification-card a:hover,
 .project-section a:hover {
   text-decoration-color: var(--accent);
 }
@@ -130,7 +130,7 @@ input:focus-visible,
 /* when the background is cream, switch to ink so it remains visible */
 .on-paper a:focus-visible,
 .experience-item a:focus-visible,
-.bauhaus-card a:focus-visible,
+.certification-card a:focus-visible,
 .project-section a:focus-visible,
 .on-paper button:focus-visible {
   outline-color: var(--color-outlines); /* black */
@@ -673,4 +673,12 @@ article-body p .image-text {
   border-radius: 6px;
   font-size: 0.85rem;
   opacity: 0.8;
+}
+
+.certification-card p {
+  margin-bottom: 0;
+  margin-block-start: 0;
+}
+.certification-card .button {
+  margin-top: 0.5rem;
 }

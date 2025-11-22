@@ -10,32 +10,39 @@ export interface Props {
 const { title, issuer, date, link } = Astro.props;
 ---
 
-<div class="bauhaus-card">
+<div class="certification-card">
   <div class="header-bar"></div>
   <div class="content">
     <h3 class="title">{title}</h3>
-    <p class="issuer">Issued by <strong>{issuer}</strong></p>
-    <p class="date">Expires on: {date}</p>
+    <div>
+      <p class="issuer">Issued by <strong>{issuer}</strong></p>
+      <p class="date">Expires on: {date}</p>
 
-    {
-      link ? (
-        <a href={link} class="button" target="_blank" rel="noopener noreferrer">
-          View Certificate{" "}
-          <span class="arrow" aria-hidden="true">
-            ↗
-          </span>
-          <span class="sr-only">(opens in a new tab)</span>
-        </a>
-      ) : (
-        <p class="no-link">No link available</p>
-      )
-    }
+      {
+        link ? (
+          <a
+            href={link}
+            class="button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Certificate{" "}
+            <span class="arrow" aria-hidden="true">
+              ↗
+            </span>
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        ) : (
+          <p class="no-link">No link available</p>
+        )
+      }
+    </div>
   </div>
   <div class="footer-bar"></div>
 </div>
 
 <style>
-  .bauhaus-card {
+  .certification-card {
     border: 3px solid var(--color-outlines-dark);
     background-color: var(--accent-second);
     color: var(--color-text-dark);
@@ -43,7 +50,7 @@ const { title, issuer, date, link } = Astro.props;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     position: relative;
   }
 
@@ -63,7 +70,8 @@ const { title, issuer, date, link } = Astro.props;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    height: 100%;
+    justify-content: space-between;
   }
 
   /* title */
