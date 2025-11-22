@@ -1,7 +1,7 @@
 ---
 id: gradu
 title: "Gradu Theft Auto"
-summary: "Top-down thesis grind through Kauppakatu with distractions, deadlines, and 21 days to finish."
+summary: "Top-down thesis grind through Kauppakatu with distractions and deadlines."
 description: |
   Gradu Theft Auto is a sequel to Kandi Rush Saga: it's a browser game about trying to wrap up a master's thesis before your study grants end.
   Each in-game day you walk up Kauppakatu toward the library, dodging calls, fundraisers and friend-induced detours

@@ -3,17 +3,7 @@ import Layout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import { getCollection, type CollectionEntry } from "astro:content";
 
-const allProjects = await getCollection("projects");
-const isComingSoon = (entry: CollectionEntry<"projects">) =>
-  entry.data.status === "coming-soon";
-
-const liveProjects = allProjects
-  .filter((entry) => !isComingSoon(entry))
-  .sort(
-    (a, b) =>
-      (a.data.chapterIndex ?? Number.POSITIVE_INFINITY) -
-      (b.data.chapterIndex ?? Number.POSITIVE_INFINITY)
-  );
+const liveProjects = await getCollection("projects");
 
 const grouped = new Map<
   string,
@@ -236,7 +226,7 @@ const label: string = `${week}/${year}`;
       target="_blank"
       rel="noopener"
     >
-      More on GitHub
+      More projects on GitHub
     </a>
   </section>
 
