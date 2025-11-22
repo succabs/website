@@ -22,7 +22,9 @@ const today = new Date();
     </p>
     <p class="legal-links">
       <a href="/privacy-policy/">Privacy Policy</a>
-      <a onclick="changeConsent();">Cookie Settings</a>
+      <a id="Cookie" href="#Cookie" onclick="changeConsent();"
+        >Cookie Settings</a
+      >
     </p>
     <div class="social-links">
       <a
@@ -31,6 +33,7 @@ const today = new Date();
         rel="noopener noreferrer"
         aria-label="GitHub"
       >
+        <span class="sr-only">Github</span>
         <svg
           width="32"
           height="32"
@@ -50,6 +53,7 @@ const today = new Date();
         rel="noopener noreferrer"
         aria-label="LinkedIn"
       >
+        <span class="sr-only">LinkedIn</span>
         <svg
           width="32"
           height="32"
@@ -69,6 +73,7 @@ const today = new Date();
         rel="noopener noreferrer"
         aria-label="X (formerly Twitter)"
       >
+        <span class="sr-only">X</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -87,6 +92,7 @@ const today = new Date();
         rel="noopener noreferrer"
         aria-label="LetterBoxd"
       >
+        <span class="sr-only">Letterboxd</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -100,6 +106,7 @@ const today = new Date();
       </a>
 
       <a href="mailto:artnikkila@gmail.com" aria-label="Email">
+        <span class="sr-only">Email</span>
         <svg
           width="32"
           height="32"
@@ -113,7 +120,7 @@ const today = new Date();
         </svg>
       </a>
       <a href="/rss.xml" target="_blank" rel="noopener noreferrer">
-        <span class="sr-only">Subscribe via RSS</span>
+        <span class="sr-only">RSS</span>
         <svg
           viewBox="0 0 24 24"
           width="32"
