@@ -663,9 +663,11 @@ article-body p .image-text {
 
 .keyword-list {
   margin-top: 2rem;
+  padding-top: 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  border-top: 2px solid lightgray;
 }
 
 .keyword {
