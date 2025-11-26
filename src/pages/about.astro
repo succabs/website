@@ -1,15 +1,18 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+
 import { Image } from "astro:assets";
 import me2 from "../assets/me/skiing.png";
 import me3 from "../assets/me/troll.jpg";
 import me4 from "../assets/me/first_phone.jpg";
+
+const lastmod = "2025-11-22T00:00:00Z";
 ---
 
 <Layout
   title="About"
   description="A look behind the screen — what drives me, what I value, and what I tinker with."
-  pageClass="page-red"
+  lastmod={lastmod}
 >
   <h1>whoami</h1>
   <p class="full-width">

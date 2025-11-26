@@ -1,7 +1,11 @@
 ---
 import BaseHead from "../../components/BaseHead.astro";
 import BlogListing from "../../components/BlogListing.astro";
-import { getProcessedBlogPosts, getAllTags, BLOG_PAGE_SIZE } from "../../utils/blog";
+import {
+  getProcessedBlogPosts,
+  getAllTags,
+  BLOG_PAGE_SIZE,
+} from "../../utils/blog";
 
 const posts = await getProcessedBlogPosts();
 const allTags = getAllTags(posts);
@@ -18,12 +22,18 @@ const pageData = {
 };
 const pageDescription =
   "Personal blog on life, tech and curiosity — everything from side projects to events of my life.";
+
+const lastmod = posts
+  .map((p) => p.data.updatedDate ?? p.data.pubDate)
+  .sort((a, b) => b.getTime() - a.getTime())[0]
+  ?.toISOString();
 ---
+
 <html lang="en">
   <head>
     <BaseHead title="Blog" description={pageDescription} />
   </head>
-  <body class="page-blog">
+  <body class="page-blog" data-last-update-time={lastmod}>
     <BlogListing page={pageData} allTags={allTags} allPosts={posts} />
   </body>
 </html>

@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+const lastmod = "2025-10-17T00:00:00Z";
 ---
 
 <style>
@@ -30,6 +31,7 @@ import Layout from "../layouts/BaseLayout.astro";
 <Layout
   title="Reading List"
   description="This page lists book recommendations by me, and also a reading log of books I've read starting from year 2025."
+  lastmod={lastmod}
 >
   <h1>Reading list</h1>
   <p class="full-width">

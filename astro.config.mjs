@@ -1,19 +1,17 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
+import customSitemap from "./custom-sitemap.mjs";
 
 import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://arttu.net",
+  site: "https://arttu.net/",
   trailingSlash: "always",
   integrations: [
     mdx(),
-    sitemap({
-      customPages: ["https://arttu.net/kandirushsaga/"],
-    }),
+    [customSitemap("https://arttu.net", "dist", new Date("2025-08-02"))],
     icon(),
   ],
 });

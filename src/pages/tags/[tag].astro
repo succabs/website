@@ -38,6 +38,11 @@ export async function getStaticPaths() {
 }
 
 const { tag, posts } = Astro.props;
+
+const lastmod = posts
+  .map((p) => p.data.updatedDate ?? p.data.pubDate)
+  .sort((a, b) => b.getTime() - a.getTime())[0]
+  ?.toISOString();
 ---
 
 <!doctype html>
@@ -300,7 +305,7 @@ const { tag, posts } = Astro.props;
     </style>
   </head>
 
-  <body class="page-blog">
+  <body class="page-blog" data-last-update-time={lastmod}>
     <Header />
     <main class="content">
       <h1>All posts tagged with: <strong>{tag}</strong></h1>

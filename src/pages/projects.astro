@@ -77,12 +77,15 @@ function getISOWeek(date: Date): number {
 const week: string = String(getISOWeek(now)).padStart(2, "0");
 const year: string = String(now.getFullYear()).slice(-2);
 const label: string = `${week}/${year}`;
+
+const lastmod = "2025-11-22T00:00:00Z";
 ---
 
 <Layout
   title="Projects"
   description="Comic book anthology of shipped work, experiments, and upcoming collaborations."
   pageClass="projects-page page-blog"
+  lastmod={lastmod}
 >
   <section class="projects-hero" aria-labelledby="projects-hero-title">
     <div class="hero-inner">

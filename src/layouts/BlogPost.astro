@@ -68,106 +68,111 @@ const structuredData = {
   <head>
     <BaseHead title={title} description={description} />
   </head>
-</html>
 
-<body class="page-blog">
-  <Header />
-  <main class="content">
-    <article>
-      <div class="hero-image">
-        {
-          heroImage && (
-            <Image
-              width={1020}
-              height={510}
-              src={heroImage}
-              alt={heroImageAlt ?? title}
-            />
-          )
-        }
-      </div>
-
-      <div class="article-card">
-        <header class="article-header">
-          <h1>{title}</h1>
-
+  <body
+    data-last-update-time={updatedDate
+      ? new Date(updatedDate).toISOString()
+      : pubDate.toISOString()}
+  >
+    <Header />
+    <main class="content">
+      <article>
+        <div class="hero-image">
           {
-            tags.length > 0 && (
-              <div class="tag-list">
-                {tags.map((t) => (
-                  <a class="tag" href={`/tags/${encodeURIComponent(t)}/`}>
-                    {t}
-                  </a>
-                ))}
-              </div>
+            heroImage && (
+              <Image
+                width={1020}
+                height={510}
+                src={heroImage}
+                alt={heroImageAlt ?? title}
+              />
             )
           }
-          <div class="meta">
-            Published on: <FormattedDate date={pubDate} />
+        </div>
+
+        <div class="article-card">
+          <header class="article-header">
+            <h1>{title}</h1>
+
             {
-              updatedDate && (
-                <span class="last-updated-on">
-                  {" "}
-                  — updated <FormattedDate date={updatedDate} />
-                </span>
-              )
-            }
-            <span class="read-time">🕒 {readTime} min read</span>
-          </div>
-        </header>
-
-        <hr class="hr-3" />
-
-        <div class="article-body-with-toc">
-          {
-            tocHeadings.length > 0 && (
-              <aside class="toc-card" aria-label="Table of contents">
-                <h2 class="toc-title">Table of Contents</h2>
-                <ul class="toc-list">
-                  {tocHeadings.map((heading) => (
-                    <li class={`toc-item depth-${heading.depth}`}>
-                      <a href={`#${heading.slug}`}>{heading.text}</a>
-                    </li>
+              tags.length > 0 && (
+                <div class="tag-list">
+                  {tags.map((t) => (
+                    <a class="tag" href={`/tags/${encodeURIComponent(t)}/`}>
+                      {t}
+                    </a>
                   ))}
-                </ul>
-              </aside>
-            )
-          }
-          <div class="article-body">
-            <slot />
-
-            {
-              keywords.length > 0 && (
-                <div class="keyword-list">
-                  <span>keywords for the article: </span>
-                  <span class="keyword">{keywords.join(", ")}</span>
                 </div>
               )
             }
+            <div class="meta">
+              Published on: <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <span class="last-updated-on">
+                    {" "}
+                    — updated <FormattedDate date={updatedDate} />
+                  </span>
+                )
+              }
+              <span class="read-time">🕒 {readTime} min read</span>
+            </div>
+          </header>
+
+          <hr class="hr-3" />
+
+          <div class="article-body-with-toc">
+            {
+              tocHeadings.length > 0 && (
+                <aside class="toc-card" aria-label="Table of contents">
+                  <h2 class="toc-title">Table of Contents</h2>
+                  <ul class="toc-list">
+                    {tocHeadings.map((heading) => (
+                      <li class={`toc-item depth-${heading.depth}`}>
+                        <a href={`#${heading.slug}`}>{heading.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+              )
+            }
+            <div class="article-body">
+              <slot />
+
+              {
+                keywords.length > 0 && (
+                  <div class="keyword-list">
+                    <span>keywords for the article: </span>
+                    <span class="keyword">{keywords.join(", ")}</span>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+
+          <AuthorCard />
+
+          <div class="back-to-index">
+            <a href="/blog/">← Back to blog index</a>
           </div>
         </div>
+      </article>
+    </main>
+    <Footer />
+    <ScrollTopButton />
+  </body><script
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData)}
+  />
 
-        <AuthorCard />
-
-        <div class="back-to-index">
-          <a href="/blog/">← Back to blog index</a>
-        </div>
-      </div>
-    </article>
-  </main>
-  <Footer />
-  <ScrollTopButton />
-</body>
-
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-
-<style>
-  @media (max-width: 980px) {
-    body {
-      font-size: 16px;
+  <style>
+    @media (max-width: 980px) {
+      body {
+        font-size: 16px;
+      }
+      main {
+        padding: 0 16px;
+      }
     }
-    main {
-      padding: 0 16px;
-    }
-  }
-</style>
+  </style>
+</html>

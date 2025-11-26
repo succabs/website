@@ -3,6 +3,7 @@ import Layout from "../layouts/BaseLayout.astro";
 import ExperienceItem from "../components/ExperienceItem.astro";
 import CertificationItem from "../components/CertificationItem.astro";
 import { Icon } from "astro-icon/components";
+const lastmod = "2025-11-22T00:00:00Z";
 
 const certifications = [
   {
@@ -47,7 +48,7 @@ const certifications = [
 <Layout
   title="Experience"
   description="From this page you can read about my experience on work, education, certifications, and skills: basically all the relevant IT experience I've built so far through my professional career as a developer."
-  pageClass="page-red"
+  lastmod={lastmod}
 >
   <h1>Experience</h1>
 

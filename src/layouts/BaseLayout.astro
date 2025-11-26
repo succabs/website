@@ -11,9 +11,10 @@ export interface Props {
   pageClass?: string;
   title?: string;
   description: string;
+  lastmod?: string;
 }
 
-const { pageClass = "", title = SITE_TITLE, description } = Astro.props;
+const { title = SITE_TITLE, description, lastmod } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +22,7 @@ const { pageClass = "", title = SITE_TITLE, description } = Astro.props;
   <head>
     <BaseHead title={title} description={description} />
   </head>
-  <body class={pageClass}>
+  <body data-last-update-time={lastmod}>
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe

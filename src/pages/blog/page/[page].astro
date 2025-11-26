@@ -1,7 +1,11 @@
 ---
 import BaseHead from "../../../components/BaseHead.astro";
 import BlogListing from "../../../components/BlogListing.astro";
-import { getProcessedBlogPosts, getAllTags, BLOG_PAGE_SIZE } from "../../../utils/blog";
+import {
+  getProcessedBlogPosts,
+  getAllTags,
+  BLOG_PAGE_SIZE,
+} from "../../../utils/blog";
 
 const pageDescription =
   "Personal blog on life, tech and curiosity — everything from side projects to events of my life.";
@@ -26,12 +30,21 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page, allTags, allPosts } = Astro.props;
+
+const latestDate = allPosts
+  .map((p) => p.data.updatedDate ?? p.data.pubDate)
+  .sort((a, b) => b.getTime() - a.getTime())[0]
+  ?.toISOString();
 ---
+
 <html lang="en">
   <head>
-    <BaseHead title={`Blog - Page ${page.currentPage}`} description={pageDescription} />
+    <BaseHead
+      title={`Blog - Page ${page.currentPage}`}
+      description={pageDescription}
+    />
   </head>
-  <body class="page-blog">
+  <body class="page-blog" data-last-update-time={latestDate}>
     <BlogListing page={page} allTags={allTags} allPosts={allPosts} />
   </body>
 </html>
