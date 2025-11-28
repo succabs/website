@@ -1,7 +1,7 @@
 ---
-title: "Why Every Web Developer Should Become T-Shaped (And How Shopify + Analytics Became My Niche)"
+title: "Becoming a T-Shaped Developer (+ How Shopify + Analytics Became My Niche)"
 description: "What a T-shaped web developer actually is, why picking a niche matters, and how specializing in Shopify front-end and analytics pipelines shaped my career."
-pubDate: 2025-11-24
+pubDate: 2025-11-28
 heroImage: "../../assets/t-shaped.png"
 heroImageAlt: "Poster-style illustration of a T-shaped developer skill map"
 tags: ["development", "tech"]
