@@ -5,6 +5,8 @@ import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
 import { SITE_DESCRIPTION } from "../consts";
 import "@fontsource/caveat";
+import { Image } from "astro:assets";
+import Me from "../assets/me.jpg";
 
 const posts = await getCollection("blog");
 
@@ -178,7 +180,7 @@ const lastmod = "2025-11-13T00:00:00Z";
     </div>
 
     <div class="intro-image">
-      <img fetchpriority="high" src="/me.jpg" alt="portrait of Arttu Nikkilä" />
+      <Image src={Me} alt="portrait of Arttu Nikkilä" />
     </div>
   </section>
 
