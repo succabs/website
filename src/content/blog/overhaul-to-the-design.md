@@ -31,7 +31,7 @@ This post goes through **why I changed everything, what guided the visual direct
 
 ## Why the Old Design Didn’t Work Anymore
 
-The [old design](http://localhost:4321/blog/portfolio-redesign-bauhaus/) was functional but flat. Minimalism for minimalism’s sake.  
+The [old design](https://arttu.net/blog/portfolio-redesign-bauhaus/) was functional but flat. Minimalism for minimalism’s sake.  
 It did its job, but it didn’t say anything about me — what I like visually, what kind of energy I want the site to have, or what inspires me as a designer.
 
 If I'm going to publish writing, projects, and thoughts on a site with my name on it, I want to actually enjoy looking at it. That wasn’t happening with the old layout.

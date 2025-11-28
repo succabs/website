@@ -76,7 +76,7 @@ I only DJ at home for now. No gigs, no clubs — just headphones, my controller,
 
 And honestly, that’s enough. Mixing at home is relaxing and gets me into flow better than most hobbies. It’s one of those activities where time disappears without you noticing.
 
-I made myself a DJ name too: **DJ Viivakoodi** — and even created a tiny website for it at **[viivis.com](https://viivis.com)**. I wrote [a separate post](https://arttu.net/how-i-built-a-static-website-in-hours/) about how I built that site if you're curious about the static setup.
+I made myself a DJ name too: **DJ Viivakoodi** — and even created a tiny website for it at **[viivis.com](https://viivis.com)**. I wrote [a separate post](https://arttu.net/blog/how-i-built-a-static-website-in-hours/) about how I built that site if you're curious about the static setup.
 
 ---
 
