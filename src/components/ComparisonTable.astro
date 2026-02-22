@@ -1,0 +1,156 @@
+---
+export interface PageMetrics {
+  slug: string;
+  impressions: number;
+  clicks: number;
+  ctr: number;
+  position: number;
+}
+
+export interface Props {
+  currentMonth: PageMetrics[];
+  previousMonth: PageMetrics[];
+}
+
+interface Delta {
+  absolute: number;
+  percent: number | null;
+}
+
+interface PositionDelta {
+  direction: "↑" | "↓" | "–";
+  magnitude: number;
+}
+
+const { currentMonth, previousMonth } = Astro.props as Props;
+
+const previousBySlug = new Map(previousMonth.map((entry) => [entry.slug, entry]));
+
+function calculateDelta(current: number, previous: number): Delta {
+  const absolute = current - previous;
+  const percent = previous === 0 ? null : Math.round((absolute / previous) * 100);
+
+  return { absolute, percent };
+}
+
+function calculatePositionDelta(current: number, previous: number): PositionDelta {
+  const delta = previous - current;
+
+  if (delta === 0) {
+    return { direction: "–", magnitude: 0 };
+  }
+
+  return {
+    direction: delta > 0 ? "↑" : "↓",
+    magnitude: Math.abs(delta),
+  };
+}
+
+const rows = currentMonth.map((current) => {
+  const previous = previousBySlug.get(current.slug);
+
+  if (!previous) {
+    return {
+      current,
+      previous: null,
+      impressionDelta: null,
+      clicksDelta: null,
+      ctrDelta: null,
+      positionDelta: null,
+    } as const;
+  }
+
+  return {
+    current,
+    previous,
+    impressionDelta: calculateDelta(current.impressions, previous.impressions),
+    clicksDelta: calculateDelta(current.clicks, previous.clicks),
+    ctrDelta: calculateDelta(current.ctr, previous.ctr),
+    positionDelta: calculatePositionDelta(current.position, previous.position),
+  } as const;
+});
+
+function formatPercent(delta: Delta | null) {
+  if (!delta) return "NEW";
+  if (delta.percent === null) return "—";
+  const sign = delta.absolute > 0 ? "+" : "";
+  return `${sign}${delta.percent}%`;
+}
+
+function formatPosition(position: number) {
+  return position % 1 === 0 ? position.toFixed(0) : position.toFixed(1);
+}
+
+function formatPositionDelta(delta: PositionDelta | null) {
+  if (!delta) return "NEW";
+  if (delta.direction === "–") return "–";
+  const distance = delta.magnitude % 1 === 0 ? delta.magnitude.toFixed(0) : delta.magnitude.toFixed(1);
+  return `${delta.direction} ${distance}`;
+}
+---
+
+<table class="comparison-table">
+  <thead>
+    <tr>
+      <th scope="col">Post</th>
+      <th scope="col" class="numeric">Impressions</th>
+      <th scope="col" class="delta">Δ%</th>
+      <th scope="col" class="numeric">Clicks</th>
+      <th scope="col" class="delta">Δ%</th>
+      <th scope="col" class="numeric">Position</th>
+      <th scope="col" class="delta">Δ</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map((row) => (
+      <tr>
+        <th scope="row">{row.current.slug}</th>
+        <td class="numeric">{row.current.impressions.toLocaleString()}</td>
+        <td class="delta">{formatPercent(row.impressionDelta)}</td>
+        <td class="numeric">{row.current.clicks.toLocaleString()}</td>
+        <td class="delta">{formatPercent(row.clicksDelta)}</td>
+        <td class="numeric">{formatPosition(row.current.position)}</td>
+        <td class="delta">{formatPositionDelta(row.positionDelta)}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+<style>
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body, system-ui, -apple-system, sans-serif);
+    background: var(--accent-second);
+    border: 3px solid var(--color-outlines-dark);
+  }
+
+  th,
+  td {
+    padding: 0.75rem 0.9rem;
+    border: 2px solid var(--color-outlines-dark);
+    text-align: left;
+  }
+
+  thead th {
+    font-family: var(--font-heading, var(--font-body, system-ui, sans-serif));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--color-background, transparent);
+  }
+
+  tbody th {
+    font-weight: 700;
+  }
+
+  .numeric {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .delta {
+    text-align: center;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
