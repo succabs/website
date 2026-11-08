@@ -1,22 +1,10 @@
 ---
 // pages/index.astro
 import Layout from "../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
-import BlogCard from "../components/BlogCard.astro";
 import { SITE_DESCRIPTION } from "../consts";
 import "@fontsource/caveat";
 import { Image } from "astro:assets";
 import Me from "../assets/me.jpg";
-
-const posts = await getCollection("blog");
-
-// Latest posts
-const latestPosts = posts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
-
-// Most read / featured posts
-const featuredPosts = posts.filter((p) => p.data.featured).slice(0, 3);
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -40,105 +28,20 @@ const lastmod = "2025-11-13T00:00:00Z";
 ---
 
 <style>
-  .signature {
-    font-family: "Caveat", cursive;
-    font-size: 2rem;
-    color: var(--color-text);
-    margin-top: 2rem;
-    margin-bottom: 0;
-    text-align: left;
-    white-space: nowrap;
-  }
-  .intro {
-    display: flex;
-    align-items: flex-start;
-    gap: 64px;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
 
-  .intro-text {
-    flex: 1 1 300px;
-  }
+.intro { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:4rem; align-items:start; }
+.intro h1 { margin-bottom:2rem; }
+.intro-image { padding-top:5rem; }
+.intro-image img { display:block; width:100%; aspect-ratio:1; object-fit:cover; border:1px solid var(--color-outlines-dark); }
+.signature { font-family:Caveat,cursive; font-size:2rem; margin:2rem 0 1.5rem; }
+.contact-links { display:flex; flex-wrap:wrap; gap:1.5rem; font-size:.9rem; font-weight:600; }
+@media(max-width:800px) { .intro { grid-template-columns:1fr; gap:2.5rem; } .intro-image { padding:0; max-width:440px; } }
 
-  .intro-image {
-    flex: 1 1 440px;
-    max-width: 440px;
-    padding-top: 5rem;
-  }
-
-  .intro-image img {
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 0px;
-    border: 6px solid var(--color-outlines-dark);
-  }
-
-  .most-read {
-    padding-top: 4rem;
-    border-top: 6px solid var(--color-outlines-dark);
-  }
-
-  @media (max-width: 980px) {
-    .intro {
-      flex-direction: column;
-      align-items: center;
-      text-align: left;
-      gap: 32px;
-    }
-
-    .intro-image {
-      flex: 1 1;
-      max-width: 100%;
-      padding-top: 0;
-    }
-
-    .intro-text {
-      text-align: left;
-      order: 2;
-    }
-  }
-
-  .latest-posts {
-    margin-top: 4rem;
-  }
-
-  .post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    padding-top: 1rem;
-  }
-
-  .see-more {
-    margin-top: 4rem;
-    text-align: center;
-  }
-
-  .see-more a {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    background: var(--accent-second);
-    text-decoration: none;
-    border: 2px solid var(--accent);
-    padding: 0.5em 1em;
-    display: inline-block;
-  }
-
-  .see-more a:hover {
-    background: var(--accent);
-    color: var(--color-text);
-  }
 </style>
 <Layout
   lastmod={lastmod}
   title="Home"
-  description="Digital playground of an eCommerce Expert and Developer Arttu Nikkilä — experience, projects, skills, blog and personal experiments in web development."
+  description="Digital playground of an eCommerce Expert and Developer Arttu Nikkilä — experience, projects, skills and personal experiments in web development."
 >
   <section class="intro">
     <div class="intro-text">
@@ -160,23 +63,21 @@ const lastmod = "2025-11-13T00:00:00Z";
 
       <p>
         Outside of work and studies, I spend my time on a mix of things: from
-        <a href="https://arttu.net/blog/running-with-suunto-run/">running</a> to
-        <a href="/reading-list/">reading</a> and <a
-          href="https://arttu.net/blog/why-and-how-i-started-my-dj-career/"
-          >DJ'ing</a
-        >.
+        running to{" "}
+        reading and DJ'ing.
       </p>
 
       <p>
         That was my elevator pitch. This website, however, is my personal
         website which is both a display of my skills and a playground for me to
         test and play around different things related to web development. Feel
-        free to check out my <a href="/projects/">projects</a>, read about my <a
+        free to check out my <a href="/projects/">projects</a> or read about my <a
           href="/experience/">experience</a
-        >, or explore the <a href="/blog/">blog</a>. Enjoy your stay!
+        >. Enjoy your stay!
       </p>
       <p>Och samma på finska och svenska.</p>
       <p class="signature">– Arttu :)</p>
+      <nav class="contact-links" aria-label="Contact"><a href="mailto:artnikkila@gmail.com">Email ↗</a><a href="https://linkedin.com/in/arttu-nikkila" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/succabs" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav>
     </div>
 
     <div class="intro-image">
@@ -184,48 +85,5 @@ const lastmod = "2025-11-13T00:00:00Z";
     </div>
   </section>
 
-  <hr class="hr-4" />
-
-  <section class="posts">
-    <div class="latest-posts">
-      <h2>Latest Posts</h2>
-      <div class="post-grid">
-        {
-          latestPosts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              date={post.data.pubDate}
-              excerpt={post.data.excerpt}
-              href={`/blog/${post.id}`}
-              heroImage={post.data.heroImage}
-              heroImageAlt={post.data.heroImageAlt}
-            />
-          ))
-        }
-      </div>
-    </div>
-
-    <div class="latest-posts most-read">
-      <h2>Most Read Posts</h2>
-      <div class="post-grid">
-        {
-          featuredPosts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              date={post.data.pubDate}
-              excerpt={post.data.excerpt}
-              href={`/blog/${post.id}`}
-              heroImage={post.data.heroImage}
-              heroImageAlt={post.data.heroImageAlt}
-            />
-          ))
-        }
-      </div>
-    </div>
-
-    <div class="see-more">
-      <a href="/blog/">See more posts →</a>
-    </div>
-  </section>
 </Layout>
 <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

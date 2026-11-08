@@ -1,54 +1,24 @@
-# Arttu.net Portfolio / Website
+# Arttu.net
 
-A personal portfolio and blog for Arttu Nikkilä, built with [Astro](https://astro.build) 5, MDX content, and handcrafted CSS. Layout, typography, and colour usage follow the rules defined in [`brandbook.md`](brandbook.md). Based on Astro's blog tutorial.
+Arttu Nikkilä's portfolio, built with Astro 7 and handcrafted CSS. See brandbook.md for the refined poster design system.
 
-## Features
+## Development
 
-### Custom features
+Use Node 22.23.4 or later and npm 10.8.2 or later. .nvmrc pins the CI runtime. A project-local Node dependency allows npm scripts to run without replacing an older system Node installation.
 
-- Scroll to top -button
-- Read time estimate
-- Custom sitemap to get lastmod -entries
-- RSS Feed
-- Collection for projects
-- Hamburger menu
-- SEO optimizations
-- JSON+LD structure for blog posts, projects and front page
-- Reusable components
-- Display latest & most read posts on front page
-- Tag filtering, sorting and pagination on blog
-- Automatic pages for tags on blog posts
+    npm ci
+    npm run dev
+    npm run build
+    npm run preview
 
-Feel free to copy, modify or reuse the code I have here. Some of the customizations are found from internet, some are heavily modified to suit my needs and some are made by me. If you need help in implementing them, drop me a message :)
+## Structure
 
-## Content & Code Structure
+- src/pages/: Home, Experience, Projects, About, privacy policy and 404.
+- src/content/projects/: Markdown project entries validated by src/content.config.ts.
+- src/components/: shared navigation, footer, experience and certification components.
+- src/styles/global.css: palette, typography and shared controls.
+- custom-sitemap.mjs: sitemap dates and the separately hosted browser game URL.
+- .github/workflows/astro.yml: GitHub Pages deployment on pushes to main.
 
-- `src/pages/` contains route-level Astro files for static and dynamic pages (e.g., `/blog`, `/projects`, `/tags/[tag]`).
-- `src/content/blog/` stores Markdown and MDX posts validated by the blog collection schema defined in `src/content.config.ts` (title, description, dates, optional excerpt, hero media, tags, colour, and featured flag).
-- `src/components/` houses layout primitives (`BaseLayout`, `Header`, `Footer`) and UI elements such as `BlogListing` and `ExperienceItem`.
-- `src/utils/blog.ts` centralises blog pagination size, read-time calculation, and tag aggregation helpers.
-- Assets and client scripts live under `src/assets/` and `src/scripts/` respectively.
+The blog, tag routes and RSS feed have been retired. Their content is recoverable from Git history. Removed URLs use the 404 page.
 
-## Getting Started
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the development server (default `http://localhost:4321`):
-   ```bash
-   npm run dev
-   ```
-3. Create a production build:
-   ```bash
-   npm run build
-   ```
-4. Preview the production build locally:
-   ```bash
-   npm run preview
-   ```
-
-## Tooling
-
-- Astro CLI commands are exposed through the package scripts in `package.json` (`dev`, `build`, `preview`, `astro`).
-- Image optimisation relies on [`sharp`](https://sharp.pixelplumbing.com/), installed as a dependency for Astro image transformations.
