@@ -5,7 +5,7 @@ summary: "Niche CLI that turns Suunto iOS workout exports into a clean Excel log
 description: |
   Juoksuloki is a small Python Command Line Tool for pulling Suunto Run exports into a local Excel file.  
   Drop the JSON files into your Mac’s Downloads folder with Airdrop, run the command, and the script moves them into a tidy directory, parses key metrics, and updates a long-term log (juoksuloki.xlsx) sorted by date.  
-  Made for iPhone + macOS users who want their run history stored locally without relying on any cloud service. Allows user to examine the running data with computer.
+  Made for iPhone + macOS users who want their run history stored locally without relying on any cloud service. Lets you explore your running data on your computer using familiar Excel tools.
 category: "Personal Tools"
 chapterIndex: 2
 status: released

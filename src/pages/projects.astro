@@ -62,7 +62,7 @@ const jsonLdProjects = liveProjects.map((entry) => ({
   ...(entry.data.links?.demo ? { discussionUrl: entry.data.links.demo } : {}),
 }));
 
-const lastmod = "2025-11-22T00:00:00Z";
+const lastmod = "2026-11-08T00:00:00Z";
 ---
 
 <Layout
@@ -96,7 +96,6 @@ const lastmod = "2025-11-22T00:00:00Z";
           aria-labelledby={`chapter-${chapter.number}`}
         >
           <header class="chapter-header" id={`chapter-${chapter.number}`}>
-            <p class="chapter-label">0{chapter.number}</p>
             <h2>{chapter.category}</h2>
           </header>
           <div class="chapter-spreads">
@@ -229,11 +228,10 @@ const lastmod = "2025-11-22T00:00:00Z";
 
 .projects-hero { margin-bottom:4rem; }
 .projects-hero h1 { margin-bottom:1.5rem; }
-.hero-intro { max-width:70ch; }
+.hero-intro { max-width:68ch; }
 .projects-main,.chapter-spreads { display:grid; gap:3rem; }
 .projects-chapter { margin-bottom:2rem; }
 .chapter-header { display:flex; gap:1rem; align-items:baseline; padding-bottom:1rem; margin-bottom:2rem; border-bottom:1px solid var(--color-outlines); }
-.chapter-label { color:var(--accent); font-size:.85rem; font-weight:600; margin:0; }
 .chapter-header h2 { margin:0; font-size:1.5rem; }
 .project-spread { display:grid; grid-template-columns:1fr 1fr; gap:3rem; padding:2rem; background:var(--accent-second); border:1px solid var(--color-outlines); width:100%; }
 .spread-page { display:grid; align-content:start; gap:1.5rem; min-width:0; }
@@ -250,9 +248,9 @@ const lastmod = "2025-11-22T00:00:00Z";
 .spread-outcomes { font-size:.9rem; padding-left:1.2rem; margin:1.5rem 0 0; }
 .spread-outcomes li { margin-bottom:.5rem; }
 .spread-ctas { display:flex; flex-wrap:wrap; gap:1rem; }
-.spread-cta,.hero-link { display:inline-flex; padding:.7rem 1.1rem; border:1px solid var(--color-outlines-dark); color:var(--color-bg); background:var(--color-outlines-dark); font-size:.85rem; font-weight:600; text-decoration:none; justify-content:center; }
-.spread-cta:hover,.hero-link:hover { background:var(--accent); border-color:var(--accent); }
-.hero-link { justify-self:start; }
+.spread-cta,.hero-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:.6rem 1rem; border:1px solid var(--accent); background:transparent; font-size:.85rem; font-weight:600; text-decoration:none; }
+.spread-cta:hover,.hero-link:hover { background:var(--accent); color:var(--color-bg); }
+.hero-link { justify-self:center; }
 .spread-sticker { font-size:.75rem; color:var(--accent); }
 @media(max-width:850px) { .project-spread { grid-template-columns:1fr; padding:1.25rem; gap:2rem; } }
 
