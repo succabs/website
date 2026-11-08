@@ -18,14 +18,11 @@ const isActive =
   normalizedHref === normalizedPath ||
   normalizedHref === "/" + (subpath?.[0] || "") + "/";
 
-// Special case for blog posts
-const isBlogPost =
-  normalizedHref === "/blog/" && normalizedPath.startsWith("/blog/");
 ---
 
 <a
   href={href}
-  class:list={[className, { active: isActive || isBlogPost }]}
+  class:list={[className, { active: isActive }]}
   {...props}
 >
   <slot />

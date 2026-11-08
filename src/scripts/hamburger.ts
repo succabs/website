@@ -7,6 +7,7 @@ export function setupHamburgerMenu() {
       navLinks.classList.toggle("mobile-show");
       navLinks.classList.toggle("mobile-hidden");
       hamburgerBtn.classList.toggle("active");
+      hamburgerBtn.setAttribute("aria-expanded", String(navLinks.classList.contains("mobile-show")));
     });
   }
 }
