@@ -1,0 +1,25 @@
+/* Keep the first layout stable if a font arrives after the initial render.
+   The main text and heading fonts are also preloaded in BaseHead. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url("@fontsource/inter/files/inter-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url("@fontsource/anton/files/anton-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url("@fontsource/caveat/files/caveat-latin-400-normal.woff2") format("woff2");
+}
