@@ -9,17 +9,11 @@ interface Props {
 const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
 ---
 
-<section class="experience-item work">
-  <!-- or study -->
+<div class="experience-item">
+  <p class="timeframe">{timeframe}</p>
+  <div class="experience-details">
   <h3>{title}</h3>
-  <h4>@{place}</h4>
-  {
-    timeframe && (
-      <p>
-        <strong>{timeframe}</strong>
-      </p>
-    )
-  }
+  <p class="place">{place}</p>
   <slot />
   {
     tech.length > 0 && (
@@ -45,15 +39,18 @@ const { title, place, timeframe, tech = [], tools = [] } = Astro.props;
       </div>
     )
   }
-</section>
+  </div>
+</div>
 
 <style>
 
-.experience-item { background:var(--accent-second); color:var(--color-text); border:1px solid var(--color-outlines); border-left:3px solid var(--accent); padding:2rem; margin:2rem 0; }
+.experience-item { display:grid; grid-template-columns:12rem minmax(0,1fr); gap:2.5rem; padding:2rem 0; border-top:1px solid var(--color-outlines); }
+.experience-item:first-of-type { margin-top:2rem; }
+.timeframe { margin:0; padding-top:.2rem; color:var(--color-muted); font-size:.85rem; }
+.experience-details { min-width:0; }
 .experience-item h3 { font-size:1.35rem; margin:0 0 .5rem; }
-.experience-item h4 { font-size:1rem; font-weight:500; margin:0 0 .75rem; }
-.experience-item p { margin:0 0 .75rem; }
+.place { color:var(--accent); font-size:1rem; font-weight:500; margin:0 0 1.25rem; }
 .tags { margin-top:1rem; font-size:.85rem; }
-@media(max-width:700px) { .experience-item { padding:1.25rem; } }
+@media(max-width:700px) { .experience-item { grid-template-columns:1fr; gap:.75rem; padding:1.5rem 0; } }
 
 </style>
