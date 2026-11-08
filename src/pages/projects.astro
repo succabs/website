@@ -34,8 +34,8 @@ const chapters = Array.from(grouped.entries())
 
 const paragraphs = (text?: string) =>
   text
-    ?.split(/\n+/)
-    .map((line) => line.trim())
+    ?.split(/\r?\n\s*\r?\n/)
+    .map((paragraph) => paragraph.replace(/\s*\r?\n\s*/g, " ").trim())
     .filter(Boolean) ?? [];
 
 const getCtas = (links?: {
@@ -99,7 +99,7 @@ const lastmod = "2026-11-08T00:00:00Z";
             <h2>{chapter.category}</h2>
           </header>
           <div class="chapter-spreads">
-            {chapter.entries.map((entry) => {
+            {chapter.entries.map((entry, entryIndex) => {
               const { data } = entry;
               const ctas = getCtas(data.links);
               const primaryImage = data.images[0];
@@ -126,15 +126,15 @@ const lastmod = "2026-11-08T00:00:00Z";
                       <p class="spread-summary">{data.summary}</p>
                     </header>
                     {primaryImage && (
-                      <div class="spread-media">
+                      <div class="spread-media" style={`aspect-ratio:${primaryImage.src.width} / ${primaryImage.src.height}`}>
                         <Image
                           class="spread-image"
                           src={primaryImage.src}
                           alt={primaryImage.alt}
-                          loading="lazy"
+                          loading={chapter.number === 1 && entryIndex === 0 ? "eager" : "lazy"}
                           decoding="async"
-                          sizes="(min-width: 1080px) 40vw, (min-width: 720px) 60vw, 92vw"
-                          widths={[480, 720, 960]}
+                          sizes="(min-width: 1184px) 503px, (min-width: 851px) calc(50vw - 89px), (min-width: 701px) calc(100vw - 106px), calc(100vw - 82px)"
+                          widths={[320, 480, 640, 960, 1280]}
                         />
                       </div>
                     )}
@@ -238,7 +238,7 @@ const lastmod = "2026-11-08T00:00:00Z";
 .spread-header h3 { font-size:1.7rem; }
 .spread-summary { margin:.75rem 0 0; font-size:.95rem; color:var(--color-muted); }
 .spread-image { display:block; width:100%; height:auto; }
-.spread-media { border:1px solid var(--color-outlines); background:white; }
+.spread-media { border:1px solid var(--color-outlines); background:var(--accent-second); overflow:hidden; }
 .spread-callout { margin:0; padding-left:1rem; border-left:2px solid var(--accent); font-size:.85rem; color:var(--color-muted); }
 .callout-prefix { display:block; font-weight:600; color:var(--accent); margin-bottom:.35rem; }
 .spread-body p { margin:0 0 1rem; font-size:.95rem; }

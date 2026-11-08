@@ -143,6 +143,11 @@ const certifications = [
           Studying towards becoming a Technical Specialist in Educational
           Technology alongside full-time work.
         </li>
+        <li>
+          I wanted to pursue an M.Sc., and educational technology offered an
+          interesting overlap with my developer work while giving me something
+          different to explore alongside it.
+        </li>
       </ul>
     </ExperienceItem>
 
@@ -171,7 +176,7 @@ const certifications = [
   <section id="certifications">
     <h2>Certifications</h2>
 
-    <div class="certifications-grid">
+    <ul class="certifications-list" aria-label="Certifications">
       {
         certifications.map((cert) => (
           <CertificationItem
@@ -182,7 +187,7 @@ const certifications = [
           />
         ))
       }
-    </div>
+    </ul>
   </section>
 
   <hr class="hr-3" />
@@ -256,20 +261,16 @@ const certifications = [
       margin-top: 3rem;
     }
 
-    /* H3 spacing on this page (you already use Anton globally) */
-    section h3 {
-      margin: 2rem 0 1rem;
-    }
     .normal {
       text-transform: none;
+      margin: 2rem 0 1rem;
     }
 
-    /* ===== Certifications grid (keeps your new CertificationItem) ===== */
-    .certifications-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 2.25rem;
+    .certifications-list {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0 0;
+      border-top: 1px solid var(--color-outlines);
     }
   </style>
 </Layout>
